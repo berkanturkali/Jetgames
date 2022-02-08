@@ -31,7 +31,7 @@ build/
 # Android Studio captures folder
 captures/
 
-/buildSrc/build/
+buildSrc/build/
 .plugin/
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
