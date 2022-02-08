@@ -26,6 +26,7 @@ fun SetupNavGraph(
             route = ROOT_GRAPH_ROUTE
         ) {
             //home graph
+            homeNavGraph(navController = navController)
         }
     }
 }
