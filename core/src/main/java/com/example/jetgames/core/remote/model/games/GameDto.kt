@@ -1,0 +1,33 @@
+package com.example.jetgames.core.remote.model.games
+
+data class GameDto(
+    val added: Int?,
+    val added_by_status: AddedByStatusDto?,
+    val background_image: String?,
+    val clip: Any?,
+    val dominant_color: String?,
+    val esrb_rating: EsrbRatingDto?,
+    val genres: List<GenreDto>?,
+    val id: Int?,
+    val metacritic: Int?,
+    val name: String?,
+    val parent_platforms: List<ParentPlatformDto>?,
+    val platforms: List<PlatformXDto>?,
+    val playtime: Int?,
+    val rating: Double?,
+    val rating_top: Int?,
+    val ratings: List<RatingDto>?,
+    val ratings_count: Int?,
+    val released: String?,
+    val reviews_count: Int?,
+    val reviews_text_count: Int?,
+    val saturated_color: String?,
+    val short_screenshots: List<ShortScreenshotDto>?,
+    val slug: String?,
+    val stores: List<StoreDto>?,
+    val suggestions_count: Int?,
+    val tags: List<TagDto>?,
+    val tba: Boolean?,
+    val updated: String?,
+    val user_game: Any?
+)
