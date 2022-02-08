@@ -1,3 +1,5 @@
+import ProjectLib.common
+
 plugins {
     androidApplication
     kotlinAndroid
@@ -50,6 +52,7 @@ android {
 }
 
 dependencies {
+    implementation(project(common))
     implementAll(Dependencies.AndroidX.components)
     implementAll(Dependencies.Compose.components)
     implementation(Dependencies.Compose.activity)
@@ -58,4 +61,6 @@ dependencies {
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Test.composeJunit)
     debugImplementation(Dependencies.Test.composeUiTooling)
+
+    debugImplementation(Dependencies.Performance.leakCanary)
 }
