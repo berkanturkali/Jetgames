@@ -46,7 +46,11 @@ android {
 }
 
 dependencies {
+    api(Dependencies.Compose.composeUiPreview)
+    api(Dependencies.Compose.composeUiTooling)
     implementation(Dependencies.AndroidX.coreKtx)
+    implementation(Dependencies.Compose.composeUi)
+    implementation(Dependencies.Compose.composeMaterial)
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
     testImplementation("junit:junit:4.13.2")
