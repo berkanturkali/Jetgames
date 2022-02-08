@@ -1,6 +1,10 @@
+import ProjectLib.common
+import ProjectLib.remote
+
 plugins {
     androidLibrary
     kotlinAndroid
+    id("com.google.secrets_gradle_plugin") version "0.6.1"
 }
 
 android {
@@ -47,6 +51,14 @@ android {
 }
 
 dependencies {
+    //project lib
+    implementation(project(remote))
+    implementation(project(common))
+
+    //network
+    implementation(Dependencies.Network.retrofit)
+
+
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
