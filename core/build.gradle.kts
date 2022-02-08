@@ -1,9 +1,5 @@
-import ProjectLib.common
-import ProjectLib.core
-import ProjectLib.remote
-
 plugins {
-    androidApplication
+    androidLibrary
     kotlinAndroid
 }
 
@@ -11,16 +7,13 @@ android {
     compileSdk = Config.Version.compileSdkVersion
 
     defaultConfig {
-        applicationId = Config.Android.applicationId
         minSdk = Config.Version.minSdkVersion
         targetSdk = Config.Version.targetSdkVersion
-        versionCode = Config.Version.versionCode
-        versionName = Config.Version.versionName
-        multiDexEnabled = Config.isMultiDexEnabled
         testInstrumentationRunner = Config.Android.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary = Config.useSupportLibrary
         }
+        buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
     }
 
     buildTypes {
@@ -54,21 +47,11 @@ android {
 }
 
 dependencies {
-    implementation(project(common))
-    implementation(project(core))
-    implementation(project(remote))
-    implementAll(Dependencies.AndroidX.components)
-    implementAll(Dependencies.Compose.components)
-    implementation(Dependencies.Compose.activity)
-    testImplementation(Dependencies.Test.junit)
-    androidTestImplementation(Dependencies.Test.junitExt)
-    androidTestImplementation(Dependencies.Test.espresso)
-    androidTestImplementation(Dependencies.Test.composeJunit)
-    debugImplementation(Dependencies.Test.composeUiTooling)
 
-    //navigation
-    implementation(Dependencies.Navigation.navigation)
-    implementation(Dependencies.Accompanist.navigation)
-
-    debugImplementation(Dependencies.Performance.leakCanary)
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.5.0")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }
