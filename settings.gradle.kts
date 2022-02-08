@@ -16,3 +16,4 @@ rootProject.name = "Jetgames"
 
 //Main module
 include (":app")
+include(":common")

@@ -1,4 +1,4 @@
-package com.example.jetgames.ui.theme
+package com.example.jetgames.common.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
