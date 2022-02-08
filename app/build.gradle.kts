@@ -62,5 +62,9 @@ dependencies {
     androidTestImplementation(Dependencies.Test.composeJunit)
     debugImplementation(Dependencies.Test.composeUiTooling)
 
+    //navigation
+    implementation(Dependencies.Navigation.navigation)
+    implementation(Dependencies.Accompanist.navigation)
+
     debugImplementation(Dependencies.Performance.leakCanary)
 }

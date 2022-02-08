@@ -6,4 +6,6 @@ object Routes {
     const val DETAIL_ROUTE = "detail_screen"
 
     const val HOME_GRAPH_ROUTE = "home"
+
+    const val ROOT_GRAPH_ROUTE = "root"
 }

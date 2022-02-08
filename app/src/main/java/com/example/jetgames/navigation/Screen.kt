@@ -1,5 +1,8 @@
 package com.example.jetgames.navigation
 
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.jetgames.navigation.Routes.DETAIL_ROUTE
 import com.example.jetgames.navigation.Routes.HOME_ROUTE
 
