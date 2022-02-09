@@ -208,6 +208,7 @@ object Dependencies {
             const val junit = "4.13"
             const val junitExt = "1.1.3"
             const val espresso = "3.4.0"
+            const val truth = "1.1.3"
         }
 
         const val junit = "junit:junit:${Version.junit}"
@@ -215,6 +216,7 @@ object Dependencies {
         const val composeJunit = "androidx.compose.ui:ui-test-junit4:${composeVersion}"
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
+        const val truth = "com.google.truth:truth:${Version.truth}"
     }
 
 }

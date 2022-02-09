@@ -4,6 +4,8 @@ import ProjectLib.remote
 plugins {
     androidLibrary
     kotlinAndroid
+    kotlin(kotlinKapt)
+    daggerHilt
     id("com.google.secrets_gradle_plugin") version "0.6.1"
 }
 
@@ -58,6 +60,10 @@ dependencies {
     //network
     implementation(Dependencies.Network.retrofit)
 
+    //hilt
+    implementation(Dependencies.DI.daggerHiltAndroid)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHilt)
+
 
 
     implementation("androidx.core:core-ktx:1.7.0")
@@ -66,4 +72,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation(Dependencies.Test.truth)
 }

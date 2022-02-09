@@ -5,20 +5,9 @@ data class Rating(
     val id: Int?,
     val percent: Double?,
     val title: String?,
-    var icon: String? = null,
+    var icon :String?
 ) {
 
-    fun setIcon() {
-        title?.let {
-            icon = when (it) {
-                "exceptional" -> "\uD83C\uDFAF"
-                "recommended" -> "\uD83D\uDC4D"
-                "skip" -> "\u26D4"
-                "meh" -> "\uD83D\uDE11"
-                else -> null
-            }
-        }
-    }
 }
 
 /*
