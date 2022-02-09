@@ -59,6 +59,9 @@ dependencies {
 
     //network
     implementation(Dependencies.Network.retrofit)
+    testImplementation(Dependencies.Network.moshi)
+    testImplementation(Dependencies.Network.retrofitMoshi)
+    testImplementation(Dependencies.Test.mockWebServer)
 
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)

@@ -19,6 +19,7 @@ object Config {
         const val versionName = "1.0"
         const val versionCode = 1
     }
+
     const val isMultiDexEnabled = true
     const val useSupportLibrary = true
 
@@ -47,7 +48,8 @@ object Dependencies {
         const val materialIcons =
             "androidx.compose.material:material-icons-extended:$composeVersion"
 
-        const val composeLiveData = "androidx.compose.runtime:runtime-livedata:${Version.composeLiveData}"
+        const val composeLiveData =
+            "androidx.compose.runtime:runtime-livedata:${Version.composeLiveData}"
 
         override val components: List<String>
             get() = listOf(composeMaterial, composeUi, composeUiPreview)
@@ -68,6 +70,7 @@ object Dependencies {
             get() = listOf(coreKtx, lifecycle)
 
     }
+
     object Network : Libraries {
         object Version {
             const val okhttp: String = "4.9.0"
@@ -160,6 +163,7 @@ object Dependencies {
 
         const val palette = "androidx.palette:palette:${Version.paletteVersion}"
     }
+
     object Accompanist {
         object Version {
             const val pagerVersion = "0.22.1-rc"
@@ -176,7 +180,8 @@ object Dependencies {
             "com.google.accompanist:accompanist-navigation-animation:$animationsVersion"
         const val swipeRefresh =
             "com.google.accompanist:accompanist-swiperefresh:$swipeRefreshVersion"
-        const val navigation = "com.google.accompanist:accompanist-navigation-material:$navigationVersion"
+        const val navigation =
+            "com.google.accompanist:accompanist-navigation-material:$navigationVersion"
     }
 
     object Lottie {
@@ -209,6 +214,7 @@ object Dependencies {
             const val junitExt = "1.1.3"
             const val espresso = "3.4.0"
             const val truth = "1.1.3"
+            const val mockWebServer = "4.9.3"
         }
 
         const val junit = "junit:junit:${Version.junit}"
@@ -217,14 +223,15 @@ object Dependencies {
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
         const val truth = "com.google.truth:truth:${Version.truth}"
+        const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
     }
 
 }
 
 object ProjectLib {
     const val app: String = ":app"
-    const val common:String = ":common"
-    const val remote:String = ":remote"
-    const val core:String = ":core"
+    const val common: String = ":common"
+    const val remote: String = ":remote"
+    const val core: String = ":core"
 }
 

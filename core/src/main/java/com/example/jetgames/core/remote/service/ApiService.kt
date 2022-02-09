@@ -7,8 +7,8 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("games")
-    suspend fun search(
+    @GET("games/")
+    suspend fun fetchGames(
         @Query("page")page:Int,
         @Query("page_size") size:Int,
         @Query("key") key: String = BuildConfig.API_KEY,
