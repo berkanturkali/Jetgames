@@ -86,4 +86,11 @@ internal object DummyData {
     val parentPlatform  = ParentPlatformDto(
         platform = platform
     )
+
+    //game
+    val game = GameDto(
+        esrb_rating = esrbRating,
+        genres = listOf(genre),
+        id = 3
+    )
 }
