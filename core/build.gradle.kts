@@ -67,6 +67,9 @@ dependencies {
     implementation(Dependencies.DI.daggerHiltAndroid)
     kapt(Dependencies.DI.AnnotationProcessor.daggerHilt)
 
+    //pagination
+    implementation(Dependencies.Pagination.pagingCompose)
+
 
 
     implementation("androidx.core:core-ktx:1.7.0")
