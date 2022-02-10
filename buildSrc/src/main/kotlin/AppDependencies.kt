@@ -215,6 +215,7 @@ object Dependencies {
             const val espresso = "3.4.0"
             const val truth = "1.1.3"
             const val mockWebServer = "4.9.3"
+            const val mockk = "1.12.2"
         }
 
         const val junit = "junit:junit:${Version.junit}"
@@ -224,6 +225,7 @@ object Dependencies {
         const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
         const val truth = "com.google.truth:truth:${Version.truth}"
         const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
+        const val mockk = "io.mockk:mockk:${Version.mockk}"
     }
 
 }
