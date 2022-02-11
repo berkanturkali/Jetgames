@@ -15,7 +15,7 @@ fun DefaultScreenUI(
     content: @Composable () -> Unit,
 ) {
     val scaffoldState = rememberScaffoldState()
-    Scaffold(scaffoldState = scaffoldState, topBar = { toolbar?.invoke() }) {
+    Scaffold(scaffoldState = scaffoldState, topBar = {toolbar?.invoke()}) {
         Box(modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)) {
