@@ -15,7 +15,8 @@ class GamesUseCase @Inject constructor(
 ) : FlowUseCase<Unit, PagingData<Game>>() {
 
     override val dispatcher: CoroutineDispatcher
-        get() = executionThread.main
+        get() = executionThread.io
+
 
     override fun execute(params: Unit?): Flow<PagingData<Game>> {
         return repo.fetchGames()

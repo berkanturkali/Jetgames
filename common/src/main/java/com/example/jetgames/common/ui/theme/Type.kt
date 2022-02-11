@@ -20,7 +20,7 @@ val Lexend = FontFamily(
     Font(R.font.lexend_extra_light, weight = FontWeight.ExtraLight)
 )
 
-val Typography = Typography(
+val JetgamesTypography = Typography(
     h1 = TextStyle(
         fontFamily = Lexend,
         fontWeight = FontWeight.ExtraBold,
