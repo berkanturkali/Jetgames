@@ -38,6 +38,7 @@ object Dependencies {
         object Version {
             const val activityVersion = "1.4.0"
             const val composeLiveData = "1.2.0-alpha02"
+            const val constraintLayoutVersion = "1.0.0"
         }
 
         const val activity = "androidx.activity:activity-compose:${Version.activityVersion}"
@@ -50,6 +51,8 @@ object Dependencies {
 
         const val composeLiveData =
             "androidx.compose.runtime:runtime-livedata:${Version.composeLiveData}"
+        const val constraintLayout =
+            "androidx.constraintlayout:constraintlayout-compose:${Version.constraintLayoutVersion}"
 
         override val components: List<String>
             get() = listOf(composeMaterial, composeUi, composeUiPreview)
@@ -235,6 +238,6 @@ object ProjectLib {
     const val common: String = ":common"
     const val remote: String = ":remote"
     const val core: String = ":core"
-    const val home:String = ":home"
+    const val home: String = ":home"
 }
 
