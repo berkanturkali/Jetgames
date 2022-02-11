@@ -60,6 +60,7 @@ dependencies {
     implementation(Dependencies.AndroidX.lifecycle)
     implementation(Dependencies.Pagination.pagingCompose)
     implementation(Dependencies.AndroidX.lifecycleKtx)
+    implementation(Dependencies.Compose.composeMaterial)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
