@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Jetgames</string>
     <string name="search">Search</string>
+    <string name="release_date">Release Date: </string>
+    <string name="genres">Genres: </string>
+    <string name="rating">Rating: </string>
 </resources>
