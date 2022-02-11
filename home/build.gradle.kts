@@ -1,9 +1,13 @@
 import BuildType.Companion.DEBUG
 import BuildType.Companion.RELEASE
+import ProjectLib.common
+import ProjectLib.core
 
 plugins {
     androidLibrary
     kotlinAndroid
+    kotlin(kotlinKapt)
+    daggerHilt
 }
 android {
     compileSdk = Config.Version.compileSdkVersion
@@ -49,7 +53,13 @@ android {
 }
 
 dependencies {
-
+    implementation(project(common))
+    implementation(project(core))
+    implementation(Dependencies.DI.daggerHiltAndroid)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHilt)
+    implementation(Dependencies.AndroidX.lifecycle)
+    implementation(Dependencies.Pagination.pagingCompose)
+    implementation(Dependencies.AndroidX.lifecycleKtx)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
