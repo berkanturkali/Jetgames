@@ -82,7 +82,7 @@ fun HomeToolbar(
                     .padding(dimensionResource(id = R.dimen.dimen_8))
                     .clickable { /* will be implemented */ },
                     imageVector = Icons.Filled.GridView,
-                    contentDescription = "Grid/List Mode",
+                    contentDescription = "Gallery/List Mode",
                     tint = MaterialTheme.colors.onPrimary.copy(alpha=0.7f))
             }
         }

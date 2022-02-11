@@ -23,7 +23,7 @@ class HomeViewModel constructor(
     init {
         viewModelScope.launch {
             combine(_refreshing, _isGridMode) { refreshing, isGridMode ->
-                HomeState(isRefreshing = refreshing, isGridMode = isGridMode)
+                HomeState(isRefreshing = refreshing, isGalleryMode = isGridMode)
             }
                 .catch { throwable->
 

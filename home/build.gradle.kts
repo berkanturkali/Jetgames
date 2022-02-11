@@ -63,6 +63,7 @@ dependencies {
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.materialIcons)
     implementation(Dependencies.Accompanist.swipeRefresh)
+    implementation(Dependencies.Coil.coil)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
