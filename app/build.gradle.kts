@@ -1,5 +1,6 @@
 import ProjectLib.common
 import ProjectLib.core
+import ProjectLib.home
 import ProjectLib.remote
 
 plugins {
@@ -57,6 +58,7 @@ dependencies {
     implementation(project(common))
     implementation(project(core))
     implementation(project(remote))
+    implementation(project(home))
     implementAll(Dependencies.AndroidX.components)
     implementAll(Dependencies.Compose.components)
     implementation(Dependencies.Compose.activity)

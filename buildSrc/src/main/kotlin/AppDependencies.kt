@@ -235,5 +235,6 @@ object ProjectLib {
     const val common: String = ":common"
     const val remote: String = ":remote"
     const val core: String = ":core"
+    const val home:String = ":home"
 }
 
