@@ -32,7 +32,7 @@ fun SeparatorItem(modifier: Modifier = Modifier, separator: String) {
                         id = R.dimen.dimen_16)),
             text = separator,
             color = MaterialTheme.colors.onPrimary,
-            style = MaterialTheme.typography.h4)
+            style = MaterialTheme.typography.h5)
 
         Divider(color = XXLightGray.copy(alpha = 0.4f), thickness = 0.5.dp)
     }

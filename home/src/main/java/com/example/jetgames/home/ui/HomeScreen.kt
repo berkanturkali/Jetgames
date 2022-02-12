@@ -20,9 +20,11 @@ import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.model.games.Game
+import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.home.components.GameGalleryItem
 import com.example.jetgames.home.components.GameItem
 import com.example.jetgames.home.components.HomeToolbar
+import com.example.jetgames.home.components.SeparatorItem
 import com.example.jetgames.home.viewmodel.HomeViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
@@ -42,7 +44,7 @@ fun Home(
 
     val isGalleryMode = homeState.isGalleryMode
 
-    val games: LazyPagingItems<Game> = viewModel.games.collectAsLazyPagingItems()
+    val games: LazyPagingItems<GameModel> = viewModel.games.collectAsLazyPagingItems()
 
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
     DefaultScreenUI(toolbar = { HomeToolbar() }) {
@@ -54,11 +56,20 @@ fun Home(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(games.itemCount) { index ->
-                    if (isGalleryMode) {
-                        GameGalleryItem(game = games[index] ?: return@items,
-                            imageLoader = imageLoader)
-                    } else {
-                        GameItem(game = games[index] ?: return@items, imageLoader = imageLoader)
+                    when (games[index]) {
+                        is GameModel.SeparatorItem -> {
+                            SeparatorItem(separator = (games[index] as GameModel.SeparatorItem).separator)
+                        }
+                        is GameModel.GameItem -> {
+                            val game = (games[index]) as GameModel.GameItem
+                            if (isGalleryMode) {
+                                GameGalleryItem(game = game.game,
+                                    imageLoader = imageLoader)
+                            } else {
+                                GameItem(game = game.game,
+                                    imageLoader = imageLoader)
+                            }
+                        }
                     }
                 }
 
@@ -94,7 +105,7 @@ fun Home(
                                 ErrorItem(modifier = Modifier.fillParentMaxSize(),
                                     message = e.error.localizedMessage
                                         ?: stringResource(id = com.example.jetgames.common.R.string.something_went_wrong),
-                                        onRetryClick = games ::retry)
+                                    onRetryClick = games::retry)
                             }
                         }
                         loadState.append is LoadState.Error -> {
