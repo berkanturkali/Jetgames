@@ -2,7 +2,9 @@ package com.example.jetgames.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
 import com.example.jetgames.home.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
