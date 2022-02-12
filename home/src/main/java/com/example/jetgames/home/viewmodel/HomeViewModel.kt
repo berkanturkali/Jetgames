@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
 import com.example.jetgames.home.state.HomeState
@@ -39,7 +40,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    val games = useCase.execute().cachedIn(viewModelScope)
+    val games = useCase.execute()
+        .map {pagingData->
+            pagingData.map {
+
+            }
+        }.cachedIn(viewModelScope)
 
 
     fun setRefresh(isRefreshing:Boolean){

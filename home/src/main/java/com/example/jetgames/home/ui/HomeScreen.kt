@@ -98,7 +98,6 @@ fun Home(
                             }
                         }
                         loadState.append is LoadState.Error -> {
-                            //append error item
                             val e = games.loadState.append as LoadState.Error
                             item {
                                 ErrorItem(modifier = Modifier
