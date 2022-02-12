@@ -58,6 +58,9 @@ android {
         correctErrorTypes = true
     }
 }
+hilt {
+    enableAggregatingTask = true
+}
 
 dependencies {
     implementation(project(common))
@@ -80,6 +83,9 @@ dependencies {
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
     kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
+
+    //coil
+    implementation(Dependencies.Coil.coil)
 
     debugImplementation(Dependencies.Performance.leakCanary)
 }

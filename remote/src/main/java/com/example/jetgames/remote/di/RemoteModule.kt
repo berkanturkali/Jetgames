@@ -12,6 +12,5 @@ import javax.inject.Singleton
 internal object RemoteModule {
 
     val provideMoshi: Moshi
-        @[Provides Singleton] get() = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory()).build()
+        @[Provides Singleton] get() = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 }

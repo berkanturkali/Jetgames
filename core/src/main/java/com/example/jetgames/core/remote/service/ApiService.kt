@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("games/")
+    @GET("games")
     suspend fun fetchGames(
         @Query("page")page:Int,
         @Query("page_size") size:Int,

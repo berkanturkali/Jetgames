@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import coil.ImageLoader
 import com.example.jetgames.common.R
 import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Routes.ROOT_GRAPH_ROUTE
@@ -15,6 +16,7 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 fun SetupNavGraph(
     navController: NavHostController,
     bottomSheetNavigator: BottomSheetNavigator,
+    imageLoader:ImageLoader
 ) {
     ModalBottomSheetLayout(
         bottomSheetNavigator = bottomSheetNavigator,
@@ -26,7 +28,7 @@ fun SetupNavGraph(
             route = ROOT_GRAPH_ROUTE
         ) {
             //home graph
-            homeNavGraph(navController = navController)
+            homeNavGraph(navController = navController,imageLoader = imageLoader)
         }
     }
 }

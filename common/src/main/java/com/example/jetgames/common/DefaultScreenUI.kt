@@ -18,7 +18,7 @@ fun DefaultScreenUI(
     Scaffold(scaffoldState = scaffoldState, topBar = {toolbar?.invoke()}) {
         Box(modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)) {
+            .background(MaterialTheme.colors.primary)) {
             content()
         }
     }

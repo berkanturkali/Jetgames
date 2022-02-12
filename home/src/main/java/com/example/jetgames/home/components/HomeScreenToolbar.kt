@@ -37,7 +37,8 @@ fun HomeToolbar(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Surface(modifier = modifier
-        .fillMaxWidth(),
+        .fillMaxWidth()
+        .background(MaterialTheme.colors.primary),
         elevation = 12.dp) {
         Row(modifier = Modifier
             .fillMaxWidth()
@@ -53,7 +54,7 @@ fun HomeToolbar(
                     Text(text = stringResource(id = R.string.search),
                         modifier = Modifier.align(CenterVertically),
                         style = MaterialTheme.typography.subtitle2,
-                        color = MaterialTheme.colors.onPrimary.copy(alpha = 0.5f))
+                        color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f))
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Done),
@@ -70,7 +71,7 @@ fun HomeToolbar(
                 textStyle = TextStyle(color = MaterialTheme.colors.onPrimary),
                 colors =
                 TextFieldDefaults.textFieldColors(
-                    backgroundColor = MaterialTheme.colors.primaryVariant.copy(alpha = 0.2f),
+                    backgroundColor = MaterialTheme.colors.primaryVariant.copy(alpha = 0.1f),
                     focusedIndicatorColor = Color.White,
                     unfocusedIndicatorColor = Color.Transparent)
             )

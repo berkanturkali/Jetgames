@@ -3,9 +3,13 @@ package com.example.jetgames.core.di
 import android.app.Application
 import coil.ImageLoader
 import com.example.jetgames.common.R
+import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@[Module InstallIn(SingletonComponent::class)]
 interface CoilModule {
 
     companion object{
