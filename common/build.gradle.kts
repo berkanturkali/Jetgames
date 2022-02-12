@@ -52,6 +52,8 @@ dependencies {
     implementation(Dependencies.Compose.composeUi)
     implementation(Dependencies.Compose.composeMaterial)
 
+    implementation(Dependencies.Lottie.lottie)
+
     //Timber
     api(Dependencies.Logger.timber)
     implementation("androidx.appcompat:appcompat:1.4.1")

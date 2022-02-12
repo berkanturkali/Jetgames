@@ -2,6 +2,7 @@ package com.example.jetgames.home.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,6 +15,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
+import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.home.components.GameGalleryItem
 import com.example.jetgames.home.components.GameItem
@@ -78,7 +80,9 @@ fun Home(
                             }
                         }
                         loadState.append is LoadState.Loading -> {
-                            //lottie loading animation
+                            item {
+                                LoadingItem(modifier = Modifier.fillMaxWidth())
+                            }
                         }
                         loadState.refresh is LoadState.Error -> {
                             //error item
