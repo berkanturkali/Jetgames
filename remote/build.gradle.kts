@@ -7,5 +7,5 @@ plugins {
 dependencies{
     implementAll(Dependencies.Network.components)
     implementation(Dependencies.DI.hiltCore)
-    kapt(Dependencies.DI.AnnotationProcessor.daggerHilt)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
 }

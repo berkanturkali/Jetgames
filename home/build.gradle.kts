@@ -56,7 +56,7 @@ dependencies {
     implementation(project(common))
     implementation(project(core))
     implementation(Dependencies.DI.daggerHiltAndroid)
-    kapt(Dependencies.DI.AnnotationProcessor.daggerHilt)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
     implementation(Dependencies.AndroidX.lifecycle)
     implementation(Dependencies.Pagination.pagingCompose)
     implementation(Dependencies.AndroidX.lifecycleKtx)

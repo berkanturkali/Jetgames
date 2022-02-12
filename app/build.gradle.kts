@@ -6,6 +6,8 @@ import ProjectLib.remote
 plugins {
     androidApplication
     kotlinAndroid
+    kotlin(kotlinKapt)
+    daggerHilt
 }
 
 android {
@@ -52,6 +54,9 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+    kapt{
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -71,6 +76,10 @@ dependencies {
     //navigation
     implementation(Dependencies.Navigation.navigation)
     implementation(Dependencies.Accompanist.navigation)
+
+    //hilt
+    implementation(Dependencies.DI.daggerHiltAndroid)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
 
     debugImplementation(Dependencies.Performance.leakCanary)
 }

@@ -105,7 +105,7 @@ object Dependencies {
         }
 
         object AnnotationProcessor {
-            const val daggerHilt = "com.google.dagger:hilt-compiler:${Version.daggerHilt}"
+            const val daggerHiltCompiler = "com.google.dagger:hilt-compiler:${Version.daggerHilt}"
             const val androidxHiltCompiler: String =
                 "androidx.hilt:hilt-compiler:${Version.androidXHilt}"
         }

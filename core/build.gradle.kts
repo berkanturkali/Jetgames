@@ -65,13 +65,16 @@ dependencies {
 
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
-    kapt(Dependencies.DI.AnnotationProcessor.daggerHilt)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
 
     //pagination
     implementation(Dependencies.Pagination.pagingCompose)
 
     //coil
     implementation(Dependencies.Coil.coil)
+
+    //timber
+    implementation(Dependencies.Logger.timber)
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")

@@ -29,7 +29,7 @@ fun GameItem(
     imageLoader: ImageLoader
 ) {
     Card(backgroundColor = Color.Transparent,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
                 horizontal = dimensionResource(id = R.dimen.dimen_8)),
