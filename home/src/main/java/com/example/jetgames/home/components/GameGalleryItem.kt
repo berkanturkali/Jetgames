@@ -50,6 +50,7 @@ fun GameGalleryItem(
     childModifier: Modifier = Modifier,
     game: Game,
     imageLoader: ImageLoader,
+    isLoading: Boolean = false,
 ) {
     Card(
         modifier = modifier
@@ -85,7 +86,8 @@ fun GameGalleryItem(
                     MetaCritic(metaCritic = game.metaCritic!!,
                         ratingColor = game.calculateRgbFromMetacritic()!!,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
-                        childModifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp))
+                        childModifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp),
+                        isLoading = isLoading)
                 }
             }
 
@@ -106,9 +108,12 @@ fun GameGalleryItem(
                 ReleaseDate(released = game.released)
             }
 
+
+            Spacer(Modifier.height(dimensionResource(id = R.dimen.dimen_16)))
+
             //Genres
             Row(
-                modifier = childModifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -179,11 +184,13 @@ fun MetaCritic(
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 18.sp,
     childModifier: Modifier = Modifier,
+    isLoading: Boolean,
 ) {
     Card(
         modifier = modifier,
         elevation = 8.dp,
-        border = BorderStroke(1.dp, ratingColor),
+        border = if (!isLoading) BorderStroke(1.dp, ratingColor) else BorderStroke(0.dp,
+            Color.Transparent),
         shape = RoundedCornerShape(6.dp),
         backgroundColor = Color.Transparent
     ) {
@@ -202,6 +209,7 @@ fun MetaCritic(
 @Composable
 fun Name(
     modifier: Modifier = Modifier,
+    childModifier: Modifier = Modifier,
     name: String?,
     icon: String?,
     size: TextUnit = 24.sp,
@@ -231,8 +239,7 @@ fun Name(
     Text(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(horizontal = 10.dp, vertical = 8.dp),
+            .wrapContentHeight(),
         text = text,
         inlineContent = content,
         fontSize = size,

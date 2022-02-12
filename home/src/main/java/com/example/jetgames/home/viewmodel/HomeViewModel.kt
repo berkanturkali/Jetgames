@@ -38,4 +38,9 @@ class HomeViewModel @Inject constructor(
     }
 
     val games = useCase.execute().cachedIn(viewModelScope)
+
+
+    fun setRefresh(isRefreshing:Boolean){
+        _refreshing.value = isRefreshing
+    }
 }

@@ -3,6 +3,7 @@ package com.example.jetgames.home.components
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,8 +36,10 @@ import com.example.jetgames.home.rememberDominantColorState
 @Composable
 fun GameItem(
     modifier: Modifier = Modifier,
+    childModifier:Modifier = Modifier,
     game: Game,
     imageLoader: ImageLoader,
+    isLoading:Boolean = false
 ) {
     val dominantColorState = rememberDominantColorState()
 
@@ -66,7 +69,9 @@ fun GameItem(
 
             //Metascore
             if (game.metaCritic != null) {
-                MetaCritic(metaCritic = game.metaCritic!!,
+                MetaCritic(
+                    isLoading = isLoading,
+                    metaCritic = game.metaCritic!!,
                     ratingColor = game.calculateRgbFromMetacritic()!!,
                     modifier = Modifier
                         .padding(horizontal = 10.dp, vertical = 4.dp)
@@ -77,11 +82,12 @@ fun GameItem(
                             height = Dimension.wrapContent
                         },
                     fontSize = 14.sp,
-                    childModifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp))
+                    childModifier = childModifier.padding(horizontal = 12.dp, vertical = 2.dp))
+
             }
 
             //image & name
-            Row(modifier = Modifier
+            Row(modifier = modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
                 .constrainAs(imageTitleRow) {
                     if (game.metaCritic != null) {
@@ -92,13 +98,16 @@ fun GameItem(
                     start.linkTo(parent.start)
                 }) {
                 GameImage(
-                    modifier = Modifier
+                    modifier = childModifier
                         .size(100.dp)
                         .clip(RoundedCornerShape(corner = CornerSize(16.dp))),
                     description = game.name,
                     image = game.backgroundImage,
                     imageLoader = imageLoader
                 )
+
+                Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_16)))
+
                 if (game.name != null) {
                     val rating = game.ratings?.maxByOrNull {
                         it?.percent!!
@@ -107,17 +116,15 @@ fun GameItem(
                         name = game.name,
                         icon = rating?.icon,
                         size = 18.sp,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(start = dimensionResource(
-                                id = R.dimen.dimen_8))
+                        modifier = childModifier
+                            .align(Alignment.CenterVertically),
                     )
                 }
             }
 
             //date & rating
             Row(modifier = Modifier
-                .padding(vertical = dimensionResource(id = R.dimen.dimen_4),
+                .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
                     horizontal = dimensionResource(id = R.dimen.dimen_8))
                 .constrainAs(bottomRow) {
                     top.linkTo(imageTitleRow.bottom)
