@@ -75,4 +75,8 @@ class HomeViewModel @Inject constructor(
     fun setRefresh(isRefreshing: Boolean) {
         _refreshing.value = isRefreshing
     }
+
+    fun setGalleryMode(isGalleryMode:Boolean){
+        _isGridMode.value = isGalleryMode
+    }
 }

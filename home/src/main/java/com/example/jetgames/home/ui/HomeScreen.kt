@@ -2,11 +2,11 @@ package com.example.jetgames.home.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,7 +29,6 @@ import com.example.jetgames.home.components.SeparatorItem
 import com.example.jetgames.home.viewmodel.HomeViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.placeholder.material.shimmer
 import com.google.accompanist.placeholder.shimmer
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -48,14 +47,17 @@ fun Home(
 
     val games: LazyPagingItems<GameModel> = viewModel.games.collectAsLazyPagingItems()
 
+    val listState = rememberLazyListState()
+
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
-    DefaultScreenUI(toolbar = { HomeToolbar() }) {
+
+    DefaultScreenUI(toolbar = { HomeToolbar(galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) }) }) {
         // home screen
         SwipeRefresh(state = swipeRefreshState, onRefresh = games::refresh) {
-
             //games list
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                state = listState
             ) {
                 items(games.itemCount) { index ->
                     when (games[index]) {
@@ -64,7 +66,7 @@ fun Home(
                         }
                         is GameModel.GameItem -> {
                             val game = (games[index]) as GameModel.GameItem
-                            if (!isGalleryMode) {
+                            if (isGalleryMode) {
                                 GameGalleryItem(game = game.game,
                                     imageLoader = imageLoader)
                             } else {
@@ -79,11 +81,11 @@ fun Home(
                     when {
                         loadState.refresh is LoadState.Loading -> {
                             //loading
-                            if (!isGalleryMode) {
+                            if (isGalleryMode) {
                                 //Gallery Item
                                 items(5) {
                                     GameGalleryItem(
-                                        isLoading =true,
+                                        isLoading = true,
                                         game = Game(),
                                         imageLoader = imageLoader,
                                         childModifier = Modifier
@@ -91,7 +93,8 @@ fun Home(
                                             .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
                                                 horizontal = 10.dp)
                                             .placeholder(visible = true,
-                                                highlight = PlaceholderHighlight.shimmer(XXLightGray)))
+                                                highlight = PlaceholderHighlight.shimmer(
+                                                    XXLightGray)))
                                 }
                             } else {
                                 items(10) {
@@ -134,6 +137,7 @@ fun Home(
                             }
                         }
                     }
+
                 }
             }
         }

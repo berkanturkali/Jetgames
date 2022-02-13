@@ -33,6 +33,7 @@ import com.example.jetgames.common.ui.theme.JetgamesTheme
 @Composable
 fun HomeToolbar(
     modifier: Modifier = Modifier,
+    galleryListToggleClick :() ->Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -81,7 +82,7 @@ fun HomeToolbar(
 
                 Icon(modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.dimen_8))
-                    .clickable { /* will be implemented */ },
+                    .clickable { galleryListToggleClick.invoke() },
                     imageVector = Icons.Filled.GridView,
                     contentDescription = "Gallery/List Mode",
                     tint = MaterialTheme.colors.onPrimary.copy(alpha=0.7f))
@@ -94,6 +95,6 @@ fun HomeToolbar(
 @Composable
 fun HomeToolbarPrev() {
     JetgamesTheme {
-        HomeToolbar()
+        HomeToolbar(){}
     }
 }
