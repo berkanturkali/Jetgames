@@ -39,7 +39,7 @@ fun HomeToolbar(
     Surface(modifier = modifier
         .fillMaxWidth()
         .background(MaterialTheme.colors.primary),
-        elevation = 12.dp) {
+        elevation = dimensionResource(id = R.dimen.dimen_24)) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.primary)

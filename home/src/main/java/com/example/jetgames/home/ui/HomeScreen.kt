@@ -1,24 +1,25 @@
 package com.example.jetgames.home.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
+import com.example.jetgames.common.R
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
+import com.example.jetgames.common.ui.theme.XXLightGray
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.home.components.GameGalleryItem
@@ -28,6 +29,7 @@ import com.example.jetgames.home.components.SeparatorItem
 import com.example.jetgames.home.viewmodel.HomeViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
 import com.google.accompanist.placeholder.shimmer
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -62,7 +64,7 @@ fun Home(
                         }
                         is GameModel.GameItem -> {
                             val game = (games[index]) as GameModel.GameItem
-                            if (isGalleryMode) {
+                            if (!isGalleryMode) {
                                 GameGalleryItem(game = game.game,
                                     imageLoader = imageLoader)
                             } else {
@@ -77,16 +79,28 @@ fun Home(
                     when {
                         loadState.refresh is LoadState.Loading -> {
                             //loading
-                            if (isGalleryMode) {
+                            if (!isGalleryMode) {
                                 //Gallery Item
+                                items(5) {
+                                    GameGalleryItem(
+                                        isLoading =true,
+                                        game = Game(),
+                                        imageLoader = imageLoader,
+                                        childModifier = Modifier
+                                            .height(30.dp)
+                                            .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
+                                                horizontal = 10.dp)
+                                            .placeholder(visible = true,
+                                                highlight = PlaceholderHighlight.shimmer(XXLightGray)))
+                                }
                             } else {
                                 items(10) {
-                                    Column() {
+                                    Column {
                                         GameItem(
                                             childModifier = Modifier
                                                 .placeholder(visible = true,
                                                     highlight = PlaceholderHighlight.shimmer(
-                                                        White)),
+                                                        XXLightGray)),
                                             game = Game(name = "Dummy", metaCritic = 85),
                                             imageLoader = imageLoader,
                                             isLoading = true)

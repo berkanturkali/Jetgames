@@ -1,5 +1,8 @@
 package com.example.jetgames.home.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -16,6 +19,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,15 +39,24 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.ImageLoader
+import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.example.jetgames.common.R
-import com.example.jetgames.core.domain.model.games.Game
-import com.example.jetgames.core.domain.model.games.Genre
-import com.example.jetgames.core.domain.model.games.ParentPlatform
+import com.example.jetgames.common.ui.theme.JetgamesTheme
+import com.example.jetgames.common.ui.theme.XLightGray
+import com.example.jetgames.common.ui.theme.XXLightGray
+import com.example.jetgames.core.domain.model.games.*
+import com.example.jetgames.home.rememberDominantColorState
+import com.example.jetgames.home.verticalGradientScrim
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
+import com.google.accompanist.placeholder.shimmer
 
 @Composable
 fun GameGalleryItem(
@@ -52,6 +66,18 @@ fun GameGalleryItem(
     imageLoader: ImageLoader,
     isLoading: Boolean = false,
 ) {
+
+    val dominantColorState = rememberDominantColorState()
+    val backgroundColor by animateColorAsState(targetValue = dominantColorState.color,
+        animationSpec = spring(stiffness = Spring.StiffnessLow))
+    LaunchedEffect(game.backgroundImage) {
+        if (game.backgroundImage != null) {
+            dominantColorState.updateColorsFromImageUrl(game.backgroundImage!!)
+        } else {
+            dominantColorState.reset()
+        }
+    }
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -62,12 +88,15 @@ fun GameGalleryItem(
     ) {
         Column(
             modifier = modifier
+                .verticalGradientScrim(backgroundColor)
         ) {
 
             //image
             GameImage(description = game.name,
                 image = game.backgroundImage,
-                imageLoader = imageLoader)
+                imageLoader = imageLoader,
+                isLoading = isLoading
+            )
 
             Row(
                 modifier = childModifier
@@ -108,18 +137,15 @@ fun GameGalleryItem(
                 ReleaseDate(released = game.released)
             }
 
-
-            Spacer(Modifier.height(dimensionResource(id = R.dimen.dimen_16)))
-
             //Genres
             Row(
-                modifier = Modifier
+                modifier = childModifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Genres(genres = game.genres, color = Color.Transparent)
+                Genres(genres = game.genres, color = backgroundColor)
             }
 
             //Rating Bar
@@ -144,6 +170,7 @@ fun GameImage(
     description: String?,
     image: String?,
     imageLoader: ImageLoader,
+    isLoading: Boolean = false,
 ) {
     val painter = rememberImagePainter(
         data = image,
@@ -153,6 +180,7 @@ fun GameImage(
 
     Image(
         modifier = modifier
+            .placeholder(visible = isLoading, highlight = PlaceholderHighlight.shimmer(XLightGray))
             .height(300.dp)
             .fillMaxWidth(),
         alignment = Alignment.Center,
@@ -209,7 +237,6 @@ fun MetaCritic(
 @Composable
 fun Name(
     modifier: Modifier = Modifier,
-    childModifier: Modifier = Modifier,
     name: String?,
     icon: String?,
     size: TextUnit = 24.sp,
@@ -239,15 +266,18 @@ fun Name(
     Text(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .padding(horizontal = 12.dp,
+                vertical = dimensionResource(
+                    id = R.dimen.dimen_8)),
         text = text,
         inlineContent = content,
         fontSize = size,
         maxLines = 2,
-        style = MaterialTheme.typography.h2,
+        style = MaterialTheme.typography.h3,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Start,
-        color = Color.White
+        color = MaterialTheme.colors.onPrimary
     )
 }
 
@@ -264,7 +294,7 @@ fun ReleaseDate(
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Start,
-        color = Color.White
+        color = MaterialTheme.colors.onPrimary
     )
 
     Text(
@@ -275,7 +305,7 @@ fun ReleaseDate(
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Start,
-        color = Color.White
+        color = MaterialTheme.colors.onPrimary
     )
 }
 
@@ -293,7 +323,7 @@ fun Genres(
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Start,
-        color = Color.White
+        color = MaterialTheme.colors.onPrimary
     )
 
     Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_8)),
@@ -316,7 +346,7 @@ fun Genres(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
-                color = Color.White
+                color = MaterialTheme.colors.onPrimary
             )
         }
     }
@@ -337,7 +367,7 @@ fun RatingTop(
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Start,
-        color = Color.White
+        color = MaterialTheme.colors.onPrimary
     )
     RatingBar(color = color, rating = rating.toFloat(), modifier = modifier
         .height(16.dp)
@@ -430,5 +460,24 @@ private val starPath = { size: Float ->
     }
 }
 
+@Preview
+@Composable
+fun GameGalleryPrev() {
+    JetgamesTheme {
+        GameGalleryItem(game = Game(
+            "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+            esrbRating = EsrbRating(4, "Mature"),
+            genres = listOf(Genre(47792, 2, "", "Shooter")),
+            id = 3498,
+            metaCritic = 92,
+            name = "The Witcher 3: Wild Hunt",
+            parentPlatforms = listOf(ParentPlatform(Platform(1, "Pc"))),
+            rating = 4.67,
+            rating_top = 5,
+            ratingsCount = 4986,
+            released = "12 Dec 2021"
+        ), imageLoader = LocalImageLoader.current)
 
+    }
+}
 
