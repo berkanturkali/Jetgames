@@ -37,6 +37,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun Home(
     viewModel: HomeViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
+    navigateToDetailScreen: (Int) -> Unit,
 ) {
 
     val homeState by viewModel.homeState.collectAsState()
@@ -52,9 +53,7 @@ fun Home(
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
 
     DefaultScreenUI(toolbar = { HomeToolbar(galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) }) }) {
-        // home screen
         SwipeRefresh(state = swipeRefreshState, onRefresh = games::refresh) {
-            //games list
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 state = listState
@@ -66,12 +65,20 @@ fun Home(
                         }
                         is GameModel.GameItem -> {
                             val game = (games[index]) as GameModel.GameItem
+                            // TODO: Animate toggle
                             if (isGalleryMode) {
-                                GameGalleryItem(game = game.game,
-                                    imageLoader = imageLoader)
+                                GameGalleryItem(
+                                    modifier = Modifier
+                                        .animateItemPlacement(),
+                                    game = game.game,
+                                    imageLoader = imageLoader,
+                                    onItemClick = navigateToDetailScreen)
                             } else {
-                                GameItem(game = game.game,
-                                    imageLoader = imageLoader)
+                                GameItem(
+                                    modifier = Modifier
+                                        .animateItemPlacement(),
+                                    game = game.game,
+                                    imageLoader = imageLoader, onItemClick = navigateToDetailScreen)
                             }
                         }
                     }
@@ -94,7 +101,8 @@ fun Home(
                                                 horizontal = 10.dp)
                                             .placeholder(visible = true,
                                                 highlight = PlaceholderHighlight.shimmer(
-                                                    XXLightGray)))
+                                                    XXLightGray)),
+                                    ) {}
                                 }
                             } else {
                                 items(10) {
@@ -106,7 +114,7 @@ fun Home(
                                                         XXLightGray)),
                                             game = Game(name = "Dummy", metaCritic = 85),
                                             imageLoader = imageLoader,
-                                            isLoading = true)
+                                            isLoading = true) {}
                                     }
                                 }
                             }

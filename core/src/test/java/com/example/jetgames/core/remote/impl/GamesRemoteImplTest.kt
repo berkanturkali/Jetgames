@@ -11,7 +11,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class GamesRemoteImplTest {
+class GamesRemoteImplTest{
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var gamesRemote: GamesRemote

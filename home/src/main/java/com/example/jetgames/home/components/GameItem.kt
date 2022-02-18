@@ -3,7 +3,6 @@ package com.example.jetgames.home.components
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,8 +22,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.example.jetgames.common.R
@@ -36,10 +33,11 @@ import com.example.jetgames.home.rememberDominantColorState
 @Composable
 fun GameItem(
     modifier: Modifier = Modifier,
-    childModifier:Modifier = Modifier,
+    childModifier: Modifier = Modifier,
     game: Game,
     imageLoader: ImageLoader,
-    isLoading:Boolean = false
+    isLoading: Boolean = false,
+    onItemClick: (Int)->Unit
 ) {
     val dominantColorState = rememberDominantColorState()
 
@@ -55,48 +53,39 @@ fun GameItem(
     }
 
     Card(
+        onClick = {onItemClick(game.id!!)},
         modifier = modifier
-            .fillMaxWidth()
             .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
                 horizontal = dimensionResource(id = R.dimen.dimen_8)),
         elevation = dimensionResource(id = R.dimen.dimen_8),
         shape = RoundedCornerShape(
             dimensionResource(id = R.dimen.dimen_16))) {
-        ConstraintLayout(
-            modifier = Modifier.gradientBackground(color = backgroundColor, 45f)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .gradientBackground(color = backgroundColor, 45f)
         ) {
-            val (imageTitleRow, metacritic, bottomRow) = createRefs()
 
             //Metascore
             if (game.metaCritic != null) {
-                MetaCritic(
-                    isLoading = isLoading,
-                    metaCritic = game.metaCritic!!,
-                    ratingColor = game.calculateRgbFromMetacritic()!!,
-                    modifier = Modifier
-                        .padding(horizontal = 10.dp, vertical = 4.dp)
-                        .constrainAs(metacritic) {
-                            top.linkTo(parent.top)
-                            end.linkTo(parent.end)
-                            width = Dimension.wrapContent
-                            height = Dimension.wrapContent
-                        },
-                    fontSize = 14.sp,
-                    childModifier = childModifier.padding(horizontal = 12.dp, vertical = 2.dp))
-
+                Column(
+                    modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End
+                ) {
+                    MetaCritic(
+                        isLoading = isLoading,
+                        metaCritic = game.metaCritic!!,
+                        ratingColor = game.calculateRgbFromMetacritic()!!,
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp, vertical = 4.dp),
+                        fontSize = 14.sp,
+                        childModifier = childModifier.padding(horizontal = 12.dp, vertical = 2.dp))
+                }
             }
 
             //image & name
             Row(modifier = modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
-                .constrainAs(imageTitleRow) {
-                    if (game.metaCritic != null) {
-                        top.linkTo(metacritic.bottom)
-                    } else {
-                        top.linkTo(parent.top)
-                    }
-                    start.linkTo(parent.start)
-                }) {
+            ) {
                 GameImage(
                     modifier = childModifier
                         .size(100.dp)
@@ -124,16 +113,9 @@ fun GameItem(
 
             //date & rating
             Row(modifier = Modifier
+                .fillMaxWidth()
                 .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
-                    horizontal = dimensionResource(id = R.dimen.dimen_8))
-                .constrainAs(bottomRow) {
-                    top.linkTo(imageTitleRow.bottom)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    width = Dimension.fillToConstraints
-                    height = Dimension.wrapContent
-                },
+                    horizontal = dimensionResource(id = R.dimen.dimen_8)),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically) {
                 if (game.rating != null) {
@@ -178,6 +160,6 @@ fun GameItemPrev(
             rating_top = 5,
             ratingsCount = 4986,
             released = "12 Dec 2021"
-        ), imageLoader = LocalImageLoader.current)
+        ), imageLoader = LocalImageLoader.current){}
     }
 }

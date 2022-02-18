@@ -28,14 +28,16 @@ fun NavGraphBuilder.addHomeScreen(
         route = Screen.HomeScreen.route
     ) {
         //home screen
-        Home(imageLoader = imageLoader)
+        Home(imageLoader = imageLoader, navigateToDetailScreen = {id->
+            navController.navigate("${Screen.DetailScreen.route}/$id")
+        })
     }
 }
 
 fun NavGraphBuilder.addDetailScreen(
 ) {
     composable(
-        route = Screen.DetailScreen.route + "/{gameId}",
+        route = Screen.DetailScreen.route + "/{id}",
         arguments = Screen.DetailScreen.arguments
     ) {
         //detail screen

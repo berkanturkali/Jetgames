@@ -29,6 +29,7 @@ fun SetupNavGraph(
         ) {
             //home graph
             homeNavGraph(navController = navController,imageLoader = imageLoader)
+            //filter graph
         }
     }
 }

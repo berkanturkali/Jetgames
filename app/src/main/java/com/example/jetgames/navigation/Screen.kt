@@ -9,7 +9,7 @@ import com.example.jetgames.navigation.Routes.HOME_ROUTE
 sealed class Screen(val route: String, val arguments: List<NamedNavArgument>) {
     object HomeScreen : Screen(HOME_ROUTE, arguments = emptyList())
 
-    object DetailScreen : Screen(DETAIL_ROUTE, arguments = listOf(navArgument("gameId") {
+    object DetailScreen : Screen(DETAIL_ROUTE, arguments = listOf(navArgument("id") {
         type = NavType.IntType
     }))
 }
