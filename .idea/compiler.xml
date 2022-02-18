@@ -6,6 +6,7 @@
       <module name="Jetgames.buildSrc" target="11" />
       <module name="Jetgames.common" target="11" />
       <module name="Jetgames.core" target="11" />
+      <module name="Jetgames.details" target="11" />
       <module name="Jetgames.home" target="11" />
     </bytecodeTargetLevel>
   </component>
