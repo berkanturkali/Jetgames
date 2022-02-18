@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.RatingBar
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.core.domain.model.games.*
 import com.example.jetgames.home.gradientBackground
