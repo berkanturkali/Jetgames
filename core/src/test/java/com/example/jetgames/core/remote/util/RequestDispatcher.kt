@@ -13,6 +13,11 @@ class RequestDispatcher:Dispatcher() {
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(GAMES_RESPONSE_PATH))
             }
+            "$REQUEST_PATH/$ID?key=$API_KEY" ->{
+                MockResponse()
+                    .setResponseCode(HttpURLConnection.HTTP_OK)
+                    .setBody(getJson(GAMES_DETAIL_RESPONSE_PATH))
+            }
             else ->  throw IllegalArgumentException("Unknown Request Path ${request.path}")
         }
     }

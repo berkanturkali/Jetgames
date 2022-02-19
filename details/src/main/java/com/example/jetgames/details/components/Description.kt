@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.IntSize
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.common.ui.theme.LightGray
-import com.example.jetgames.common.ui.theme.XLightGray
-import com.example.jetgames.common.ui.theme.XXLightGray
 
 @Composable
 fun Description(
@@ -60,7 +58,7 @@ fun Description(
         maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
         overflow = TextOverflow.Ellipsis,
         onTextLayout = { textLayoutResultState.value = it },
-       style = MaterialTheme.typography.body1,
+        style = MaterialTheme.typography.body1,
         color = MaterialTheme.colors.onPrimary)
     if (!isExpanded) {
         val density = LocalDensity.current

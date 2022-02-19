@@ -48,7 +48,7 @@ class GamesRemoteImplTest{
     }
 
     @Test
-    fun `check that fetchGames returns correct data`(){
+    fun `check that fetchGames returns correct data`() {
         runBlocking {
             val response = getResponseList(GAMES_RESPONSE_PATH).flatMap { it.results }
             val games = gamesRemote.fetchGames(PAGE, SIZE)

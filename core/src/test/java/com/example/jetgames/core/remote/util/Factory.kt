@@ -16,7 +16,7 @@ import java.lang.reflect.ParameterizedType
 import java.net.URL
 
 
-internal const val REQUEST_PATH: String = "/games/"
+internal const val REQUEST_PATH: String = "/games"
 private val okHttpClient: OkHttpClient
     get() = OkHttpClient.Builder().build()
 

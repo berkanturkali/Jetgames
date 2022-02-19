@@ -1,6 +1,7 @@
 package com.example.jetgames.core.remote.impl
 
 import com.example.jetgames.core.data.contract.GamesRemote
+import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.games.GameDto
 import com.example.jetgames.core.remote.service.ApiService
 import javax.inject.Inject
