@@ -1,6 +1,6 @@
 package com.example.jetgames.core.data
 
-import com.example.jetgames.core.domain.model.games.ParentPlatform
+import com.example.jetgames.core.remote.model.details.MetacriticPlatformDto
 import com.example.jetgames.core.remote.model.games.*
 
 internal object DummyData {
@@ -38,6 +38,7 @@ internal object DummyData {
         id = 1,
         image = ""
     )
+
     //tag
     val tag = TagDto(
         id = 31,
@@ -56,7 +57,8 @@ internal object DummyData {
         domain = "microsoft.com",
         games_count = 12321,
         image_background = ""
-        )
+    )
+
     //store
     val store = StoreDto(
         id = 12321,
@@ -66,10 +68,10 @@ internal object DummyData {
     //platformXX
     val platformXX = PlatformXXDto(
         games_count = 5159,
-        id=1,
-        name="Xbox One",
+        id = 1,
+        name = "Xbox One",
         slug = "xbox-one",
-        image=null,
+        image = null,
         year_end = null,
         year_start = null,
         image_background = ""
@@ -82,8 +84,9 @@ internal object DummyData {
         requirements_en = null,
         requirements_ru = null
     )
+
     //parent platform
-    val parentPlatform  = ParentPlatformDto(
+    val parentPlatform = ParentPlatformDto(
         platform = platform
     )
 
@@ -92,5 +95,12 @@ internal object DummyData {
         esrb_rating = esrbRating,
         genres = listOf(genre),
         id = 3
+    )
+
+    //metacritic platform
+    val metacriticPlaform = MetacriticPlatformDto(
+        metascore = 85,
+        platform = platform,
+        url = ""
     )
 }

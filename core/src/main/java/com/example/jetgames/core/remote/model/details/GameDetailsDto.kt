@@ -13,7 +13,6 @@ data class GameDetailsDto(
     val creators_count: Int,
     val description: String,
     val description_raw: String,
-    val developers: List<DeveloperDto>,
     val dominant_color: String,
     val esrb_rating: EsrbRatingDto,
     val game_series_count: Int,
