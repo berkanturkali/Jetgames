@@ -1,5 +1,6 @@
 package com.example.jetgames.core.data
 
+import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.details.MetacriticPlatformDto
 import com.example.jetgames.core.remote.model.games.*
 
@@ -102,5 +103,23 @@ internal object DummyData {
         metascore = 85,
         platform = platform,
         url = ""
+    )
+
+
+    val gameDetailsDto = GameDetailsDto(
+        description = "The third game in a series, it holds nothing back from the player. Open world adventures of the renowned monster slayer Geralt of Rivia are now even on a larger scale.",
+        esrb_rating = esrbRating,
+        genres = listOf(genre),
+        id = 3328,
+        metacritic = 92,
+        metacritic_platforms = listOf(metacriticPlaform),
+        rating = 4.5,
+        rating_top = 5,
+        ratings = listOf(rating),
+        ratings_count = 12312321,
+        released = "12 Dec 2021",
+        stores = listOf(store),
+        tags = listOf(tag),
+        website = "www.dummydomain.com"
     )
 }
