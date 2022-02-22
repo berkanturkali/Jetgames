@@ -24,6 +24,7 @@ import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.util.Resource
 import com.example.jetgames.details.components.*
 import com.example.jetgames.details.viewmodel.DetailsViewModel
+import timber.log.Timber
 
 @Composable
 fun DetailScreen(
@@ -61,8 +62,16 @@ fun DetailScreen(
                             ratingColor = gameDetail.calculateRgbFromRating()!!)
                     }
 
+                    //Ratingbar
                     if(!gameDetail.ratings.isNullOrEmpty()){
                         RatingBar(ratings = gameDetail.ratings!!)
+                    }
+
+                    //Platforms
+                    gameDetail.parent_platforms?.let {
+                        if (it.isNotEmpty()) {
+                            Platforms(platforms = gameDetail.parent_platforms!!)
+                        }
                     }
 
                     //Description

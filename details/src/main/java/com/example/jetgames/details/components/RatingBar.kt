@@ -36,7 +36,7 @@ fun RatingBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            shape = RoundedCornerShape(dimensionResource(id = com.example.jetgames.common.R.dimen.dimen_64))
+            shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_64))
         ) {
             Row(modifier = Modifier
                 .fillMaxWidth()
