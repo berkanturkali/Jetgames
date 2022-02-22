@@ -7,7 +7,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -60,13 +62,13 @@ fun RatingBar(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
 
         Row(modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
-            horizontalArrangement = Arrangement.SpaceBetween) {
+            horizontalArrangement = Arrangement.SpaceAround) {
             ratings.forEachIndexed { index, rating ->
                 val color = when (index) {
                     0 -> 0xFFB4EC51
@@ -76,22 +78,23 @@ fun RatingBar(
                     else -> 0XFFFFFFFF
                 }
                 Card(shape = CircleShape, modifier = Modifier.wrapContentSize()) {
-                    Row(verticalAlignment = CenterVertically,
-                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(
-                            dimensionResource(id = R.dimen.dimen_4))) {
-                        Icon(contentDescription = null,
-                            modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_8)),
-                            painter = painterResource(id = R.drawable.ic_circle),
-                            tint = Color(color))
-                        Text(
-                            text = rating!!.title!!,
-                            color = MaterialTheme.colors.onPrimary,
-                            style = MaterialTheme.typography.caption)
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                            Text(text = rating.count.toString(),
-                                style = MaterialTheme.typography.overline)
+                    Column(horizontalAlignment = CenterHorizontally,modifier = Modifier.padding(8.dp)) {
+                        Row(verticalAlignment = CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(
+                                dimensionResource(id = R.dimen.dimen_4))) {
+                            Icon(contentDescription = null,
+                                modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_8)),
+                                painter = painterResource(id = R.drawable.ic_circle),
+                                tint = Color(color))
+                            Text(
+                                text = rating!!.title!!,
+                                color = MaterialTheme.colors.onPrimary,
+                                style = MaterialTheme.typography.caption)
                         }
+                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                                Text(text = rating!!.count.toString(),
+                                    style = MaterialTheme.typography.overline)
+                            }
                     }
                 }
             }
