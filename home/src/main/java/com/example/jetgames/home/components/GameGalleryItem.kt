@@ -148,7 +148,7 @@ fun GameGalleryItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 game.rating_top?.let {
-                    RatingTop(rating = it)
+                    RatingTop(rating = it.toDouble())
                 }
             }
         }

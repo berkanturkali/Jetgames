@@ -18,7 +18,7 @@ class GameDetailMapper @Inject constructor(
     override fun mapFromModel(model: GameDetailsDto?): GameDetails {
         return GameDetails(
             background_image = model?.background_image,
-            description = model?.description,
+            description = model?.description_raw,
             esrb_rating = esrbRatingMapper.mapFromModel(model?.esrb_rating).name,
             genres = genreMapper.mapModelList(model?.genres),
             id = model?.id,

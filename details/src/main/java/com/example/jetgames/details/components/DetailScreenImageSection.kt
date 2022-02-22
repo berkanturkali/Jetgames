@@ -1,6 +1,5 @@
 package com.example.jetgames.details.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -51,7 +50,8 @@ fun DetailScreenImageSection(
                 Mode.IMAGE -> {
                     Image(
                         modifier = childModifier
-                            .fillMaxSize(),
+                            .fillMaxWidth()
+                            .height(350.dp),
                         alignment = Alignment.Center,
                         contentScale = ContentScale.Crop,
                         painter = painter,
@@ -63,10 +63,12 @@ fun DetailScreenImageSection(
                 Mode.VIDEO -> { /* TODO: video */
                 }
             }
-            AnimatedVisibility(visible = mode.value == Mode.IMAGE) {
-                Box(modifier = Modifier.fillMaxWidth().height(50.dp).background(Brush.verticalGradient(listOf(MaterialTheme.colors.primary,
+
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(Brush.verticalGradient(listOf(MaterialTheme.colors.primary,
                     MaterialTheme.colors.primary.copy(alpha = 0.1f)))))
-            }
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = dimensionResource(id = R.dimen.dimen_8),

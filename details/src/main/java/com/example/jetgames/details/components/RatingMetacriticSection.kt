@@ -23,7 +23,7 @@ fun RatingMetacriticSection(
     modifier: Modifier = Modifier,
     metacritic: Int,
     metacriticColor: Color,
-    rating: Int,
+    rating: Double,
     ratingColor: Color,
 
     ) {
@@ -83,7 +83,7 @@ fun RatingMetacriticSectionPrev() {
     JetgamesTheme {
         RatingMetacriticSection(
             ratingColor = Color.Yellow,
-            rating = 4,
+            rating = 4.4,
             metacriticColor = Color.Green,
             metacritic = 85)
     }

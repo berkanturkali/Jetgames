@@ -26,7 +26,7 @@ import com.example.jetgames.common.R
 @Composable
 fun RatingTop(
     modifier: Modifier = Modifier,
-    rating: Int,
+    rating: Double,
     color: Color = Color.Yellow,
     fontSize: TextUnit = 14.sp,
     showTitle:Boolean = true,

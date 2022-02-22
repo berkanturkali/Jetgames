@@ -1,6 +1,8 @@
 package com.example.jetgames.core.di
 
+import com.example.jetgames.core.data.repo.GameDetailRepoImpl
 import com.example.jetgames.core.data.repo.GamesRepoImpl
+import com.example.jetgames.core.domain.repo.GameDetailRepo
 import com.example.jetgames.core.domain.repo.GamesRepo
 import dagger.Binds
 import dagger.Module
@@ -12,4 +14,7 @@ interface RepoModule {
 
     @get:Binds
     val GamesRepoImpl.gamesRepo: GamesRepo
+
+    @get:Binds
+    val GameDetailRepoImpl.gameDetailRepo:GameDetailRepo
 }

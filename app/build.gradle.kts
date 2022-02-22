@@ -1,5 +1,6 @@
 import ProjectLib.common
 import ProjectLib.core
+import ProjectLib.details
 import ProjectLib.home
 import ProjectLib.remote
 
@@ -67,6 +68,7 @@ dependencies {
     implementation(project(core))
     implementation(project(remote))
     implementation(project(home))
+    implementation(project(details))
     implementAll(Dependencies.AndroidX.components)
     implementAll(Dependencies.Compose.components)
     implementation(Dependencies.Compose.activity)

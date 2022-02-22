@@ -1,6 +1,7 @@
 package com.example.jetgames.details.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -53,32 +54,34 @@ fun Description(
             cutDesc = description.substring(startIndex = 0, endIndex = lastCharIndex)
         }
     }
-
-    Text(text = cutDesc ?: description,
-        maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
-        overflow = TextOverflow.Ellipsis,
-        onTextLayout = { textLayoutResultState.value = it },
-        style = MaterialTheme.typography.body1,
-        color = MaterialTheme.colors.onPrimary)
-    if (!isExpanded) {
-        val density = LocalDensity.current
-        Text(text = "... See more",
-            color = LightGray,
-            onTextLayout = { seeMoreSizeState.value = it.size },
-            modifier = Modifier
-                .then(
-                    if (seeMoreOffset != null)
-                        Modifier.offset(
-                            x = with(density) { seeMoreOffset.x.toDp() },
-                            y = with(density) { seeMoreOffset.y.toDp() },
-                        )
-                    else Modifier
-                )
-                .clickable {
-                    isExpanded = true
-                    cutDesc = null
-                }
-                .alpha(if (seeMoreOffset != null) 1f else 0f))
+    Box(modifier) {
+        Text(
+            text = cutDesc ?: description,
+            maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
+            overflow = TextOverflow.Ellipsis,
+            onTextLayout = { textLayoutResultState.value = it },
+            style = MaterialTheme.typography.body1,
+            color = MaterialTheme.colors.onPrimary)
+        if (!isExpanded) {
+            val density = LocalDensity.current
+            Text(text = "... See more",
+                color = LightGray,
+                onTextLayout = { seeMoreSizeState.value = it.size },
+                modifier = Modifier
+                    .then(
+                        if (seeMoreOffset != null)
+                            Modifier.offset(
+                                x = with(density) { seeMoreOffset.x.toDp() },
+                                y = with(density) { seeMoreOffset.y.toDp() },
+                            )
+                        else Modifier
+                    )
+                    .clickable {
+                        isExpanded = true
+                        cutDesc = null
+                    }
+                    .alpha(if (seeMoreOffset != null) 1f else 0f))
+        }
     }
 }
 

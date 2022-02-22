@@ -239,5 +239,6 @@ object ProjectLib {
     const val remote: String = ":remote"
     const val core: String = ":core"
     const val home: String = ":home"
+    const val details: String = ":details"
 }
 

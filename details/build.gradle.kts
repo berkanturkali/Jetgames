@@ -6,6 +6,8 @@ import ProjectLib.core
 plugins {
     androidLibrary
     kotlinAndroid
+    kotlin(kotlinKapt)
+    daggerHilt
 }
 
 android {
@@ -60,6 +62,15 @@ dependencies {
 
     //compose
     implementation(Dependencies.Compose.composeMaterial)
+
+    //hilt
+    implementation(Dependencies.DI.daggerHiltAndroid)
+    kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
+
+    implementation(Dependencies.AndroidX.lifecycleKtx)
+    implementation(Dependencies.Compose.composeLiveData)
+
+    implementation(Dependencies.DI.hiltNavigation)
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
