@@ -1,19 +1,10 @@
 package com.example.jetgames.details.ui
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -24,7 +15,6 @@ import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.util.Resource
 import com.example.jetgames.details.components.*
 import com.example.jetgames.details.viewmodel.DetailsViewModel
-import timber.log.Timber
 
 @Composable
 fun DetailScreen(
@@ -63,7 +53,7 @@ fun DetailScreen(
                     }
 
                     //Ratingbar
-                    if(!gameDetail.ratings.isNullOrEmpty()){
+                    if (!gameDetail.ratings.isNullOrEmpty()) {
                         RatingBar(ratings = gameDetail.ratings!!)
                     }
 
@@ -74,10 +64,16 @@ fun DetailScreen(
                         }
                     }
 
+                    //Release
+                    gameDetail.released?.let {
+                        Released(released = it)
+                    }
+
                     //Description
-                    if(gameDetail.description != null){
-                        Description(modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.dimen_16), horizontal = dimensionResource(
-                            id = R.dimen.dimen_16)),description = gameDetail.description!!)
+                    if (gameDetail.description != null) {
+                        Description(modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.dimen_16),
+                            horizontal = dimensionResource(
+                                id = R.dimen.dimen_16)), description = gameDetail.description!!)
                     }
                 }
             }

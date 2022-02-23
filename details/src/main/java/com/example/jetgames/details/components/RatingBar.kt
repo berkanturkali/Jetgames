@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -78,7 +77,8 @@ fun RatingBar(
                     else -> 0XFFFFFFFF
                 }
                 Card(shape = CircleShape, modifier = Modifier.wrapContentSize()) {
-                    Column(horizontalAlignment = CenterHorizontally,modifier = Modifier.padding(8.dp)) {
+                    Column(horizontalAlignment = CenterHorizontally,
+                        modifier = Modifier.padding(8.dp)) {
                         Row(verticalAlignment = CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(
                                 dimensionResource(id = R.dimen.dimen_4))) {
@@ -91,10 +91,10 @@ fun RatingBar(
                                 color = MaterialTheme.colors.onPrimary,
                                 style = MaterialTheme.typography.caption)
                         }
-                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                Text(text = rating!!.count.toString(),
-                                    style = MaterialTheme.typography.overline)
-                            }
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Text(text = rating!!.count.toString(),
+                                style = MaterialTheme.typography.overline)
+                        }
                     }
                 }
             }
