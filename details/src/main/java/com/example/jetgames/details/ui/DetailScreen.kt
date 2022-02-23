@@ -69,6 +69,13 @@ fun DetailScreen(
                         Released(released = it)
                     }
 
+                    //Genres
+                    gameDetail.genres?.let {
+                        if(it.isNotEmpty()){
+                            Genres(genres = it)
+                        }
+                    }
+
                     //Description
                     if (gameDetail.description != null) {
                         Description(modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.dimen_16),
