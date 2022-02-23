@@ -1,5 +1,6 @@
 import Dependencies.Accompanist.Version.animationsVersion
 import Dependencies.Accompanist.Version.navigationVersion
+import Dependencies.Accompanist.Version.pagerIndicatorVersion
 import Dependencies.Accompanist.Version.pagerVersion
 import Dependencies.Accompanist.Version.placeholderVersion
 import Dependencies.Accompanist.Version.swipeRefreshVersion
@@ -170,6 +171,7 @@ object Dependencies {
     object Accompanist {
         object Version {
             const val pagerVersion = "0.22.1-rc"
+            const val pagerIndicatorVersion = "0.24.2-alpha"
             const val placeholderVersion = "0.24.1-alpha"
             const val animationsVersion = "0.20.3"
             const val swipeRefreshVersion = "0.24.1-alpha"
@@ -177,6 +179,7 @@ object Dependencies {
         }
 
         const val pager = "com.google.accompanist:accompanist-pager:$pagerVersion"
+        const val pagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$pagerIndicatorVersion"
         const val placeholder =
             "com.google.accompanist:accompanist-placeholder-material:$placeholderVersion"
         const val animations =

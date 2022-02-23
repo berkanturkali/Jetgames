@@ -16,14 +16,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.example.jetgames.common.R
-import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.details.Mode
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 
 @Composable
 fun DetailScreenImageSection(
@@ -32,8 +32,10 @@ fun DetailScreenImageSection(
     imageUrl: String? = null,
     imageLoader: ImageLoader,
     description: String? = null,
+    screenshots: List<String?>?,
+    isScreenShotsVisible: Boolean = false,
 ) {
-
+    val pagerState = rememberPagerState()
     val mode = rememberSaveable {
         mutableStateOf(Mode.IMAGE)
     }
@@ -58,9 +60,28 @@ fun DetailScreenImageSection(
                         contentDescription = description
                     )
                 }
-                Mode.SCREENSHOTS -> { /* TODO: Screen shots */
-                }
-                Mode.VIDEO -> { /* TODO: video */
+                Mode.SCREENSHOTS -> {
+                    HorizontalPager(count = screenshots!!.size,
+                        state = pagerState) { page ->
+                        val pagerPainter = rememberImagePainter(data = screenshots[page],
+                            imageLoader = imageLoader)
+                        Image(
+                            modifier = childModifier
+                                .fillMaxWidth()
+                                .height(350.dp),
+                            alignment = Alignment.Center,
+                            contentScale = ContentScale.Crop,
+                            painter = pagerPainter,
+                            contentDescription = description
+                        )
+                    }
+                    HorizontalPagerIndicator(
+                        pagerState = pagerState,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(16.dp),
+                    )
+
                 }
             }
 
@@ -82,25 +103,14 @@ fun DetailScreenImageSection(
                         tint = MaterialTheme.colors.onPrimary,
                         modifier = Modifier.clickable { mode.value = Mode.IMAGE })
                     //screenshots
-                    Icon(painter = painterResource(id = R.drawable.ic_screenshots),
-                        null,
-                        tint = MaterialTheme.colors.onPrimary,
-                        modifier = Modifier.clickable { mode.value = Mode.SCREENSHOTS })
-                    //video
-                    Icon(painter = painterResource(id = R.drawable.ic_video),
-                        null,
-                        tint = MaterialTheme.colors.onPrimary,
-                        modifier = Modifier.clickable { mode.value = Mode.VIDEO })
+                    if (isScreenShotsVisible) {
+                        Icon(painter = painterResource(id = R.drawable.ic_screenshots),
+                            null,
+                            tint = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.clickable { mode.value = Mode.SCREENSHOTS })
+                    }
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0XFFF5F8FA)
-@Composable
-fun ImageSectionPrev() {
-    JetgamesTheme {
-        DetailScreenImageSection(imageLoader = LocalImageLoader.current)
     }
 }

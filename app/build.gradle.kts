@@ -89,5 +89,8 @@ dependencies {
     //coil
     implementation(Dependencies.Coil.coil)
 
+    //moshi
+    implementation(Dependencies.Network.moshi)
+
     debugImplementation(Dependencies.Performance.leakCanary)
 }

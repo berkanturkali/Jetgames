@@ -3,6 +3,7 @@ package com.example.jetgames.details.viewmodel
 import androidx.lifecycle.*
 import com.example.jetgames.core.domain.executor.abstraction.PostExecutionThread
 import com.example.jetgames.core.domain.model.detail.GameDetails
+import com.example.jetgames.core.domain.model.navargs.DetailsArgs
 import com.example.jetgames.core.domain.repo.GameDetailRepo
 import com.example.jetgames.core.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,9 +22,19 @@ class DetailsViewModel @Inject constructor(
 
     val game:LiveData<Resource<GameDetails>> get() = _game
 
+    private val _screenShots = MutableLiveData<List<String?>>()
+
+    val screenShots:LiveData<List<String?>> get() = _screenShots
     init {
-        savedStateHandle.get<Int>("id")?.let{
-            game(it)
+        savedStateHandle.get<DetailsArgs>("detailArgs")?.let{
+            game(it.id)
+            setScreenshots(it.screenshots)
+        }
+    }
+
+    private fun setScreenshots(screenshots:List<String?>?){
+        if(screenshots != null && screenshots.isNotEmpty()) {
+            _screenShots.value = screenshots
         }
     }
 

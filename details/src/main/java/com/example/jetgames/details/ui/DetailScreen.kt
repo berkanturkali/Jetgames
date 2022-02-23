@@ -23,6 +23,7 @@ fun DetailScreen(
     imageLoader: ImageLoader,
 ) {
 
+    val screenshots = viewModel.screenShots.observeAsState()
     val game = viewModel.game.observeAsState()
 
     Column(modifier = modifier
@@ -35,14 +36,14 @@ fun DetailScreen(
                     val gameDetail = game.value!!.data
                     //image
                     DetailScreenImageSection(imageLoader = imageLoader,
-                        imageUrl = gameDetail!!.background_image)
+                        imageUrl = gameDetail!!.background_image, screenshots = screenshots.value, isScreenShotsVisible = screenshots.value != null && screenshots.value!!.isNotEmpty())
 
                     //name
                     val rating = gameDetail.ratings?.maxByOrNull {
                         it?.percent!!
                     }
                     if (gameDetail.name != null) {
-                        Name(name = gameDetail.name, icon = rating!!.icon)
+                        Name(name = gameDetail.name, icon = rating?.icon)
                     }
                     //Rating & Metascore
                     if (gameDetail.metacritic != null && gameDetail.rating != null) {
@@ -71,7 +72,7 @@ fun DetailScreen(
 
                     //Genres
                     gameDetail.genres?.let {
-                        if(it.isNotEmpty()){
+                        if (it.isNotEmpty()) {
                             Genres(genres = it)
                         }
                     }

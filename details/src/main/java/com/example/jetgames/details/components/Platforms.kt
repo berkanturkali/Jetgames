@@ -29,7 +29,7 @@ fun Platforms(
 
     Column(
         modifier = modifier
-            .padding(dimensionResource(id = R.dimen.dimen_16))
+            .padding(dimensionResource(id = R.dimen.dimen_8))
             .fillMaxWidth()
             .wrapContentHeight()
     ) {

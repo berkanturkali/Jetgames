@@ -38,7 +38,7 @@ fun GameItem(
     game: Game,
     imageLoader: ImageLoader,
     isLoading: Boolean = false,
-    onItemClick: (Int)->Unit
+    onItemClick: ((Int,List<String?>?)->Unit)?  =null
 ) {
     val dominantColorState = rememberDominantColorState()
 
@@ -54,7 +54,10 @@ fun GameItem(
     }
 
     Card(
-        onClick = {onItemClick(game.id!!)},
+        onClick = {
+            val screenshots=  game.screenShots?.map { it?.image }
+            onItemClick?.invoke(game.id!!,screenshots)
+                  },
         modifier = modifier
             .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
                 horizontal = dimensionResource(id = R.dimen.dimen_8)),
@@ -161,6 +164,6 @@ fun GameItemPrev(
             rating_top = 5,
             ratingsCount = 4986,
             released = "12 Dec 2021"
-        ), imageLoader = LocalImageLoader.current){}
+        ), imageLoader = LocalImageLoader.current)
     }
 }

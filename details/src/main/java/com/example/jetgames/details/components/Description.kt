@@ -61,7 +61,7 @@ fun Description(
         }
     }
 
-    Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_16))) {
+    Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8))) {
 
         Text(text = stringResource(id = R.string.description),
             style = MaterialTheme.typography.h6,

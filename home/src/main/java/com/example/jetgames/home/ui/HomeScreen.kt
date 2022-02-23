@@ -37,7 +37,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun Home(
     viewModel: HomeViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
-    navigateToDetailScreen: (Int) -> Unit,
+    navigateToDetailScreen: ((Int,List<String?>?) -> Unit)?  = null,
 ) {
 
     val homeState by viewModel.homeState.collectAsState()
@@ -102,7 +102,7 @@ fun Home(
                                             .placeholder(visible = true,
                                                 highlight = PlaceholderHighlight.shimmer(
                                                     XXLightGray)),
-                                    ) {}
+                                    )
                                 }
                             } else {
                                 items(10) {
@@ -114,7 +114,7 @@ fun Home(
                                                         XXLightGray)),
                                             game = Game(name = "Dummy", metaCritic = 85),
                                             imageLoader = imageLoader,
-                                            isLoading = true) {}
+                                            isLoading = true)
                                     }
                                 }
                             }

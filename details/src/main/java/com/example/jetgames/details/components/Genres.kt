@@ -12,7 +12,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
 import com.example.jetgames.core.domain.model.games.Genre
 
@@ -29,7 +28,7 @@ fun Genres(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
             text = stringResource(id = R.string.genres),
             style = MaterialTheme.typography.h6,
             maxLines = 1,
@@ -40,7 +39,7 @@ fun Genres(
 
         Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_8)),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 12.dp)) {
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8))) {
             genres.forEach { genre ->
                 Text(
                     modifier = Modifier

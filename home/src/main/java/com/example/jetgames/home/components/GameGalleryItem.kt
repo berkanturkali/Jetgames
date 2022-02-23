@@ -57,7 +57,7 @@ fun GameGalleryItem(
     game: Game,
     imageLoader: ImageLoader,
     isLoading: Boolean = false,
-    onItemClick: (Int) -> Unit,
+    onItemClick: ((Int, List<String?>?) -> Unit)? = null,
 ) {
 
     val dominantColorState = rememberDominantColorState()
@@ -75,7 +75,10 @@ fun GameGalleryItem(
         modifier = modifier.padding(8.dp),
         elevation = dimensionResource(id = R.dimen.dimen_8),
         shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_16)),
-        onClick = { onItemClick.invoke(game.id!!) }
+        onClick = {
+            val screenShots = game.screenShots?.map { it?.image }
+            onItemClick?.invoke(game.id!!, screenShots)
+        }
     ) {
         Column(
             modifier = Modifier
@@ -360,7 +363,7 @@ fun GameGalleryPrev() {
             rating_top = 5,
             ratingsCount = 4986,
             released = "12 Dec 2021"
-        ), imageLoader = LocalImageLoader.current) {}
+        ), imageLoader = LocalImageLoader.current)
 
     }
 }

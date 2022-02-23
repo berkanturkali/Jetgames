@@ -1,15 +1,20 @@
 package com.example.jetgames.navigation.graph
 
+import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import coil.ImageLoader
+import com.example.jetgames.core.domain.model.navargs.DetailsArgs
 import com.example.jetgames.details.ui.DetailScreen
 import com.example.jetgames.home.ui.Home
 import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Screen
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 fun NavGraphBuilder.homeNavGraph(
     navController: NavHostController,
@@ -23,14 +28,17 @@ fun NavGraphBuilder.homeNavGraph(
 
 fun NavGraphBuilder.addHomeScreen(
     navController: NavController,
-    imageLoader: ImageLoader
+    imageLoader: ImageLoader,
 ) {
     composable(
         route = Screen.HomeScreen.route
     ) {
         //home screen
-        Home(imageLoader = imageLoader, navigateToDetailScreen = {id->
-            navController.navigate("${Screen.DetailScreen.route}/$id")
+        Home(imageLoader = imageLoader, navigateToDetailScreen = {id,list->
+            val detailsArgs = DetailsArgs(id,list)
+            val moshi  = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+            val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
+            navController.navigate("${Screen.DetailScreen.route}/$args")
         })
     }
 }
@@ -41,7 +49,7 @@ fun NavGraphBuilder.addDetailScreen(
 
 ) {
     composable(
-        route = Screen.DetailScreen.route + "/{id}",
+        route = Screen.DetailScreen.route + "/{detailArgs}",
         arguments = Screen.DetailScreen.arguments
     ) {
         //detail screen

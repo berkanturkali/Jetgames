@@ -7,6 +7,7 @@ plugins {
     kotlin(kotlinKapt)
     daggerHilt
     id("com.google.secrets_gradle_plugin") version "0.6.1"
+    parcelize
 }
 
 android {
@@ -59,6 +60,7 @@ dependencies {
 
     //network
     implementation(Dependencies.Network.retrofit)
+    implementation(Dependencies.Network.moshi)
     testImplementation(Dependencies.Network.moshi)
     testImplementation(Dependencies.Network.retrofitMoshi)
     testImplementation(Dependencies.Test.mockWebServer)
@@ -75,6 +77,11 @@ dependencies {
 
     //timber
     implementation(Dependencies.Logger.timber)
+
+    //navigation
+    implementation(Dependencies.Navigation.navigation)
+    implementation(Dependencies.Accompanist.navigation)
+
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")

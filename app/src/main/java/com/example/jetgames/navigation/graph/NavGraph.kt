@@ -11,12 +11,13 @@ import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Routes.ROOT_GRAPH_ROUTE
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
+import com.squareup.moshi.Moshi
 
 @Composable
 fun SetupNavGraph(
     navController: NavHostController,
     bottomSheetNavigator: BottomSheetNavigator,
-    imageLoader:ImageLoader
+    imageLoader:ImageLoader,
 ) {
     ModalBottomSheetLayout(
         bottomSheetNavigator = bottomSheetNavigator,

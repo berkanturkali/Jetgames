@@ -1,6 +1,5 @@
 import BuildType.Companion.DEBUG
 import BuildType.Companion.RELEASE
-import ProjectLib.common
 import ProjectLib.core
 
 plugins {
@@ -62,6 +61,8 @@ dependencies {
 
     //compose
     implementation(Dependencies.Compose.composeMaterial)
+    implementation(Dependencies.Accompanist.pager)
+    implementation(Dependencies.Accompanist.pagerIndicator)
 
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
