@@ -2,7 +2,10 @@ package com.example.jetgames.details.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -11,14 +14,17 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.common.ui.theme.LightGray
+import com.example.jetgames.common.ui.theme.XXLightGray
 
 @Composable
 fun Description(
@@ -54,33 +60,43 @@ fun Description(
             cutDesc = description.substring(startIndex = 0, endIndex = lastCharIndex)
         }
     }
-    Box(modifier) {
-        Text(
-            text = cutDesc ?: description,
-            maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
-            overflow = TextOverflow.Ellipsis,
-            onTextLayout = { textLayoutResultState.value = it },
-            style = MaterialTheme.typography.body1,
+
+    Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_16))) {
+
+        Text(text = stringResource(id = R.string.description),
+            style = MaterialTheme.typography.h6,
             color = MaterialTheme.colors.onPrimary)
-        if (!isExpanded) {
-            val density = LocalDensity.current
-            Text(text = "... See more",
-                color = LightGray,
-                onTextLayout = { seeMoreSizeState.value = it.size },
-                modifier = Modifier
-                    .then(
-                        if (seeMoreOffset != null)
-                            Modifier.offset(
-                                x = with(density) { seeMoreOffset.x.toDp() },
-                                y = with(density) { seeMoreOffset.y.toDp() },
-                            )
-                        else Modifier
-                    )
-                    .clickable {
-                        isExpanded = true
-                        cutDesc = null
-                    }
-                    .alpha(if (seeMoreOffset != null) 1f else 0f))
+
+        Divider(thickness = 0.5.dp, color = XXLightGray)
+
+        Box(modifier) {
+            Text(
+                text = cutDesc ?: description,
+                maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
+                overflow = TextOverflow.Ellipsis,
+                onTextLayout = { textLayoutResultState.value = it },
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onPrimary)
+            if (!isExpanded) {
+                val density = LocalDensity.current
+                Text(text = "... See more",
+                    color = LightGray,
+                    onTextLayout = { seeMoreSizeState.value = it.size },
+                    modifier = Modifier
+                        .then(
+                            if (seeMoreOffset != null)
+                                Modifier.offset(
+                                    x = with(density) { seeMoreOffset.x.toDp() },
+                                    y = with(density) { seeMoreOffset.y.toDp() },
+                                )
+                            else Modifier
+                        )
+                        .clickable {
+                            isExpanded = true
+                            cutDesc = null
+                        }
+                        .alpha(if (seeMoreOffset != null) 1f else 0f))
+            }
         }
     }
 }
