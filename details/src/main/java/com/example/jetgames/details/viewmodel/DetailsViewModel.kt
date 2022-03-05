@@ -9,6 +9,7 @@ import com.example.jetgames.core.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,33 +21,37 @@ class DetailsViewModel @Inject constructor(
 
     private val _game = MutableLiveData<Resource<GameDetails>>()
 
-    val game:LiveData<Resource<GameDetails>> get() = _game
+    val game: LiveData<Resource<GameDetails>> get() = _game
 
     private val _screenShots = MutableLiveData<List<String?>>()
 
-    val screenShots:LiveData<List<String?>> get() = _screenShots
+    val screenShots: LiveData<List<String?>> get() = _screenShots
+
+    var id = -1
+
     init {
-        savedStateHandle.get<DetailsArgs>("detailArgs")?.let{
-            game(it.id)
+        savedStateHandle.get<DetailsArgs>("detailArgs")?.let {
+            id = it.id
+            game(id)
             setScreenshots(it.screenshots)
         }
     }
 
-    private fun setScreenshots(screenshots:List<String?>?){
-        if(screenshots != null && screenshots.isNotEmpty()) {
+    private fun setScreenshots(screenshots: List<String?>?) {
+        if (screenshots != null && screenshots.isNotEmpty()) {
             _screenShots.value = screenshots
         }
     }
 
-    private fun game(id:Int){
+    fun game(id: Int) {
         _game.value = Resource.Loading()
-        try{
-          viewModelScope.launch(postExecutionThread.main){
-              val gameDetail = withContext(postExecutionThread.io){repo.game(id)}
-              _game.value = Resource.Success(gameDetail)
-          }
-        }catch (exception:Throwable){
-            _game.value = Resource.Error(exception.localizedMessage ?: "Something went wrong")
+        viewModelScope.launch(postExecutionThread.main) {
+        try {
+                val gameDetail = withContext(postExecutionThread.io) { repo.game(id) }
+                _game.value = Resource.Success(gameDetail)
+            } catch (exception:Throwable){
+                _game.value = Resource.Error(exception.localizedMessage ?: "Something went wrong")
+            }
         }
     }
 }

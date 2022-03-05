@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.ImageLoader
+import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.util.Resource
 import com.example.jetgames.details.components.*
@@ -26,75 +28,100 @@ fun DetailScreen(
     val screenshots = viewModel.screenShots.observeAsState()
     val game = viewModel.game.observeAsState()
 
-    Column(modifier = modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())) {
+    val scrollState = rememberScrollState()
 
-        when (game.value) {
-            is Resource.Success -> {
-                if (game.value?.data != null) {
-                    val gameDetail = game.value!!.data
-                    //image
-                    DetailScreenImageSection(imageLoader = imageLoader,
-                        imageUrl = gameDetail!!.background_image, screenshots = screenshots.value, isScreenShotsVisible = screenshots.value != null && screenshots.value!!.isNotEmpty())
+    DefaultScreenUI {
 
-                    //name
-                    val rating = gameDetail.ratings?.maxByOrNull {
-                        it?.percent!!
-                    }
-                    if (gameDetail.name != null) {
-                        Name(name = gameDetail.name, icon = rating?.icon)
-                    }
-                    //Rating & Metascore
-                    if (gameDetail.metacritic != null && gameDetail.rating != null) {
-                        RatingMetacriticSection(metacritic = gameDetail.metacritic!!,
-                            metacriticColor = gameDetail.calculateRgbFromMetacritic()!!,
-                            rating = gameDetail.rating!!,
-                            ratingColor = gameDetail.calculateRgbFromRating()!!)
-                    }
+        Column(modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)) {
 
-                    //Ratingbar
-                    if (!gameDetail.ratings.isNullOrEmpty()) {
-                        RatingBar(ratings = gameDetail.ratings!!)
-                    }
+            when (game.value) {
+                is Resource.Success -> {
+                    if (game.value?.data != null) {
+                        val gameDetail = game.value!!.data
+                        //image
+                        if (gameDetail?.background_image != null || (screenshots.value != null && screenshots.value!!.isNotEmpty())) {
+                            DetailScreenImageSection(
+                                imageLoader = imageLoader,
+                                imageUrl = gameDetail!!.background_image,
+                            )
+                        }
 
-                    //Platforms
-                    gameDetail.parent_platforms?.let {
-                        if (it.isNotEmpty()) {
-                            Platforms(platforms = gameDetail.parent_platforms!!)
+                        //name
+                        val rating = gameDetail?.ratings?.maxByOrNull {
+                            it?.percent!!
+                        }
+                        if (gameDetail?.name != null) {
+                            Name(name = gameDetail.name, icon = rating?.icon)
+                        }
+                        //Rating & Metascore
+                        if (gameDetail?.metacritic != null && gameDetail.rating_top != null) {
+                            RatingMetacriticSection(metacritic = gameDetail.metacritic!!,
+                                metacriticColor = gameDetail.calculateRgbFromMetacritic()!!,
+                                rating = gameDetail.rating_top!!,
+                                ratingColor = gameDetail.calculateRgbFromRating()!!)
+                        }
+
+                        //Ratingbar
+                        if (!gameDetail?.ratings.isNullOrEmpty()) {
+                            RatingBar(ratings = gameDetail?.ratings!!)
+                        }
+
+                        //Platforms
+                        gameDetail?.parent_platforms?.let {
+                            if (it.isNotEmpty()) {
+                                Platforms(platforms = gameDetail.parent_platforms!!)
+                            }
+                        }
+
+                        //Screenshots
+                        screenshots.value?.let {
+                            if (it.isNotEmpty()) {
+                                Screenshots(imageLoader = imageLoader, screenshots = it)
+                            }
+                        }
+
+                        //Release
+                        gameDetail?.released?.let {
+                            Released(released = it)
+                        }
+
+                        //Genres
+                        gameDetail?.genres?.let {
+                            if (it.isNotEmpty()) {
+                                Genres(genres = it)
+                            }
+                        }
+
+                        //Description
+                        if (gameDetail?.description != null) {
+                            Description(modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.dimen_16),
+                                horizontal = dimensionResource(
+                                    id = R.dimen.dimen_16)), description = gameDetail.description!!)
                         }
                     }
-
-                    //Release
-                    gameDetail.released?.let {
-                        Released(released = it)
-                    }
-
-                    //Genres
-                    gameDetail.genres?.let {
-                        if (it.isNotEmpty()) {
-                            Genres(genres = it)
+                }
+                is Resource.Error -> {
+                    Column(modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.Center) {
+                        ErrorItem(message = game.value?.error!!,
+                            modifier = Modifier.fillMaxWidth()) {
+                            viewModel.game(viewModel.id)
                         }
                     }
-
-                    //Description
-                    if (gameDetail.description != null) {
-                        Description(modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.dimen_16),
-                            horizontal = dimensionResource(
-                                id = R.dimen.dimen_16)), description = gameDetail.description!!)
+                }
+                is Resource.Loading -> {
+                    Column(modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.Center) {
+                        LoadingItem(modifier = Modifier
+                            .fillMaxWidth()
+                            .align(CenterHorizontally))
                     }
-                }
-            }
-            is Resource.Error -> {}
-            is Resource.Loading -> {
-                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
-                    LoadingItem(modifier = Modifier
-                        .fillMaxWidth()
-                        .align(CenterHorizontally))
-                }
 
+                }
+                null -> {}
             }
-            null -> {}
         }
     }
 }

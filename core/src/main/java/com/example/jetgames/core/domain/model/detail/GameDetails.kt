@@ -21,20 +21,19 @@ data class GameDetails(
     val stores: List<Store?>?,
     val tags: List<Tag?>?,
     val website: String?,
-){
+) {
 
     fun calculateRgbFromRating(): Color? {
-        return rating?.let {
-            val intensity = 2 * (rating * 10).toInt()
-            val percent = intensity * 0.01
+        return rating_top?.let {
+            val percent = if (rating_top == 1) (rating_top - 1) * 0.2 else rating_top * 0.2
             val red = 255
-            val green = (percent * 255 * 2)
+            val green = percent * 255
             val blue = 0
-            Color(red, minOf(255, green.toInt()), blue)
+            Color(red, green.toInt(), blue)
         }
     }
 
-    fun calculateRgbFromMetacritic(): Color?{
+    fun calculateRgbFromMetacritic(): Color? {
         return metacritic?.let {
             val percent = metacritic * 0.01
             val red = (255 - (percent * 255)) * 2

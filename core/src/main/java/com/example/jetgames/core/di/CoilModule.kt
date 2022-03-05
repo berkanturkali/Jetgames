@@ -13,7 +13,7 @@ import javax.inject.Singleton
 interface CoilModule {
 
     companion object{
-        @[Provides Singleton]
+        @Provides
         fun provideImageLoader(app: Application) = ImageLoader.Builder(app)
             .error(R.drawable.ic_error)
             .placeholder(R.drawable.ic_game)
