@@ -3,52 +3,25 @@ package com.example.jetgames.home.components
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
-import coil.compose.rememberImagePainter
 import com.example.jetgames.common.R
 import com.example.jetgames.common.components.RatingTop
 import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.common.ui.theme.XLightGray
 import com.example.jetgames.core.domain.model.games.*
 import com.example.jetgames.home.rememberDominantColorState
 import com.example.jetgames.home.verticalGradientScrim
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.placeholder.shimmer
 
 @Composable
 fun GameGalleryItem(
@@ -157,195 +130,6 @@ fun GameGalleryItem(
         }
     }
 }
-
-@Composable
-fun GameImage(
-    modifier: Modifier = Modifier,
-    description: String?,
-    image: String?,
-    imageLoader: ImageLoader,
-    isLoading: Boolean = false,
-) {
-    val painter = rememberImagePainter(
-        data = image,
-        imageLoader = imageLoader,
-        builder = { crossfade(true) }
-    )
-
-    Image(
-        modifier = modifier
-            .placeholder(visible = isLoading, highlight = PlaceholderHighlight.shimmer(XLightGray))
-            .height(300.dp)
-            .fillMaxWidth(),
-        alignment = Alignment.Center,
-        contentScale = ContentScale.Crop,
-        painter = painter,
-        contentDescription = description)
-}
-
-@Composable
-fun Platforms(
-    modifier: Modifier = Modifier,
-    platforms: List<ParentPlatform?>? = null,
-) {
-    if (platforms != null) {
-        val platformLogos = platformLogo(platforms = platforms)
-
-        LazyRow(modifier = modifier) {
-            items(items = platformLogos) { platformLogo ->
-                PlatformLogoItem(platformImageResource = platformLogo, size = 21.dp)
-            }
-        }
-    }
-}
-
-@Composable
-fun MetaCritic(
-    metaCritic: Int,
-    ratingColor: Color,
-    modifier: Modifier = Modifier,
-    fontSize: TextUnit = 18.sp,
-    childModifier: Modifier = Modifier,
-    isLoading: Boolean,
-) {
-    Card(
-        modifier = modifier,
-        elevation = 8.dp,
-        border = if (!isLoading) BorderStroke(1.dp, ratingColor) else BorderStroke(0.dp,
-            Color.Transparent),
-        shape = RoundedCornerShape(6.dp),
-        backgroundColor = Color.Transparent,
-    ) {
-        Text(
-            modifier = childModifier,
-            text = metaCritic.toString(),
-            fontSize = fontSize,
-            style = MaterialTheme.typography.h3,
-            maxLines = 1,
-            textAlign = TextAlign.Center,
-            color = ratingColor
-        )
-    }
-}
-
-@Composable
-fun Name(
-    modifier: Modifier = Modifier,
-    name: String?,
-    icon: String?,
-    size: TextUnit = 24.sp,
-) {
-    val id = "inlineContent"
-    val text = buildAnnotatedString {
-        name?.let {
-            append(it)
-        }
-        appendInlineContent(id, "[icon]")
-    }
-
-    val content = mapOf(
-        Pair(
-            id,
-            InlineTextContent(
-                Placeholder(width = 20.sp,
-                    height = 20.sp,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.Center)
-            ) {
-                icon?.let {
-                    Text(text = icon)
-                }
-            }
-        )
-    )
-    Text(
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(horizontal = 12.dp,
-                vertical = dimensionResource(
-                    id = R.dimen.dimen_8)),
-        text = text,
-        inlineContent = content,
-        fontSize = size,
-        maxLines = 2,
-        style = MaterialTheme.typography.h3,
-        overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colors.onPrimary
-    )
-}
-
-@Composable
-fun ReleaseDate(
-    released: String?,
-    size: TextUnit = 14.sp,
-) {
-    Text(
-        modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
-        text = stringResource(id = R.string.release_date),
-        fontSize = size,
-        style = MaterialTheme.typography.body1,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colors.onPrimary
-    )
-
-    Text(
-        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-        text = released ?: "",
-        fontSize = size,
-        style = MaterialTheme.typography.h5,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colors.onPrimary
-    )
-}
-
-@Composable
-fun Genres(
-    genres: List<Genre?>? = null,
-    fontSize: TextUnit = 14.sp,
-    color: Color,
-) {
-    Text(
-        modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
-        text = stringResource(id = R.string.genres),
-        fontSize = fontSize,
-        style = MaterialTheme.typography.body1,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colors.onPrimary
-    )
-
-    Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_8)),
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(horizontal = 12.dp)) {
-        genres?.forEach { genre ->
-            Text(
-                modifier = Modifier
-                    .shadow(elevation = dimensionResource(id = R.dimen.dimen_4),
-                        shape = CircleShape,
-                        clip = false)
-                    .background(Brush.verticalGradient(listOf(color, color.copy(alpha = 0.6f))),
-                        shape = CircleShape)
-                    .padding(horizontal = dimensionResource(
-                        id = R.dimen.dimen_8),
-                        vertical = dimensionResource(id = R.dimen.dimen_4)),
-                text = genre?.name.toString(),
-                fontSize = fontSize,
-                style = MaterialTheme.typography.h5,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Start,
-                color = MaterialTheme.colors.onPrimary
-            )
-        }
-    }
-}
-
 
 @Preview
 @Composable
