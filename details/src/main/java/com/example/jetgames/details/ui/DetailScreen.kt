@@ -23,6 +23,7 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailsViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
+    navigateToScreenshots: ((screenshots:List<String?>,page:Int) -> Unit)? = null
 ) {
 
     val screenshots = viewModel.screenShots.observeAsState()
@@ -78,7 +79,7 @@ fun DetailScreen(
                         //Screenshots
                         screenshots.value?.let {
                             if (it.isNotEmpty()) {
-                                Screenshots(imageLoader = imageLoader, screenshots = it)
+                                Screenshots(imageLoader = imageLoader, screenshots = it,onScreenshotClicked = navigateToScreenshots)
                             }
                         }
 

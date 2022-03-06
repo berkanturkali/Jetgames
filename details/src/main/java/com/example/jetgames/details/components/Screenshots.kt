@@ -1,10 +1,9 @@
 package com.example.jetgames.details.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
@@ -12,8 +11,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -28,6 +25,7 @@ fun Screenshots(
     modifier: Modifier = Modifier,
     imageLoader: ImageLoader,
     screenshots: List<String?>,
+    onScreenshotClicked: ((screenshots: List<String?>, page: Int) -> Unit)? = null,
 ) {
 
     Column(
@@ -46,7 +44,11 @@ fun Screenshots(
                 dimensionResource(id = R.dimen.dimen_8))) {
             items(screenshots.size) {
                 Card(
-                    modifier = Modifier.wrapContentSize(),
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .clickable {
+                            onScreenshotClicked?.invoke(screenshots,it)
+                        },
                     shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_8))) {
                     val painter =
                         rememberImagePainter(data = screenshots.get(it), imageLoader = imageLoader)

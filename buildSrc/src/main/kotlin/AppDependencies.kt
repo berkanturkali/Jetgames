@@ -4,6 +4,7 @@ import Dependencies.Accompanist.Version.pagerIndicatorVersion
 import Dependencies.Accompanist.Version.pagerVersion
 import Dependencies.Accompanist.Version.placeholderVersion
 import Dependencies.Accompanist.Version.swipeRefreshVersion
+import Dependencies.Compose.Version.util
 import Dependencies.Lottie.Version.lottieVersion
 
 const val kotlinAndroid: String = "android"
@@ -40,8 +41,10 @@ object Dependencies {
             const val activityVersion = "1.4.0"
             const val composeLiveData = "1.2.0-alpha02"
             const val constraintLayoutVersion = "1.0.0"
+            const val util = "1.2.0.alpha-04"
         }
 
+        const val composeUiUtil = "androidx.compose.ui:ui-util:$util"
         const val activity = "androidx.activity:activity-compose:${Version.activityVersion}"
         const val composeUiPreview = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
@@ -179,7 +182,8 @@ object Dependencies {
         }
 
         const val pager = "com.google.accompanist:accompanist-pager:$pagerVersion"
-        const val pagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$pagerIndicatorVersion"
+        const val pagerIndicator =
+            "com.google.accompanist:accompanist-pager-indicators:$pagerIndicatorVersion"
         const val placeholder =
             "com.google.accompanist:accompanist-placeholder-material:$placeholderVersion"
         const val animations =
@@ -200,7 +204,7 @@ object Dependencies {
 
     object Navigation {
         object Version {
-            const val navigationVersion = "2.4.0-alpha10"
+            const val navigationVersion = "2.4.1"
         }
 
         const val navigation = "androidx.navigation:navigation-compose:${Version.navigationVersion}"

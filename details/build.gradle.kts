@@ -63,6 +63,7 @@ dependencies {
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Accompanist.pager)
     implementation(Dependencies.Accompanist.pagerIndicator)
+    implementation(Dependencies.Compose.composeUiUtil)
 
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
