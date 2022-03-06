@@ -17,6 +17,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.EmptyItem
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.common.ui.theme.XXLightGray
@@ -37,7 +38,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun Home(
     viewModel: HomeViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
-    navigateToDetailScreen: ((Int,List<String?>?) -> Unit)?  = null,
+    navigateToDetailScreen: ((Int, List<String?>?) -> Unit)? = null,
 ) {
 
     val homeState by viewModel.homeState.collectAsState()
@@ -50,14 +51,14 @@ fun Home(
 
     val listState = rememberLazyListState()
 
-    val query = homeState.homeFilterPreferences.query
-
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
 
-    DefaultScreenUI(toolbar = { HomeToolbar(
-        galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
-        viewModel = viewModel
-    ) }) {
+    DefaultScreenUI(toolbar = {
+        HomeToolbar(
+            galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
+            viewModel = viewModel
+        )
+    }) {
         SwipeRefresh(state = swipeRefreshState, onRefresh = games::refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -147,6 +148,12 @@ fun Home(
                                     message = e.error.localizedMessage
                                         ?: stringResource(id = R.string.something_went_wrong),
                                     onRetryClick = games::retry)
+                            }
+                        }
+                        loadState.source.refresh is LoadState.NotLoading && games.itemCount == 0 -> {
+                            item {
+                                EmptyItem(modifier = Modifier.fillParentMaxSize(),
+                                    query = homeState.homeFilterPreferences.query)
                             }
                         }
                     }
