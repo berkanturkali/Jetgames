@@ -9,6 +9,7 @@ import java.io.IOException
 
 class GamesPagingSource constructor(
     private val gamesRemote: GamesRemote,
+    private val query:String?
 ) : PagingSource<Int, GameDto>() {
     override fun getRefreshKey(state: PagingState<Int, GameDto>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -21,7 +22,7 @@ class GamesPagingSource constructor(
         val page = params.key ?: 1
         val take = 20
         return try {
-            val response = gamesRemote.fetchGames(page,take)
+            val response = gamesRemote.fetchGames(page,take,query)
             val prevKey = if (page == 1) null else page - 1
             val nextKey = if (response.isEmpty()) null else page + 1
             LoadResult.Page(

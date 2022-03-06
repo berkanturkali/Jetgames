@@ -1,41 +1,51 @@
 package com.example.jetgames.home.components
 
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.JetgamesTheme
+import com.example.jetgames.home.viewmodel.HomeViewModel
 
 @Composable
 fun HomeToolbar(
     modifier: Modifier = Modifier,
-    galleryListToggleClick :() ->Unit,
+    galleryListToggleClick: () -> Unit,
+    viewModel: HomeViewModel,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    var query by rememberSaveable {
+        mutableStateOf<String?>(null)
+    }
 
     Surface(modifier = modifier
         .fillMaxWidth()
@@ -49,8 +59,11 @@ fun HomeToolbar(
                 .fillMaxWidth(.9f)
                 .padding(dimensionResource(id = R.dimen.dimen_8)),
                 shape = androidx.compose.foundation.shape.CircleShape,
-                value = "",
-                onValueChange = { /* will be implemented*/ },
+                value = query ?: "",
+                onValueChange = {
+                    query = it.ifEmpty { null }
+                    viewModel.setQuery(it.ifEmpty { null })
+                },
                 label = {
                     Text(text = stringResource(id = R.string.search),
                         modifier = Modifier.align(CenterVertically),
@@ -74,7 +87,26 @@ fun HomeToolbar(
                 TextFieldDefaults.textFieldColors(
                     backgroundColor = MaterialTheme.colors.primaryVariant.copy(alpha = 0.1f),
                     focusedIndicatorColor = Color.White,
-                    unfocusedIndicatorColor = Color.Transparent)
+                    cursorColor = MaterialTheme.colors.onPrimary,
+                    unfocusedIndicatorColor = Color.Transparent),
+                trailingIcon = {
+                    AnimatedVisibility(
+                        enter = scaleIn(),
+                        exit = scaleOut(),
+                        visible = !query.isNullOrEmpty() || !query.isNullOrBlank()) {
+                        Icon(tint = MaterialTheme.colors.onPrimary,
+                            painter = painterResource(id = R.drawable.ic_clear),
+                            contentDescription = stringResource(
+                                id = R.string.clear_query),
+                            modifier = Modifier
+                                .padding(horizontal = dimensionResource(id = R.dimen.dimen_8))
+                                .clickable {
+                                    query = null
+                                    viewModel.setQuery(null)
+                                })
+                    }
+                },
+                singleLine = true
             )
 
             Row(modifier = Modifier
@@ -85,7 +117,7 @@ fun HomeToolbar(
                     .clickable { galleryListToggleClick.invoke() },
                     imageVector = Icons.Filled.GridView,
                     contentDescription = "Gallery/List Mode",
-                    tint = MaterialTheme.colors.onPrimary.copy(alpha=0.7f))
+                    tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f))
             }
         }
     }
@@ -95,6 +127,9 @@ fun HomeToolbar(
 @Composable
 fun HomeToolbarPrev() {
     JetgamesTheme {
-        HomeToolbar(){}
+        HomeToolbar(
+            galleryListToggleClick = {},
+            viewModel = hiltViewModel()
+        )
     }
 }

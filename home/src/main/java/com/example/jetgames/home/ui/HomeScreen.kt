@@ -44,15 +44,20 @@ fun Home(
 
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = homeState.isRefreshing)
 
-    val isGalleryMode = homeState.isGalleryMode
+    val isGalleryMode = homeState.homeViewPreferences.isGalleryMode
 
     val games: LazyPagingItems<GameModel> = viewModel.games.collectAsLazyPagingItems()
 
     val listState = rememberLazyListState()
 
+    val query = homeState.homeFilterPreferences.query
+
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
 
-    DefaultScreenUI(toolbar = { HomeToolbar(galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) }) }) {
+    DefaultScreenUI(toolbar = { HomeToolbar(
+        galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
+        viewModel = viewModel
+    ) }) {
         SwipeRefresh(state = swipeRefreshState, onRefresh = games::refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -129,7 +134,7 @@ fun Home(
                             item {
                                 ErrorItem(modifier = Modifier.fillParentMaxSize(),
                                     message = e.error.localizedMessage
-                                        ?: stringResource(id = com.example.jetgames.common.R.string.something_went_wrong),
+                                        ?: stringResource(id = R.string.something_went_wrong),
                                     onRetryClick = games::retry)
                             }
                         }
@@ -140,7 +145,7 @@ fun Home(
                                     .fillParentMaxWidth()
                                     .wrapContentHeight(),
                                     message = e.error.localizedMessage
-                                        ?: stringResource(id = com.example.jetgames.common.R.string.something_went_wrong),
+                                        ?: stringResource(id = R.string.something_went_wrong),
                                     onRetryClick = games::retry)
                             }
                         }

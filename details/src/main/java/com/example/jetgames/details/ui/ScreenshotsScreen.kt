@@ -9,6 +9,7 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -20,6 +21,7 @@ import com.example.jetgames.details.viewmodel.ScreenshotsViewModel
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @Composable
@@ -31,7 +33,7 @@ fun ScreenshotsScreen(
 
     val screenshotsAndPage by viewModel.screenshotsAndPage.observeAsState()
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(initialPage = screenshotsAndPage?.selectedPage ?: 0)
 
     //screenshots
     HorizontalPager(screenshotsAndPage?.screenshots!!.size, state = pagerState) { page ->

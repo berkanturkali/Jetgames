@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GamesRemoteImpl @Inject constructor(
     private val apiService: ApiService,
 ) : GamesRemote {
-    override suspend fun fetchGames(page: Int, size: Int): List<GameDto> {
-        return apiService.fetchGames(page, size).results
+    override suspend fun fetchGames(page: Int, size: Int,query:String?): List<GameDto> {
+        return apiService.fetchGames(page, size,query = query).results
     }
 }

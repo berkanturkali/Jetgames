@@ -1,6 +1,9 @@
 package com.example.jetgames.home.state
 
+import com.example.jetgames.core.domain.model.games.preferences.HomePreferences
+
 data class HomeState(
     var isRefreshing:Boolean =false,
-    var isGalleryMode:Boolean = false
+    val homeViewPreferences: HomePreferences.HomeViewPreferences = HomePreferences.HomeViewPreferences(),
+    val homeFilterPreferences: HomePreferences.HomeFilterPreferences = HomePreferences.HomeFilterPreferences()
 )

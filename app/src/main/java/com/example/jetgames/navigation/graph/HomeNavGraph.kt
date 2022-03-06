@@ -48,7 +48,6 @@ fun NavGraphBuilder.addHomeScreen(
 fun NavGraphBuilder.addDetailScreen(
     navController: NavController,
     imageLoader: ImageLoader,
-
     ) {
     composable(
         route = Screen.DetailScreen.route + "/{detailArgs}",

@@ -7,6 +7,7 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.core.domain.model.games.lowerBound
+import com.example.jetgames.core.domain.model.games.preferences.HomePreferences
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
 import com.example.jetgames.home.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,16 +22,24 @@ class HomeViewModel @Inject constructor(
 
     private val _refreshing = MutableStateFlow(false)
 
-    private val _isGridMode = MutableStateFlow(false)
+    private val _homeViewPreferences = MutableStateFlow(HomePreferences.HomeViewPreferences())
 
-    private val _homeState = MutableStateFlow<HomeState>(HomeState())
+    private val _homeFilterPreferences = MutableStateFlow(HomePreferences.HomeFilterPreferences())
+
+    private val _homeState = MutableStateFlow(HomeState())
+
+    private val _query = MutableStateFlow<String?>(null)
 
     val homeState: StateFlow<HomeState> get() = _homeState
 
     init {
         viewModelScope.launch {
-            combine(_refreshing, _isGridMode) { refreshing, isGridMode ->
-                HomeState(isRefreshing = refreshing, isGalleryMode = isGridMode)
+            combine(_refreshing,
+                _homeViewPreferences,
+                _homeFilterPreferences) { refreshing, viewPreferences, filterPreferences ->
+                HomeState(isRefreshing = refreshing,
+                    homeViewPreferences = viewPreferences,
+                    homeFilterPreferences = filterPreferences)
             }
                 .catch { throwable ->
                 }
@@ -38,45 +47,60 @@ class HomeViewModel @Inject constructor(
                     _homeState.value = it
                 }
         }
+        _query
+            .debounce(300)
+            .map {
+                it?.trim()
+            }
+            .onEach {
+                _homeFilterPreferences.value = _homeFilterPreferences.value.copy(query = it)
+            }.launchIn(viewModelScope)
     }
 
-    val games = useCase.execute()
-        .map { pagingData ->
-            pagingData.map {
-                GameModel.GameItem(it)
+    val games = _homeFilterPreferences.flatMapLatest {
+        useCase.execute(it)
+            .map { pagingData ->
+                pagingData.map {
+                    GameModel.GameItem(it)
+                }
             }
-        }
-        .map {
-            it.insertSeparators { before, after ->
-                if (after == null) {
-                    return@insertSeparators null
-                }
-                if (before == null) {
-                    return@insertSeparators GameModel.SeparatorItem("95-99 Metascore")
-                }
-                if (before.game.metaCritic != null) {
-                    val lower = before.lowerBound()
-                    if (after.game.metaCritic != null) {
-                        if (after.game.metaCritic!! < lower) {
-                            GameModel.SeparatorItem("${lower - 5}-${lower -1} Metascore")
+    }
+            .map {
+                it.insertSeparators { before, after ->
+                    if (after == null) {
+                        return@insertSeparators null
+                    }
+                    if (before == null) {
+                        return@insertSeparators GameModel.SeparatorItem("95-99 Metascore")
+                    }
+                    if (before.game.metaCritic != null) {
+                        val lower = before.lowerBound()
+                        if (after.game.metaCritic != null) {
+                            if (after.game.metaCritic!! < lower) {
+                                GameModel.SeparatorItem("${lower - 5}-${lower - 1} Metascore")
+                            } else {
+                                null
+                            }
                         } else {
                             null
                         }
                     } else {
                         null
                     }
-                } else {
-                    null
                 }
-            }
-        }.cachedIn(viewModelScope)
+            }.cachedIn(viewModelScope)
 
 
-    fun setRefresh(isRefreshing: Boolean) {
-        _refreshing.value = isRefreshing
+        fun setRefresh(isRefreshing: Boolean) {
+            _refreshing.value = isRefreshing
+        }
+
+        fun setGalleryMode(isGalleryMode: Boolean) {
+            _homeViewPreferences.value =
+                _homeViewPreferences.value.copy(isGalleryMode = isGalleryMode)
+        }
+
+        fun setQuery(query: String?) {
+            _query.value = query
+        }
     }
-
-    fun setGalleryMode(isGalleryMode:Boolean){
-        _isGridMode.value = isGalleryMode
-    }
-}

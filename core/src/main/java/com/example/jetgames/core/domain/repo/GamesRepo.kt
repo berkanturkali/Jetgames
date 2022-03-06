@@ -6,5 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GamesRepo {
 
-    fun fetchGames(): Flow<PagingData<Game>>
+    fun fetchGames(
+        query:String?,
+    ): Flow<PagingData<Game>>
 }

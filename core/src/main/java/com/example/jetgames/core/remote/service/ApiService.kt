@@ -5,6 +5,7 @@ import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.games.GameDto
 import com.example.jetgames.core.remote.model.games.GamesResponse
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -15,7 +16,9 @@ interface ApiService {
         @Query("page")page:Int,
         @Query("page_size") size:Int,
         @Query("key") key: String = BuildConfig.API_KEY,
-        @Query("ordering") ordering:String = "-metacritic"
+        @Query("ordering") ordering:String = "-metacritic",
+        @Query("search") query:String?,
+        @Query("search_exact") searchExact:Boolean = true
     ):GamesResponse
 
     @GET("games/{id}")
