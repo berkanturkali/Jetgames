@@ -1,13 +1,21 @@
 package com.example.jetgames.home.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -58,7 +66,25 @@ fun Home(
             galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
             viewModel = viewModel
         )
-    }) {
+    },
+        floatingActionButton = {
+            AnimatedVisibility(visible = listState.firstVisibleItemIndex > 0,
+                enter = scaleIn(),
+                exit = scaleOut()) {
+                FloatingActionButton(onClick = {
+
+                }, modifier = Modifier
+                    .wrapContentSize(align = Alignment.BottomEnd, unbounded = true)
+                    .padding(
+                        dimensionResource(id = R.dimen.dimen_32))) {
+                    Icon(painter = painterResource(id = R.drawable.ic_up),
+                        contentDescription = null,
+                        tint = Color.White)
+                }
+            }
+        }
+    ) {
+
         SwipeRefresh(state = swipeRefreshState, onRefresh = games::refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

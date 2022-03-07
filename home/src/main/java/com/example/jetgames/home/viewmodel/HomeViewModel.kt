@@ -65,42 +65,45 @@ class HomeViewModel @Inject constructor(
                 }
             }
     }
-            .map {
-                it.insertSeparators { before, after ->
-                    if (after == null) {
-                        return@insertSeparators null
+        .map {
+            it.insertSeparators { before, after ->
+                if (after == null) {
+                    return@insertSeparators null
+                }
+                if (before == null) {
+                    if (after.game.metaCritic != null) {
+                        val lower = after.lowerBound()
+                        return@insertSeparators GameModel.SeparatorItem("${lower}-${after.game.metaCritic} Metascore")
                     }
-                    if (before == null) {
-                        return@insertSeparators GameModel.SeparatorItem("95-99 Metascore")
-                    }
-                    if (before.game.metaCritic != null) {
-                        val lower = before.lowerBound()
-                        if (after.game.metaCritic != null) {
-                            if (after.game.metaCritic!! < lower) {
-                                GameModel.SeparatorItem("${lower - 5}-${lower - 1} Metascore")
-                            } else {
-                                null
-                            }
+                }
+                if (before?.game?.metaCritic != null) {
+                    val lower = before.lowerBound()
+                    if (after.game.metaCritic != null) {
+                        if (after.game.metaCritic!! < lower) {
+                            GameModel.SeparatorItem("${lower - 5}-${lower - 1} Metascore")
                         } else {
                             null
                         }
                     } else {
                         null
                     }
+                } else {
+                    null
                 }
-            }.cachedIn(viewModelScope)
+            }
+        }.cachedIn(viewModelScope)
 
 
-        fun setRefresh(isRefreshing: Boolean) {
-            _refreshing.value = isRefreshing
-        }
-
-        fun setGalleryMode(isGalleryMode: Boolean) {
-            _homeViewPreferences.value =
-                _homeViewPreferences.value.copy(isGalleryMode = isGalleryMode)
-        }
-
-        fun setQuery(query: String?) {
-            _query.value = query
-        }
+    fun setRefresh(isRefreshing: Boolean) {
+        _refreshing.value = isRefreshing
     }
+
+    fun setGalleryMode(isGalleryMode: Boolean) {
+        _homeViewPreferences.value =
+            _homeViewPreferences.value.copy(isGalleryMode = isGalleryMode)
+    }
+
+    fun setQuery(query: String?) {
+        _query.value = query
+    }
+}

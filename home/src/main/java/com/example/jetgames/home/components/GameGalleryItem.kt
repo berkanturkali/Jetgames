@@ -140,7 +140,7 @@ fun GameGalleryPrev() {
             esrbRating = EsrbRating(4, "Mature"),
             genres = listOf(Genre(47792, 2, "", "Shooter")),
             id = 3498,
-            metaCritic = 92,
+            metaCritic = 93,
             name = "The Witcher 3: Wild Hunt",
             parentPlatforms = listOf(ParentPlatform(Platform(1, "Pc"))),
             rating = 4.67,

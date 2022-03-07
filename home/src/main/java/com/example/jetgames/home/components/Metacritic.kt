@@ -1,5 +1,6 @@
 package com.example.jetgames.home.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -11,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jetgames.common.ui.theme.XLightGray
 
 
 @Composable
@@ -25,17 +27,19 @@ fun MetaCritic(
     Card(
         modifier = modifier,
         elevation = 8.dp,
+        border = if (!isLoading) BorderStroke(1.dp, ratingColor) else BorderStroke(0.dp,
+            Color.Transparent),
         shape = RoundedCornerShape(6.dp),
-        backgroundColor = if(isLoading) Color.Transparent else ratingColor,
+        backgroundColor = Color.Transparent,
     ) {
         Text(
             modifier = childModifier,
             text = metaCritic.toString(),
             fontSize = fontSize,
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.h3,
             maxLines = 1,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onPrimary
+            color = ratingColor
         )
     }
 }
