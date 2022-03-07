@@ -1,6 +1,8 @@
 package com.example.jetgames.core.domain.model.detail
 
 import androidx.compose.ui.graphics.Color
+import com.example.jetgames.common.util.calculateRgbFromMetacritic
+import com.example.jetgames.common.util.calculateRgbFromRating
 import com.example.jetgames.core.domain.model.games.*
 
 data class GameDetails(
@@ -24,22 +26,11 @@ data class GameDetails(
 ) {
 
     fun calculateRgbFromRating(): Color? {
-        return rating_top?.let {
-            val percent = if (rating_top == 1) (rating_top - 1) * 0.2 else rating_top * 0.2
-            val red = 255
-            val green = percent * 255
-            val blue = 0
-            Color(red, green.toInt(), blue)
-        }
+        return rating?.calculateRgbFromRating()
     }
 
+
     fun calculateRgbFromMetacritic(): Color? {
-        return metacritic?.let {
-            val percent = metacritic * 0.01
-            val red = (255 - (percent * 255)) * 2
-            val green = (percent * 255 * 2)
-            val blue = 0
-            Color(minOf(255, red.toInt()), minOf(255, green.toInt()), blue)
-        }
+        return metacritic?.calculateRgbFromMetacritic()
     }
 }

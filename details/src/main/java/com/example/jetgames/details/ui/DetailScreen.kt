@@ -17,6 +17,7 @@ import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.util.Resource
 import com.example.jetgames.details.components.*
 import com.example.jetgames.details.viewmodel.DetailsViewModel
+import java.text.DecimalFormat
 
 @Composable
 fun DetailScreen(
@@ -30,6 +31,8 @@ fun DetailScreen(
     val game = viewModel.game.observeAsState()
 
     val scrollState = rememberScrollState()
+
+    val df = DecimalFormat("0.#")
 
     DefaultScreenUI {
 
@@ -57,10 +60,11 @@ fun DetailScreen(
                             Name(name = gameDetail.name, icon = rating?.icon)
                         }
                         //Rating & Metascore
-                        if (gameDetail?.metacritic != null && gameDetail.rating_top != null) {
+                        if (gameDetail?.metacritic != null && gameDetail.rating != null) {
                             RatingMetacriticSection(metacritic = gameDetail.metacritic!!,
                                 metacriticColor = gameDetail.calculateRgbFromMetacritic()!!,
-                                rating = gameDetail.rating_top!!,
+                                rating = gameDetail.rating!!,
+                                formattedRating = df.format(gameDetail.rating),
                                 ratingColor = gameDetail.calculateRgbFromRating()!!)
                         }
 

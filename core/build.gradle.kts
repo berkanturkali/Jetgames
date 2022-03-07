@@ -56,6 +56,7 @@ android {
 dependencies {
     //project lib
     implementation(project(remote))
+
     implementation(project(common))
 
     //network

@@ -1,8 +1,11 @@
 package com.example.jetgames.home.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,99 +56,100 @@ fun GameItem(
         }
     }
 
-    Card(
-        onClick = {
-            val screenshots=  game.screenShots?.map { it?.image }
-            onItemClick?.invoke(game.id!!,screenshots)
-                  },
-        modifier = modifier
-            .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
-                horizontal = dimensionResource(id = R.dimen.dimen_8)),
-        elevation = dimensionResource(id = R.dimen.dimen_8),
-        shape = RoundedCornerShape(
-            dimensionResource(id = R.dimen.dimen_16))) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .gradientBackground(color = backgroundColor, 45f)
-        ) {
-
-            //Metascore
-            if (game.metaCritic != null) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End
-                ) {
-                    MetaCritic(
-                        isLoading = isLoading,
-                        metaCritic = game.metaCritic!!,
-                        ratingColor = game.calculateRgbFromMetacritic()!!,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp, vertical = 4.dp),
-                        fontSize = 14.sp,
-                        childModifier = childModifier.padding(horizontal = 12.dp, vertical = 2.dp))
-                }
-            }
-
-            //image & name
-            Row(modifier = modifier
-                .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
-            ) {
-                GameImage(
-                    modifier = childModifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(corner = CornerSize(16.dp))),
-                    description = game.name,
-                    image = game.backgroundImage,
-                    imageLoader = imageLoader
-                )
-
-                Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_16)))
-
-                if (game.name != null) {
-                    val rating = game.ratings?.maxByOrNull {
-                        it?.percent!!
-                    }
-                    Name(
-                        name = game.name,
-                        icon = rating?.icon,
-                        size = 18.sp,
-                        modifier = childModifier
-                            .align(Alignment.CenterVertically),
-                    )
-                }
-            }
-
-            //date & rating
-            Row(modifier = Modifier
-                .fillMaxWidth()
+        Card(
+            onClick = {
+                val screenshots = game.screenShots?.map { it?.image }
+                onItemClick?.invoke(game.id!!, screenshots)
+            },
+            modifier = modifier
                 .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
                     horizontal = dimensionResource(id = R.dimen.dimen_8)),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically) {
-                if (game.rating != null) {
-                    RatingBar(rating = game.rating!!.toFloat(),
-                        modifier = Modifier
-                            .height(12.dp)
-                            .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
-                        color = Color.Yellow)
+            elevation = dimensionResource(id = R.dimen.dimen_8),
+            shape = RoundedCornerShape(
+                dimensionResource(id = R.dimen.dimen_16))) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .gradientBackground(color = backgroundColor, 45f)
+            ) {
+
+                //Metascore
+                if (game.metaCritic != null) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End
+                    ) {
+                        MetaCritic(
+                            isLoading = isLoading,
+                            metaCritic = game.metaCritic!!,
+                            ratingColor = game.calculateRgbFromMetacritic()!!,
+                            modifier = Modifier
+                                .padding(horizontal = 10.dp, vertical = 4.dp),
+                            fontSize = 14.sp,
+                            childModifier = childModifier.padding(horizontal = 12.dp,
+                                vertical = 2.dp))
+                    }
                 }
-                if (game.released != null) {
-                    Text(
-                        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.dimen_8),
-                            vertical = dimensionResource(id = R.dimen.dimen_8)),
-                        text = game.released!!,
-                        fontSize = 12.sp,
-                        style = MaterialTheme.typography.h5,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Start,
-                        color = Color.White
+
+                //image & name
+                Row(modifier = modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
+                ) {
+                    GameImage(
+                        modifier = childModifier
+                            .size(100.dp)
+                            .clip(RoundedCornerShape(corner = CornerSize(16.dp))),
+                        description = game.name,
+                        image = game.backgroundImage,
+                        imageLoader = imageLoader
                     )
+
+                    Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_16)))
+
+                    if (game.name != null) {
+                        val rating = game.ratings?.maxByOrNull {
+                            it?.percent!!
+                        }
+                        Name(
+                            name = game.name,
+                            icon = rating?.icon,
+                            size = 18.sp,
+                            modifier = childModifier
+                                .align(Alignment.CenterVertically),
+                        )
+                    }
+                }
+
+                //date & rating
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
+                        horizontal = dimensionResource(id = R.dimen.dimen_8)),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically) {
+                    if (game.rating != null) {
+                        RatingBar(rating = game.rating!!.toFloat(),
+                            modifier = Modifier
+                                .height(12.dp)
+                                .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
+                            color = game.calculateRgbFromRating()!!)
+                    }
+                    if (game.released != null) {
+                        Text(
+                            modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.dimen_8),
+                                vertical = dimensionResource(id = R.dimen.dimen_8)),
+                            text = game.released!!,
+                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.h5,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            textAlign = TextAlign.Start,
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }
     }
-}
 
 @Preview
 @Composable

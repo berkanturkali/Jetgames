@@ -18,6 +18,7 @@ import com.example.jetgames.common.components.RatingTop
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.common.ui.theme.XXLightGray
 import com.example.jetgames.core.domain.model.detail.GameDetails
+import java.text.DecimalFormat
 import kotlin.math.min
 
 @Composable
@@ -25,7 +26,8 @@ fun RatingMetacriticSection(
     modifier: Modifier = Modifier,
     metacritic: Int,
     metacriticColor: Color,
-    rating: Int,
+    rating: Double,
+    formattedRating:String,
     ratingColor: Color,
 
     ) {
@@ -66,14 +68,14 @@ fun RatingMetacriticSection(
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen_8)))
-            Text(text = "$rating / 5",
+            Text(text = "$formattedRating / 5",
                 modifier = Modifier.align(CenterHorizontally),
                 style = MaterialTheme.typography.subtitle2,
                 color = MaterialTheme.colors.onPrimary)
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen_8)))
 
-            RatingTop(rating = rating.toDouble(), color = ratingColor, showTitle = false)
+            RatingTop(rating = rating, color = ratingColor, showTitle = false)
         }
     }
 }
@@ -82,8 +84,8 @@ fun RatingMetacriticSection(
 @Composable
 fun RatingMetacriticSectionPrev() {
     JetgamesTheme {
-        val rating = 5
-        val percent =if(rating == 1)((rating -1) * 0.2) else rating * 0.2
+        val rating = 4.0
+        val percent =if(rating == 1.0)((rating -1) * 0.2) else rating * 0.2
         val red = 255
         val green = percent * 255
         val blue = 0
@@ -92,6 +94,7 @@ fun RatingMetacriticSectionPrev() {
             ratingColor = color,
             rating = rating,
             metacriticColor = Color.Green,
-            metacritic = 85)
+            metacritic = 85,
+            formattedRating = DecimalFormat("0.#").format(rating))
     }
 }

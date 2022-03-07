@@ -19,6 +19,7 @@ import coil.compose.LocalImageLoader
 import com.example.jetgames.common.R
 import com.example.jetgames.common.components.RatingTop
 import com.example.jetgames.common.ui.theme.JetgamesTheme
+import com.example.jetgames.common.util.calculateRgbFromRating
 import com.example.jetgames.core.domain.model.games.*
 import com.example.jetgames.home.rememberDominantColorState
 import com.example.jetgames.home.verticalGradientScrim
@@ -123,8 +124,8 @@ fun GameGalleryItem(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                game.rating_top?.let {
-                    RatingTop(rating = it.toDouble())
+                game.rating?.let {
+                    RatingTop(rating = it, color = it.calculateRgbFromRating())
                 }
             }
         }
@@ -143,7 +144,7 @@ fun GameGalleryPrev() {
             metaCritic = 93,
             name = "The Witcher 3: Wild Hunt",
             parentPlatforms = listOf(ParentPlatform(Platform(1, "Pc"))),
-            rating = 4.67,
+            rating = 1.5,
             rating_top = 5,
             ratingsCount = 4986,
             released = "12 Dec 2021"
