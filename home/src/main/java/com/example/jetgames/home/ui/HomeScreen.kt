@@ -11,6 +11,7 @@ import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +42,7 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.launch
 
 @Composable
 fun Home(
@@ -59,6 +61,8 @@ fun Home(
 
     val listState = rememberLazyListState()
 
+    val scope = rememberCoroutineScope()
+
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
 
     DefaultScreenUI(toolbar = {
@@ -72,7 +76,9 @@ fun Home(
                 enter = scaleIn(),
                 exit = scaleOut()) {
                 FloatingActionButton(onClick = {
-
+                    scope.launch {
+                        listState.scrollToItem(0)
+                    }
                 }, modifier = Modifier
                     .wrapContentSize(align = Alignment.BottomEnd, unbounded = true)
                     .padding(
@@ -176,12 +182,13 @@ fun Home(
                                     onRetryClick = games::retry)
                             }
                         }
-                        loadState.source.refresh is LoadState.NotLoading && games.itemCount == 0 -> {
-                            item {
-                                EmptyItem(modifier = Modifier.fillParentMaxSize(),
-                                    query = homeState.homeFilterPreferences.query)
-                            }
-                        }
+                        // TODO: scroll position bug will be fixed
+//                        loadState.source.refresh is LoadState.NotLoading && games.itemCount == 0 -> {
+//                            item {
+//                                EmptyItem(modifier = Modifier.fillParentMaxSize(),
+//                                    query = homeState.homeFilterPreferences.query)
+//                            }
+//                        }
                     }
 
                 }
