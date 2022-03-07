@@ -10,8 +10,8 @@ import Dependencies.Lottie.Version.lottieVersion
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
 const val ktLintVersion: String = "0.43.0"
-const val kotlinVersion = "1.5.31"
-const val composeVersion = "1.0.5"
+const val kotlinVersion = "1.6.10"
+const val composeVersion = "1.2.0-alpha04"
 
 object Config {
     object Version {

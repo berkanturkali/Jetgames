@@ -18,7 +18,7 @@ compileKotlin.kotlinOptions {
 object Plugin {
     object Version {
         const val spotless: String = "6.2.0"
-        const val kotlin: String = "1.5.31"
+        const val kotlin: String = "1.6.10"
         const val androidGradle: String = "7.1.1"
         const val navigation: String = "2.4.1"
         const val daggerHiltAndroid: String = "2.38.1"
