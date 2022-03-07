@@ -14,6 +14,7 @@ import coil.ImageLoader
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.home.viewmodel.HomeViewModel
 import com.example.jetgames.navigation.graph.SetupNavGraph
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
             JetgamesTheme {
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.primary) {
-                    val navController = rememberNavController()
+                    val navController = rememberAnimatedNavController()
                     val bottomSheetNavigator = rememberBottomSheetNavigator()
 
                     navController.navigatorProvider += bottomSheetNavigator

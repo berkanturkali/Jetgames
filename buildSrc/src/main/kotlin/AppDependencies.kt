@@ -176,7 +176,7 @@ object Dependencies {
             const val pagerVersion = "0.22.1-rc"
             const val pagerIndicatorVersion = "0.24.2-alpha"
             const val placeholderVersion = "0.24.1-alpha"
-            const val animationsVersion = "0.20.3"
+            const val animationsVersion = "0.24.1-alpha"
             const val swipeRefreshVersion = "0.24.1-alpha"
             const val navigationVersion = "0.24.1-alpha"
         }

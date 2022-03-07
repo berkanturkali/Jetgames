@@ -82,6 +82,9 @@ dependencies {
     implementation(Dependencies.Navigation.navigation)
     implementation(Dependencies.Accompanist.navigation)
 
+    //animation
+    implementation(Dependencies.Accompanist.animations)
+
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
     kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)

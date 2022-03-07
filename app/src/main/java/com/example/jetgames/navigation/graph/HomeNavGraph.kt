@@ -1,11 +1,13 @@
 package com.example.jetgames.navigation.graph
 
 import android.net.Uri
+import androidx.compose.animation.*
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.ui.Alignment
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import coil.ImageLoader
 import com.example.jetgames.core.domain.model.navargs.DetailsArgs
 import com.example.jetgames.core.domain.model.navargs.ScreenshotsArgs
@@ -14,6 +16,8 @@ import com.example.jetgames.details.ui.ScreenshotsScreen
 import com.example.jetgames.home.ui.Home
 import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Screen
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.navigation
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
@@ -21,7 +25,10 @@ fun NavGraphBuilder.homeNavGraph(
     navController: NavHostController,
     imageLoader: ImageLoader,
 ) {
-    navigation(startDestination = Screen.HomeScreen.route, route = Routes.HOME_GRAPH_ROUTE) {
+    navigation(
+        startDestination = Screen.HomeScreen.route,
+        route = Routes.HOME_GRAPH_ROUTE,
+    ) {
         addHomeScreen(navController = navController, imageLoader = imageLoader)
         addDetailScreen(navController = navController, imageLoader = imageLoader)
         addScreenshotsScreen(imageLoader = imageLoader)
@@ -33,7 +40,20 @@ fun NavGraphBuilder.addHomeScreen(
     imageLoader: ImageLoader,
 ) {
     composable(
-        route = Screen.HomeScreen.route
+        route = Screen.HomeScreen.route,
+        enterTransition = {
+            slideInVertically(initialOffsetY = { +1000 },
+                animationSpec = spring())
+        },
+        exitTransition = {
+            shrinkVertically(shrinkTowards = Alignment.Top)
+        },
+        popEnterTransition = {
+            slideInVertically(initialOffsetY = { 5000 }, animationSpec = tween(700))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
+        }
     ) {
         //home screen
         Home(imageLoader = imageLoader, navigateToDetailScreen = { id, list ->
@@ -48,10 +68,22 @@ fun NavGraphBuilder.addHomeScreen(
 fun NavGraphBuilder.addDetailScreen(
     navController: NavController,
     imageLoader: ImageLoader,
-    ) {
+) {
     composable(
         route = Screen.DetailScreen.route + "/{detailArgs}",
-        arguments = Screen.DetailScreen.arguments
+        arguments = Screen.DetailScreen.arguments,
+        enterTransition = {
+            scaleIn()
+        },
+        exitTransition = {
+            scaleOut()
+        },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { -1000 }, animationSpec = tween(700))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
+        },
     ) {
         //detail screen
         DetailScreen(imageLoader = imageLoader) { screenshots, page ->
