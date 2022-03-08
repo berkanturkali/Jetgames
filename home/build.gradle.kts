@@ -55,19 +55,35 @@ android {
 dependencies {
     implementation(project(common))
     implementation(project(core))
+    
+    //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
     kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
+
+    //androidx
     implementation(Dependencies.AndroidX.lifecycle)
-    implementation(Dependencies.Pagination.pagingCompose)
     implementation(Dependencies.AndroidX.lifecycleKtx)
+
+    //pagination
+    implementation(Dependencies.Pagination.pagingCompose)
+
+    //compose
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.materialIcons)
-    implementation(Dependencies.Accompanist.swipeRefresh)
-    implementation(Dependencies.Coil.coil)
     implementation(Dependencies.Compose.constraintLayout)
-    implementation(Dependencies.DI.hiltNavigation)
-    implementation(Dependencies.Palette.palette)
+
+    //accompanies
+    implementation(Dependencies.Accompanist.swipeRefresh)
     implementation(Dependencies.Accompanist.placeholder)
+
+    //coil
+    implementation(Dependencies.Coil.coil)
+
+    implementation(Dependencies.DI.hiltNavigation)
+
+    //palette
+    implementation(Dependencies.Palette.palette)
+
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")

@@ -46,12 +46,15 @@ android {
 }
 
 dependencies {
+    //compose
     api(Dependencies.Compose.composeUiPreview)
     api(Dependencies.Compose.composeUiTooling)
-    implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.Compose.composeUi)
     implementation(Dependencies.Compose.composeMaterial)
+    implementation(Dependencies.AndroidX.coreKtx)
 
+
+    //lottie
     implementation(Dependencies.Lottie.lottie)
 
     //Timber

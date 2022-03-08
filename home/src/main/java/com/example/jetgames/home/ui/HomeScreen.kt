@@ -65,7 +65,8 @@ fun Home(
 
     viewModel.setRefresh(games.loadState.refresh is LoadState.Loading)
 
-    DefaultScreenUI(toolbar = {
+    DefaultScreenUI(
+        toolbar = {
         HomeToolbar(
             galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
             viewModel = viewModel
@@ -190,7 +191,6 @@ fun Home(
 //                            }
 //                        }
                     }
-
                 }
             }
         }

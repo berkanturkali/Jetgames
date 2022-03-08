@@ -1,5 +1,7 @@
 import BuildType.Companion.DEBUG
 import BuildType.Companion.RELEASE
+import ProjectLib.common
+import ProjectLib.core
 
 plugins {
     androidLibrary
@@ -50,7 +52,12 @@ android {
 }
 
 dependencies {
-
+    implementation(project(common))
+    implementation(project(core))
+    //compose
+    implementation(Dependencies.Compose.composeUi)
+    implementation(Dependencies.Compose.composeMaterial)
+    implementation(Dependencies.Compose.constraintLayout)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
