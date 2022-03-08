@@ -7,7 +7,7 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.core.domain.model.games.lowerBound
-import com.example.jetgames.core.domain.model.games.preferences.HomePreferences
+import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
 import com.example.jetgames.home.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel

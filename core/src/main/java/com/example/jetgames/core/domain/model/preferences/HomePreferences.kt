@@ -1,4 +1,4 @@
-package com.example.jetgames.core.domain.model.games.preferences
+package com.example.jetgames.core.domain.model.preferences
 
 sealed class HomePreferences {
     data class HomeViewPreferences(
