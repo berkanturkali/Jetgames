@@ -4,6 +4,7 @@ import com.example.jetgames.core.BuildConfig
 import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.games.GameDto
 import com.example.jetgames.core.remote.model.games.GamesResponse
+import com.example.jetgames.core.remote.model.platforms.PlatformsResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -28,9 +29,9 @@ interface ApiService {
     ):GameDetailsDto
 
 
-//
-//    @GET("platforms")
-//    suspend fun fetchPlatforms(
-//        @Query("key")
-//    )
+
+    @GET("platforms")
+    suspend fun fetchPlatforms(
+        @Query("key") key:String = BuildConfig.API_KEY
+    ):PlatformsResponse
 }

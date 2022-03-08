@@ -122,4 +122,9 @@ internal object DummyData {
         tags = listOf(tag),
         website = "www.dummydomain.com"
     )
+
+    val platformDto = com.example.jetgames.core.remote.model.platforms.PlatformDto(
+        id = 5,
+        name = "Playstation 5"
+    )
 }
