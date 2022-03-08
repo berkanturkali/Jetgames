@@ -26,4 +26,11 @@ interface ApiService {
         @Path("id") id:Int,
         @Query("key") key:String = BuildConfig.API_KEY
     ):GameDetailsDto
+
+
+//
+//    @GET("platforms")
+//    suspend fun fetchPlatforms(
+//        @Query("key")
+//    )
 }
