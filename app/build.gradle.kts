@@ -1,6 +1,7 @@
 import ProjectLib.common
 import ProjectLib.core
 import ProjectLib.details
+import ProjectLib.filter
 import ProjectLib.home
 import ProjectLib.remote
 
@@ -69,6 +70,7 @@ dependencies {
     implementation(project(remote))
     implementation(project(home))
     implementation(project(details))
+    implementation(project(filter))
     implementAll(Dependencies.AndroidX.components)
     implementAll(Dependencies.Compose.components)
     implementation(Dependencies.Compose.activity)

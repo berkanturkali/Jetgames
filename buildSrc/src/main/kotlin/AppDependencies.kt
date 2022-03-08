@@ -247,5 +247,6 @@ object ProjectLib {
     const val core: String = ":core"
     const val home: String = ":home"
     const val details: String = ":details"
+    const val filter:String = ":filter"
 }
 
