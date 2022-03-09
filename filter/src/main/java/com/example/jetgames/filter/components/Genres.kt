@@ -64,7 +64,8 @@ fun Genres(
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
-                },
+                }
+                    .padding(start = dimensionResource(id = R.dimen.dimen_8)),
                 text = "Genres",
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary)

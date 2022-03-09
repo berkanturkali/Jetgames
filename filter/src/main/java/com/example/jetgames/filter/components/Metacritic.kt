@@ -21,62 +21,63 @@ import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
 @Composable
 fun Metacritic(
     modifier: Modifier = Modifier,
-    selectedMetacritic:MetacriticPreference?=null
+    selectedMetacritic: MetacriticPreference? = null,
 ) {
     Row(modifier = modifier
         .fillMaxWidth()
         .height(50.dp)
-        .clickable { /* TODO: show metacritic dialog */   }
-            .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(text = "Metacritic",
-                    style = MaterialTheme.typography.subtitle1,
-                    color = MaterialTheme.colors.onPrimary)
+        .clickable { /* TODO: show metacritic dialog */ }
+        .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween) {
+        Text(text = "Metacritic",
+            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8)),
+            style = MaterialTheme.typography.subtitle1,
+            color = MaterialTheme.colors.onPrimary)
 
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(
-                        dimensionResource(id = R.dimen.dimen_8))) {
-                    selectedMetacritic?.let {
-                        Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_4))) {
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                    Text(text = "Min",
-                                        fontSize = 8.sp,
-                                        color = MaterialTheme.colors.onPrimary)
-                                }
-                                Text(text = it.min.toString(),
-                                    style = MaterialTheme.typography.subtitle2,
-                                    color = MaterialTheme.colors.onPrimary)
-                            }
-                            Divider(color = XLightGray,
-                                modifier = Modifier
-                                    .align(Alignment.CenterVertically)
-                                    .width(dimensionResource(id = R.dimen.dimen_8)))
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                    Text(text = "Max",
-                                        fontSize = 8.sp,
-                                        color = MaterialTheme.colors.onPrimary)
-                                }
-                                Text(text = it.max.toString(),
-                                    style = MaterialTheme.typography.subtitle2,
-                                    color = MaterialTheme.colors.onPrimary)
-                            }
+        Row(verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.dimen_8))) {
+            selectedMetacritic?.let {
+                Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_4))) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Text(text = "Min",
+                                fontSize = 8.sp,
+                                color = MaterialTheme.colors.onPrimary)
                         }
+                        Text(text = it.min.toString(),
+                            style = MaterialTheme.typography.subtitle2,
+                            color = MaterialTheme.colors.onPrimary)
                     }
-                    IconButton(
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_next),
-                                contentDescription = null,
-                                tint = Color.White)
-                        },
-                        onClick = { /* TODO: show metacritic dialog */  },
-                    )
+                    Divider(color = XLightGray,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .width(dimensionResource(id = R.dimen.dimen_8)))
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Text(text = "Max",
+                                fontSize = 8.sp,
+                                color = MaterialTheme.colors.onPrimary)
+                        }
+                        Text(text = it.max.toString(),
+                            style = MaterialTheme.typography.subtitle2,
+                            color = MaterialTheme.colors.onPrimary)
+                    }
                 }
             }
+            IconButton(
+                content = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_next),
+                        contentDescription = null,
+                        tint = Color.White)
+                },
+                onClick = { /* TODO: show metacritic dialog */ },
+            )
         }
+    }
+}
 
 @Preview
 @Composable

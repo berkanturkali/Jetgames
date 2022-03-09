@@ -26,6 +26,7 @@ import com.example.jetgames.common.R.dimen
 import com.example.jetgames.common.R.drawable
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.core.domain.model.platforms.Platform
+import com.example.jetgames.filter.R
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
@@ -62,11 +63,13 @@ fun Platforms(
         ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
             val (title, arrow) = createRefs()
             Text(
-                modifier = Modifier.constrainAs(title) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                },
+                modifier = Modifier
+                    .constrainAs(title) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                    }
+                    .padding(start = dimensionResource(id = dimen.dimen_8)),
                 text = "Platform",
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary)

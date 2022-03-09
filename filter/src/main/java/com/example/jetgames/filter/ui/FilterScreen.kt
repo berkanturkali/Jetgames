@@ -10,10 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.filter.components.FilterToolbar
-import com.example.jetgames.filter.components.Genres
-import com.example.jetgames.filter.components.Metacritic
-import com.example.jetgames.filter.components.Platforms
+import com.example.jetgames.filter.components.*
 import timber.log.Timber
 
 @Composable
@@ -25,6 +22,9 @@ fun FilterScreen(
     DefaultScreenUI(
         toolbar = {
             FilterToolbar()
+        },
+        floatingActionButton = {
+            ApplyFilterFab()
         }
     ) {
         Column(modifier = modifier.fillMaxSize()) {
