@@ -124,7 +124,6 @@ fun Genres(
             }
         }
     }
-
 }
 
 @Composable
