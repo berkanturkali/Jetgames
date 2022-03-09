@@ -5,6 +5,7 @@ import androidx.navigation.navArgument
 import com.example.jetgames.core.domain.model.navargs.DetailsNavType
 import com.example.jetgames.core.domain.model.navargs.ScreenshotsNavType
 import com.example.jetgames.navigation.Routes.DETAIL_ROUTE
+import com.example.jetgames.navigation.Routes.FILTER_ROUTE
 import com.example.jetgames.navigation.Routes.HOME_ROUTE
 import com.example.jetgames.navigation.Routes.SCREENSHOTS_ROUTE
 
@@ -18,4 +19,6 @@ sealed class Screen(val route: String, val arguments: List<NamedNavArgument>) {
     object ScreenshotsScreen:Screen(SCREENSHOTS_ROUTE, arguments = listOf(navArgument("screenshotsArgs"){
         type = ScreenshotsNavType()
     }))
+
+    object FilterScreen:Screen(FILTER_ROUTE, arguments = emptyList())
 }

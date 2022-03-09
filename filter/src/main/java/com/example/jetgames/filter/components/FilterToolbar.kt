@@ -28,14 +28,12 @@ fun FilterToolbar(
             .fillMaxWidth()
             .background(MaterialTheme.colors.primary)
             .wrapContentHeight()) {
-            val (back, title) = createRefs()
+            val (back, title,divider) = createRefs()
             IconButton(onClick = { /*navigate back */ },
                 modifier = Modifier.constrainAs(back) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
-//                    width = Dimension.wrapContent
-//                    height = Dimension.fillToConstraints
                 }) {
                 Icon(
                     tint = MaterialTheme.colors.onPrimary,
@@ -58,6 +56,15 @@ fun FilterToolbar(
                 text = "Filter",
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary)
+
+            Divider(
+                modifier = Modifier.constrainAs(divider){
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                    width = Dimension.fillToConstraints
+                }
+            )
         }
     }
 }

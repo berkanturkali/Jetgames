@@ -49,6 +49,7 @@ fun Home(
     viewModel: HomeViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
     navigateToDetailScreen: ((Int, List<String?>?) -> Unit)? = null,
+    navigateToFilterScreen: () -> Unit,
 ) {
 
     val homeState by viewModel.homeState.collectAsState()
@@ -68,6 +69,7 @@ fun Home(
     DefaultScreenUI(
         toolbar = {
         HomeToolbar(
+            filterClick = {navigateToFilterScreen.invoke()},
             galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
             viewModel = viewModel
         )

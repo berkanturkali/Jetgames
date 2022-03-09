@@ -65,10 +65,15 @@ fun Metacritic(
                             }
                         }
                     }
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_next),
-                        contentDescription = null,
-                        tint = Color.White)
+                    IconButton(
+                        content = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_next),
+                                contentDescription = null,
+                                tint = Color.White)
+                        },
+                        onClick = { /* TODO: show metacritic dialog */  },
+                    )
                 }
             }
         }

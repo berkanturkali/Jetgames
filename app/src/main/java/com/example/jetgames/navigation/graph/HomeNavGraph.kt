@@ -15,6 +15,7 @@ import com.example.jetgames.details.ui.DetailScreen
 import com.example.jetgames.details.ui.ScreenshotsScreen
 import com.example.jetgames.home.ui.Home
 import com.example.jetgames.navigation.Routes
+import com.example.jetgames.navigation.Routes.FILTER_GRAPH_ROUTE
 import com.example.jetgames.navigation.Screen
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
@@ -61,7 +62,11 @@ fun NavGraphBuilder.addHomeScreen(
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
             navController.navigate("${Screen.DetailScreen.route}/$args")
-        })
+        },
+            navigateToFilterScreen = {
+                navController.navigate(FILTER_GRAPH_ROUTE)
+            }
+        )
     }
 }
 

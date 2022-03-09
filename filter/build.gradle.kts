@@ -58,6 +58,9 @@ dependencies {
     implementation(Dependencies.Compose.composeUi)
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.constraintLayout)
+
+    //navigation
+    implementation(Dependencies.Navigation.navigation)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")

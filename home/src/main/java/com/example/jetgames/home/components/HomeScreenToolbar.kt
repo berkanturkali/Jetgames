@@ -1,6 +1,8 @@
 package com.example.jetgames.home.components
 
 
+import android.inputmethodservice.Keyboard
+import android.view.Surface
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
@@ -39,6 +41,7 @@ import com.example.jetgames.home.viewmodel.HomeViewModel
 fun HomeToolbar(
     modifier: Modifier = Modifier,
     galleryListToggleClick: () -> Unit,
+    filterClick: () ->Unit,
     viewModel: HomeViewModel,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -56,7 +59,7 @@ fun HomeToolbar(
             .background(MaterialTheme.colors.primary)
             .wrapContentHeight()) {
             TextField(modifier = Modifier
-                .fillMaxWidth(.9f)
+                .fillMaxWidth(.8f)
                 .padding(dimensionResource(id = R.dimen.dimen_8)),
                 shape = androidx.compose.foundation.shape.CircleShape,
                 value = query ?: "",
@@ -110,7 +113,14 @@ fun HomeToolbar(
             )
 
             Row(modifier = Modifier
-                .align(Alignment.CenterVertically)) {
+                .align(CenterVertically)) {
+
+                Icon(modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.dimen_8))
+                    .clickable {filterClick.invoke()},
+                    painter = painterResource(id = R.drawable.ic_filter),
+                    contentDescription = "Filter",
+                    tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f))
 
                 Icon(modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.dimen_8))
@@ -118,6 +128,7 @@ fun HomeToolbar(
                     imageVector = Icons.Filled.GridView,
                     contentDescription = "Gallery/List Mode",
                     tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f))
+
             }
         }
     }
@@ -128,6 +139,7 @@ fun HomeToolbar(
 fun HomeToolbarPrev() {
     JetgamesTheme {
         HomeToolbar(
+            filterClick = {},
             galleryListToggleClick = {},
             viewModel = hiltViewModel()
         )
