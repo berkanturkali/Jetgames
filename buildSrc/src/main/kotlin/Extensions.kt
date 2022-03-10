@@ -1,66 +1,80 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.artifacts.dsl.RepositoryHandler
-import org.gradle.api.initialization.dsl.ScriptHandler
+import org.gradle.api.plugins.PluginContainer
 import org.gradle.kotlin.dsl.apply
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 
-val PluginDependenciesSpec.androidApplication: PluginDependencySpec
-    get() = id("com.android.application")
+internal val PluginContainer.kotlinAndroid: Unit
+    get() {
+        apply("kotlin-android")
+    }
 
-val PluginDependenciesSpec.androidLibrary: PluginDependencySpec
-    get() = id("com.android.library")
+internal val PluginContainer.androidModule: Unit
+    get() {
+        apply("com.android.library")
+    }
+
+internal val PluginContainer.kotlinKapt: Unit
+    get() {
+        apply("kotlin-kapt")
+    }
+
+internal val PluginContainer.daggerHilt: Unit
+    get() {
+        apply("dagger.hilt.android.plugin")
+    }
 
 val PluginDependenciesSpec.daggerHilt: PluginDependencySpec
     get() = id("dagger.hilt.android.plugin")
 
-val Project.applySpotless
-    get() = apply(plugin = "spotless")
-
-val PluginDependenciesSpec.kotlinLibrary: PluginDependencySpec
-    get() = id("kotlin-library")
-
-val PluginDependenciesSpec.safeArgs: PluginDependencySpec
-    get() = id("androidx.navigation.safeargs.kotlin")
-
 val PluginDependenciesSpec.parcelize: PluginDependencySpec
     get() = id("kotlin-parcelize")
 
-val PluginDependenciesSpec.kotlinAndroid: PluginDependencySpec
-    get() = id("org.jetbrains.kotlin.android")
+val PluginDependenciesSpec.androidApp: PluginDependencySpec
+    get() = id("app")
 
-fun RepositoryHandler.maven(url: String) {
-    maven {
-        setUrl(url)
-    }
+val PluginDependenciesSpec.androidLib: PluginDependencySpec
+    get() = id("androidLibrary")
+
+val PluginDependenciesSpec.kotlinLib: PluginDependencySpec
+    get() = id("kotlinLibrary")
+
+val PluginDependenciesSpec.ktlint: PluginDependencySpec
+    get() = id("ktlint")
+
+val Project.applyKtlint
+    get() = apply(plugin = "ktlint")
+
+fun DependencyHandler.implementation(dependency: Any) = add(
+    "implementation", dependency
+)
+
+fun DependencyHandler.implementation(vararg dependencies: Any) {
+    dependencies.forEach(::implementation)
 }
 
-fun RepositoryHandler.applyDefault() {
-    google()
-    mavenCentral()
-    maven("https://dl.bintray.com/kotlin/kotlin-eap")
-    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+fun DependencyHandler.testImplementation(dependency: Any) = add(
+    "testImplementation", dependency
+)
+
+fun DependencyHandler.androidTestImplementation(dependency: Any) = add(
+    "androidTestImplementation",dependency
+)
+
+fun DependencyHandler.androidTestImplementation(vararg  dependencies:Any){
+    dependencies.forEach(::androidTestImplementation)
 }
 
-fun DependencyHandler.implementAll(list: List<String>) {
-    list.forEach {
-        add("implementation", it)
-    }
+fun DependencyHandler.testImplementation(vararg dependencies: Any) {
+    dependencies.forEach(::testImplementation)
 }
 
-fun DependencyHandler.apiAll(list: List<String>) {
-    list.forEach {
-        add("api", it)
-    }
-}
+fun DependencyHandler.kapt(dependency: Any): Dependency? = add(
+    "kapt", dependency
+)
 
-fun DependencyHandler.addPlugins(list: List<String>) {
-    list.forEach {
-        add(ScriptHandler.CLASSPATH_CONFIGURATION, it)
-    }
+fun DependencyHandler.kapt(vararg dependencies: Any) {
+    dependencies.forEach(::kapt)
 }
-
-fun DependencyHandler.kapt(dependencyNotation: String): Dependency? =
-    add("kapt", dependencyNotation)

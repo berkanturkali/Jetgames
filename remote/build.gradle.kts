@@ -1,11 +1,10 @@
 plugins {
-    kotlinLibrary
-    id("org.jetbrains.kotlin.jvm")
-    kotlin(kotlinKapt)
-
+    kotlinLib
 }
-dependencies{
-    implementAll(Dependencies.Network.components)
-    implementation(Dependencies.DI.hiltCore)
-    kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)
+dependencies {
+    implementation(Library.moshi,
+        Library.retrofit,
+        Library.retrofitMoshi,
+        Library.loggingInterceptor,
+        Library.okhttp)
 }
