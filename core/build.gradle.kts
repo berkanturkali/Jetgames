@@ -26,6 +26,7 @@ android {
             }
         }
         buildConfigField("int", "databaseVersion", 1.toString())
+        buildConfigField("String", "databaseName", "JetgamesDb")
         buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
     }
 
