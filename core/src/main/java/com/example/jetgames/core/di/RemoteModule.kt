@@ -1,8 +1,10 @@
 package com.example.jetgames.core.di
 
 import com.example.jetgames.core.BuildConfig
+import com.example.jetgames.core.data.contract.FilterRemote
 import com.example.jetgames.core.data.contract.GameDetailRemote
 import com.example.jetgames.core.data.contract.GamesRemote
+import com.example.jetgames.core.remote.impl.FilterRemoteImpl
 import com.example.jetgames.core.remote.impl.GameDetailRemoteImpl
 import com.example.jetgames.core.remote.impl.GamesRemoteImpl
 import com.example.jetgames.core.remote.service.ApiService
@@ -22,6 +24,9 @@ interface RemoteModule {
 
     @get:Binds
     val GameDetailRemoteImpl.bindGameDetailRemote:GameDetailRemote
+
+    @get:Binds
+    val FilterRemoteImpl.bindFilterRemote:FilterRemote
 
     companion object {
         @[Provides Singleton]
