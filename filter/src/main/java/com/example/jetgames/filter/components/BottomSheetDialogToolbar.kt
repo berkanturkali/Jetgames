@@ -14,6 +14,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.common.ui.theme.XXLightGray
@@ -22,7 +23,7 @@ import com.example.jetgames.common.ui.theme.XXLightGray
 fun BottomSheetDialogToolbar(
     modifier: Modifier = Modifier,
     title: String,
-    onCloseButtonClick: () -> Unit,
+    navController: NavController
 ) {
     Column(modifier = modifier
         .fillMaxWidth()
@@ -50,20 +51,9 @@ fun BottomSheetDialogToolbar(
             Icon(painter = painterResource(id = R.drawable.ic_close),
                 contentDescription = null,
                 tint = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.clickable { onCloseButtonClick() }
+                modifier = Modifier.clickable { navController.navigateUp() }
             )
         }
         Divider(thickness = 0.5.dp, color = XXLightGray.copy(alpha = 0.5f))
     }
 }
-
-@Preview
-@Composable
-fun BottomSheetDialogToolbarPrev() {
-    JetgamesTheme {
-        BottomSheetDialogToolbar(title = "Metacritic") {
-
-        }
-    }
-}
-

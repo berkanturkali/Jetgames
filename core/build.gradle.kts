@@ -66,6 +66,7 @@ dependencies {
     testImplementation(Dependencies.Network.retrofitMoshi)
     testImplementation(Dependencies.Test.mockWebServer)
 
+
     //hilt
     implementation(Dependencies.DI.daggerHiltAndroid)
     kapt(Dependencies.DI.AnnotationProcessor.daggerHiltCompiler)

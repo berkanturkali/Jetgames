@@ -67,11 +67,13 @@ object Dependencies {
         object Version {
             const val coreKtx = "1.7.0"
             const val lifecycle = "2.4.0"
+            const val liveDataKtx = "2.5.0-alpha02"
         }
 
         const val coreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
         const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"
         const val lifecycleKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
+        const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.liveDataKtx}"
 
         override val components: List<String>
             get() = listOf(coreKtx, lifecycle)

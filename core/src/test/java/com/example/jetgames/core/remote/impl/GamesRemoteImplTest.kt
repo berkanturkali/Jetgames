@@ -75,7 +75,7 @@ class GamesRemoteImplTest {
 
 
     private fun getResponse(responsePath: String): GamesResponse {
-        return adapter.fromJson(getJson(responsePath))!!
+        return gamesResponseAdapter.fromJson(getJson(responsePath))!!
     }
 
     private fun getResponseList(vararg responsePath: String): List<GamesResponse> {

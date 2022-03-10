@@ -28,6 +28,11 @@ class RequestDispatcher : Dispatcher() {
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(NO_MATCH_RESPONSE_PATH))
             }
+            "$PLATFORMS_PATH?key=$API_KEY"->{
+                MockResponse()
+                    .setResponseCode(HttpURLConnection.HTTP_OK)
+                    .setBody(getJson(PLATFORMS_RESPONSE_PATH))
+            }
             else -> throw IllegalArgumentException("Unknown Request Path ${request.path}")
         }
     }
