@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.jetgames.core.BuildConfig
+import com.example.jetgames.core.cache.dao.PlatformsDao
 import com.example.jetgames.core.cache.model.PlatformEntity
 
 @Database(
@@ -13,6 +14,8 @@ import com.example.jetgames.core.cache.model.PlatformEntity
     exportSchema = false
 )
 abstract class JetgamesDb : RoomDatabase() {
+
+    abstract val platformsDao:PlatformsDao
 
     companion object{
         fun build(context: Context): JetgamesDb = Room.databaseBuilder(
