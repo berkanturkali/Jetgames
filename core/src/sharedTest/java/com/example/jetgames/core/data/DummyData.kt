@@ -1,5 +1,6 @@
 package com.example.jetgames.core.data
 
+import com.example.jetgames.core.cache.model.PlatformEntity
 import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.details.MetacriticPlatformDto
 import com.example.jetgames.core.remote.model.games.*
@@ -123,7 +124,14 @@ internal object DummyData {
         website = "www.dummydomain.com"
     )
 
+    //platform dto
     val platformDto = com.example.jetgames.core.remote.model.platforms.PlatformDto(
+        id = 5,
+        name = "Playstation 5"
+    )
+
+    //platform entity
+    val platformEntity = PlatformEntity(
         id = 5,
         name = "Playstation 5"
     )

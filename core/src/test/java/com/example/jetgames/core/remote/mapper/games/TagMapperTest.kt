@@ -1,9 +1,7 @@
 package com.example.jetgames.core.remote.mapper.games
 
 import com.example.jetgames.core.data.DummyData
-import com.example.jetgames.core.remote.model.games.TagDto
 import com.google.common.truth.Truth
-import org.junit.Assert.*
 import org.junit.Test
 
 class TagMapperTest{

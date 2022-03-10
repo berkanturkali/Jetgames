@@ -26,8 +26,16 @@ android {
             }
         }
         buildConfigField("int", "databaseVersion", 1.toString())
-        buildConfigField("String", "databaseName", "JetgamesDb")
+        buildConfigField("String", "databaseName", "\"jetgames_db\"")
         buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
+    }
+
+    sourceSets {
+        val sharedTestDir = "src/sharedTest/java"
+        val androidTest by getting
+        val test by getting
+        androidTest.java.srcDirs(sharedTestDir)
+        test.java.srcDirs(sharedTestDir)
     }
 
     buildTypes {
@@ -104,4 +112,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     testImplementation(Dependencies.Test.truth)
     testImplementation(Dependencies.Test.mockk)
+    androidTestImplementation(Dependencies.Test.truth)
 }
