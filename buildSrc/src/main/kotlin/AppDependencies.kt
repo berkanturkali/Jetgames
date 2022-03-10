@@ -6,6 +6,7 @@ import Dependencies.Accompanist.Version.placeholderVersion
 import Dependencies.Accompanist.Version.swipeRefreshVersion
 import Dependencies.Compose.Version.util
 import Dependencies.Lottie.Version.lottieVersion
+import Dependencies.Room.Version.roomVersion
 
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
@@ -218,6 +219,19 @@ object Dependencies {
         }
 
         const val timber = "com.jakewharton.timber:timber:${Version.timber}"
+    }
+
+    object Room {
+        object Version {
+            const val roomVersion = "2.4.1"
+        }
+
+        object AnnotationProcessor {
+            const val room = "androidx.room:room-compiler:$roomVersion"
+        }
+
+        const val room = "androidx.room:room-runtime:$roomVersion"
+        const val roomKtx = "androidx.room:room-ktx:${Version.roomVersion}"
     }
 
     object Test {

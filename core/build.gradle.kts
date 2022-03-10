@@ -20,6 +20,12 @@ android {
         vectorDrawables {
             useSupportLibrary = Config.useSupportLibrary
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += Pair("room.incremental", "true")
+            }
+        }
+        buildConfigField("int", "databaseVersion", 1.toString())
         buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
     }
 
@@ -56,7 +62,6 @@ android {
 dependencies {
     //project lib
     implementation(project(remote))
-
     implementation(project(common))
 
     //network
@@ -83,6 +88,11 @@ dependencies {
     //navigation
     implementation(Dependencies.Navigation.navigation)
     implementation(Dependencies.Accompanist.navigation)
+
+    //cache
+    implementation(Dependencies.Room.room)
+    implementation(Dependencies.Room.roomKtx)
+    kapt(Dependencies.Room.AnnotationProcessor.room)
 
 
     implementation("androidx.core:core-ktx:1.7.0")
