@@ -30,7 +30,7 @@ dependencies {
     implementation(Library.materialIcons)
     implementation(Library.constraintLayout)
 
-    //accompanies
+    //accompanist
     implementation(Library.swipeRefresh)
     implementation(Library.placeholder)
 

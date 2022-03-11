@@ -73,6 +73,5 @@ object Version {
     const val liveDataKtx = "2.5.0-alpha02"
 
     /* ktlint */
-    // ktlint
     const val ktlint: String = "0.43.2"
 }

@@ -13,9 +13,11 @@ import javax.inject.Inject
 class PlatformsUseCase @Inject constructor(
     private val executor: PostExecutionThread,
     private val repo: FiltersRepo,
-) : FlowUseCase<Unit, Resource<List<Platform>>>() {
+) : FlowUseCase<Boolean, Resource<List<Platform>>>() {
     override val dispatcher: CoroutineDispatcher
         get() = executor.io
 
-    override fun execute(params: Unit?): Flow<Resource<List<Platform>>> = flow {}
+    override fun execute(refresh: Boolean?): Flow<Resource<List<Platform>>> {
+        return repo.fetchPlatforms(refresh!!)
+    }
 }

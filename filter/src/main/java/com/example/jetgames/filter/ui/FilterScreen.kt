@@ -16,7 +16,8 @@ import timber.log.Timber
 @Composable
 fun FilterScreen(
     modifier:Modifier = Modifier,
-    backstackEntry:NavBackStackEntry? = null
+    backstackEntry:NavBackStackEntry? = null,
+    onFilterItemClick:(String) -> Unit,
 ){
 
     DefaultScreenUI(
@@ -30,7 +31,7 @@ fun FilterScreen(
         Column(modifier = modifier.fillMaxSize()) {
 
             //platform filter
-            Platforms(platforms = listOf())
+            Platforms(platforms = listOf(), onFilterItemClick = onFilterItemClick)
 
             //genres filter
             Genres()
@@ -45,6 +46,6 @@ fun FilterScreen(
 @Composable
 fun FilterScreenPrev() {
     JetgamesTheme {
-        FilterScreen()
+        FilterScreen(){}
     }
 }

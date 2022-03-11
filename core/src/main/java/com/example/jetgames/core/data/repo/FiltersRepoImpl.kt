@@ -23,7 +23,7 @@ class FiltersRepoImpl @Inject constructor(
     private val platformsCache:PlatformsCache,
     private val filterRemote: FilterRemote,
 ) : FiltersRepo {
-    override suspend fun fetchPlatforms(refresh:Boolean): Flow<Resource<List<Platform>>> {
+    override fun fetchPlatforms(refresh:Boolean): Flow<Resource<List<Platform>>> {
         return networkBoundResource<List<PlatformDto>, List<PlatformEntity>, List<Platform>>(
             dbQuery = {platformsCache.platforms()},
             apiCall = { filterRemote.fetchPlatforms()},
@@ -37,7 +37,7 @@ class FiltersRepoImpl @Inject constructor(
                 platformEntityMapper.mapTypeList(it)
             },
             shouldFetch = {
-                it.isNullOrEmpty()
+                 it.isNullOrEmpty()
             },
             refresh = refresh
         )

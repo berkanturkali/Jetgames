@@ -16,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -33,6 +34,7 @@ import com.example.jetgames.filter.R
 fun Platforms(
     modifier: Modifier = Modifier,
     platforms: List<Platform>,
+    onFilterItemClick:(String) -> Unit
 ) {
 
     var expanded by remember {
@@ -87,7 +89,7 @@ fun Platforms(
                         modifier = Modifier.rotate(arrowRotationDegree),
                         tint = Color.White)
                 },
-                onClick = {/*TODO: navigate to platforms */ }
+                onClick = { onFilterItemClick("platforms_screen") }
             )
         }
 
@@ -153,6 +155,6 @@ fun PlatformsPrev() {
         Platforms(platforms = listOf(
             Platform(id = 4, "Playstation 4"),
             Platform(id = 5, name = "Playstation 5")
-        ))
+        )){}
     }
 }

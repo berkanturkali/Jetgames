@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.example.jetgames.filter.ui.FilterScreen
+import com.example.jetgames.filter.ui.PlatformsScreen
 import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Screen
 import com.google.accompanist.navigation.animation.composable
@@ -18,6 +19,7 @@ fun NavGraphBuilder.filterNavGraph(
         route = Routes.FILTER_GRAPH_ROUTE,
     ) {
         addFilterScreen(navController = navController)
+        addPlatformsScreen(navController = navController)
     }
 }
 
@@ -28,7 +30,16 @@ fun NavGraphBuilder.addFilterScreen(
         route = Screen.FilterScreen.route,
     ) { backstackEntry ->
         //Filter Screen
-        FilterScreen(backstackEntry = backstackEntry)
+        FilterScreen(backstackEntry = backstackEntry, onFilterItemClick = {
+            val screen = when (it) {
+                Screen.PlatformsScreen.route -> Screen.PlatformsScreen
+                else -> {
+                    throw Exception("invalid route")
+                }
+            }
+            navController.navigate(route = screen.route)
+        }
+        )
     }
 }
 
@@ -39,6 +50,6 @@ fun NavGraphBuilder.addPlatformsScreen(
         route = Screen.PlatformsScreen.route
     ) {
         //Platforms Screen
-
+        PlatformsScreen(navController = navController)
     }
 }

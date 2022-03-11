@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface FiltersRepo {
 
-    suspend fun fetchPlatforms(refresh:Boolean):Flow<Resource<List<Platform>>>
+    fun fetchPlatforms(refresh:Boolean):Flow<Resource<List<Platform>>>
 }
