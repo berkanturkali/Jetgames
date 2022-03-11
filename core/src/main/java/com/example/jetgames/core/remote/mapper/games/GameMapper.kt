@@ -20,23 +20,23 @@ class GameMapper @Inject constructor(
         return Game(
             backgroundImage = model?.background_image,
             esrbRating = esrbRatingMapper.mapFromModel(model?.esrb_rating),
-            genres = genreMapper.mapModelList(model?.genres),
+            genres = genreMapper.mapModelList(model?.genres ?: emptyList()),
             id = model?.id,
             metaCritic = model?.metacritic,
             name = model?.name,
-            parentPlatforms = parentPlatformMapper.mapModelList(model?.parent_platforms),
-            platforms = platformXMapper.mapModelList(model?.platforms),
+            parentPlatforms = parentPlatformMapper.mapModelList(model?.parent_platforms ?: emptyList()),
+            platforms = platformXMapper.mapModelList(model?.platforms ?: emptyList()),
             rating = model?.rating,
             rating_top = model?.rating_top,
-            ratings = ratingMapper.mapModelList(model?.ratings),
+            ratings = ratingMapper.mapModelList(model?.ratings ?: emptyList()),
             ratingsCount = model?.ratings_count,
             released = model?.released,
             reviewsCount = model?.reviews_count,
             reviewsTextCount = model?.reviews_text_count,
-            screenShots = screenshotMapper.mapModelList(model?.short_screenshots),
+            screenShots = screenshotMapper.mapModelList(model?.short_screenshots ?: emptyList()),
             slug = model?.slug,
-            stores = storeMapper.mapModelList(model?.stores),
-            tags = tagMapper.mapModelList(model?.tags)
+            stores = storeMapper.mapModelList(model?.stores ?: emptyList()),
+            tags = tagMapper.mapModelList(model?.tags ?: emptyList())
         )
     }
 }

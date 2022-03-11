@@ -32,10 +32,9 @@ suspend fun <M, T> safeApiCall(
 inline fun <M, E, D> networkBoundResource(
     crossinline dbQuery: () -> Flow<E>,
     crossinline apiCall: suspend () -> M,
-    crossinline saveFetchResult: suspend (E) -> Unit,
+    crossinline saveFetchResult: suspend (M) -> Unit,
     crossinline onFetchFailed: (Throwable) -> Unit,
     crossinline mapFromEntity: (E) -> D,
-    crossinline mapToEntity:(M) -> E,
     crossinline shouldFetch: (E) -> Boolean,
     refresh: Boolean,
 ) = flow<Resource<D>> {
@@ -44,7 +43,7 @@ inline fun <M, E, D> networkBoundResource(
         if (shouldFetch(data)) {
             emit(Resource.Loading())
             try {
-                saveFetchResult(mapToEntity(apiCall()))
+                saveFetchResult(apiCall())
                 dbQuery().collect{emit(Resource.Success(mapFromEntity(it)))}
 
             } catch (throwable: Throwable) {
