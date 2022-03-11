@@ -36,8 +36,9 @@ fun NavGraphBuilder.addPlatformsScreen(
     navController: NavController,
 ) {
     bottomSheet(
-        route = Screen.MetacriticScreen.route
+        route = Screen.PlatformsScreen.route
     ) {
+        //Platforms Screen
 
     }
 }

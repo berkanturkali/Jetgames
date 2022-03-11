@@ -13,6 +13,8 @@ object Routes {
 
     const val METACRITIC_FILTER_ROUTE = "metacritic_screen"
 
+    const val PLATFORMS_ROUTE = "platforms_screen"
+
     //graph routes
 
     const val HOME_GRAPH_ROUTE = "home"

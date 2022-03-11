@@ -60,4 +60,6 @@ dependencies {
     testImplementation(Library.truth)
     testImplementation(Library.mockk)
     androidTestImplementation(Library.truth)
+
+    testImplementation(Library.coroutines)
 }

@@ -96,4 +96,6 @@ object Library {
     const val truth = "com.google.truth:truth:${Version.truth}"
     const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
     const val mockk = "io.mockk:mockk:${Version.mockk}"
+    const val coroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines}"
 }
