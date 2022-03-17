@@ -1,6 +1,9 @@
 package com.example.jetgames.core.data
 
+import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
+import com.example.jetgames.core.domain.model.platforms.Platform
+import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.details.MetacriticPlatformDto
 import com.example.jetgames.core.remote.model.games.*
@@ -134,5 +137,15 @@ internal object DummyData {
     val platformEntity = PlatformEntity(
         id = 5,
         name = "Playstation 5"
+    )
+
+    //filter preferences entity
+    val filterPreferencesEntity = HomeFilterPreferencesEntity(
+        platforms = listOf(PlatformEntity(id= 5,name ="Playstation 5"))
+    )
+
+    //filter preferences entity
+    val filterPreferences = HomePreferences.HomeFilterPreferences(
+        platforms = listOf(Platform(id = 5,name = "Playstation 5"))
     )
 }

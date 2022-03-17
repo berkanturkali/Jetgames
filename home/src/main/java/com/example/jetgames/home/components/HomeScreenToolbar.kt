@@ -1,26 +1,23 @@
 package com.example.jetgames.home.components
 
 
-import android.inputmethodservice.Keyboard
-import android.view.Surface
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,8 +38,9 @@ import com.example.jetgames.home.viewmodel.HomeViewModel
 fun HomeToolbar(
     modifier: Modifier = Modifier,
     galleryListToggleClick: () -> Unit,
-    filterClick: () ->Unit,
+    filterClick: () -> Unit,
     viewModel: HomeViewModel,
+    prefCount: Int = 0,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -114,13 +112,24 @@ fun HomeToolbar(
 
             Row(modifier = Modifier
                 .align(CenterVertically)) {
+                BadgedBox(badge = {
+                    Column {
+                        AnimatedVisibility(visible = prefCount != 0,
+                            enter = scaleIn(),
+                            exit = scaleOut()) {
+                            Badge(backgroundColor = MaterialTheme.colors.secondary,
+                                contentColor = MaterialTheme.colors.onSecondary) { Text(text = prefCount.toString()) }
+                        }
+                    }
+                }) {
+                    Icon(modifier = Modifier
+                        .padding(dimensionResource(id = R.dimen.dimen_8))
+                        .clickable { filterClick.invoke() },
+                        painter = painterResource(id = R.drawable.ic_filter),
+                        contentDescription = "Filter",
+                        tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f))
+                }
 
-                Icon(modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.dimen_8))
-                    .clickable {filterClick.invoke()},
-                    painter = painterResource(id = R.drawable.ic_filter),
-                    contentDescription = "Filter",
-                    tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f))
 
                 Icon(modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.dimen_8))
@@ -141,7 +150,8 @@ fun HomeToolbarPrev() {
         HomeToolbar(
             filterClick = {},
             galleryListToggleClick = {},
-            viewModel = hiltViewModel()
+            viewModel = hiltViewModel<HomeViewModel>(),
+            prefCount = 5
         )
     }
 }

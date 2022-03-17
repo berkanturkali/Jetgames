@@ -1,6 +1,8 @@
 package com.example.jetgames.core.di
 
+import com.example.jetgames.core.cache.abstraction.HomeFilterPreferencesCache
 import com.example.jetgames.core.cache.abstraction.PlatformsCache
+import com.example.jetgames.core.cache.implementation.HomeFilterPreferencesCacheImpl
 import com.example.jetgames.core.cache.implementation.PlatformsCacheImpl
 import dagger.Binds
 import dagger.Module
@@ -12,4 +14,7 @@ interface CacheModule {
 
     @get:Binds
     val PlatformsCacheImpl.bindPlatformsCache:PlatformsCache
+
+    @get:Binds
+    val HomeFilterPreferencesCacheImpl.bindHomeFilterPreferencesCache:HomeFilterPreferencesCache
 }

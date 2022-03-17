@@ -15,12 +15,10 @@ import com.example.jetgames.common.R
 
 @Composable
 fun ApplyFilterFab(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onButtonClick : (() -> Unit)? = null
 ){
-    AnimatedVisibility(visible = true,
-        enter = expandVertically(),
-        exit = shrinkVertically()) {
-        FloatingActionButton(onClick = { /* apply filters */}, modifier = modifier
+        FloatingActionButton(onClick = {onButtonClick?.invoke()}, modifier = modifier
             .wrapContentSize(align = Alignment.BottomEnd, unbounded = true)
             .padding(
                 dimensionResource(id = R.dimen.dimen_32))) {
@@ -29,4 +27,3 @@ fun ApplyFilterFab(
                 tint = Color.White)
         }
     }
-}

@@ -2,15 +2,11 @@ package com.example.jetgames.navigation.graph
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ModalBottomSheetDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.example.jetgames.common.R
-import com.example.jetgames.common.ui.theme.LightGray
-import com.example.jetgames.common.ui.theme.XLightGray
-import com.example.jetgames.common.ui.theme.XXLightGray
 import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Routes.ROOT_GRAPH_ROUTE
 import com.google.accompanist.navigation.animation.AnimatedNavHost

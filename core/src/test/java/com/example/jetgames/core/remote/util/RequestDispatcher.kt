@@ -8,27 +8,27 @@ import java.net.HttpURLConnection
 class RequestDispatcher : Dispatcher() {
     override fun dispatch(request: RecordedRequest): MockResponse {
         return when (request.path) {
-            "$REQUEST_PATH?page=$PAGE&page_size=$SIZE&key=$API_KEY&ordering=$ORDERING" -> {
+            GAMES_URL_PATH -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(GAMES_RESPONSE_PATH))
             }
-            "$REQUEST_PATH/$ID?key=$API_KEY" -> {
+            DETAILS_URL_PATH -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(GAMES_DETAIL_RESPONSE_PATH))
             }
-            "$REQUEST_PATH?page=$PAGE&page_size=$SIZE&key=$API_KEY&ordering=$ORDERING&search=$SEARCH_QUERY" -> {
+            GAMES_URL_W_SEARCH_QUERY_PATH -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(SEARCH_RESPONSE_PATH))
             }
-            "$REQUEST_PATH?page=$PAGE&page_size=$SIZE&key=$API_KEY&ordering=$ORDERING&search=$NO_MATCH_SEARCH_QUERY" -> {
+            GAMES_URL_W_NO_MATCH_QUERY_PATH -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(NO_MATCH_RESPONSE_PATH))
             }
-            "$PLATFORMS_PATH?key=$API_KEY"->{
+           PLATFORMS_URL_PATH -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(PLATFORMS_RESPONSE_PATH))

@@ -6,6 +6,7 @@ interface GamesRemote {
     suspend fun fetchGames(
         page: Int,
         size: Int,
-        query:String?
+        query: String?,
+        platforms: String?,
     ): List<GameDto>
 }

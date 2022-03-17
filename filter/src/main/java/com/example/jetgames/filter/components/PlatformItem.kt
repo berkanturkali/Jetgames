@@ -1,10 +1,8 @@
 package com.example.jetgames.filter.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,31 +10,26 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jetgames.common.R
-import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.core.domain.model.platforms.Platform
-import com.example.jetgames.filter.viewmodel.PlatformsScreenViewModel
 
 @Composable
 fun PlatformItem(
     modifier: Modifier = Modifier,
+    flag:Boolean,
     platform: Platform,
-    viewModel: PlatformsScreenViewModel = hiltViewModel(),
+    onItemSelected: (Platform, Boolean) -> Unit,
 ) {
-    var selected by rememberSaveable {
-        mutableStateOf(false)
+    var checked by rememberSaveable {
+        mutableStateOf(flag)
     }
 
     Row(modifier = modifier
         .fillMaxWidth()
-        .height(40.dp)
-        .clickable {
-            selected = !selected
-        },
+        .height(40.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -46,18 +39,18 @@ fun PlatformItem(
             text = platform.name!!,
             style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onPrimary)
+        Checkbox(
+            checked = checked,
+            onCheckedChange = {
+                checked = it
+                onItemSelected(platform, checked)
+            },
+            colors = CheckboxDefaults.colors(
+                checkedColor = MaterialTheme.colors.secondary,
+                checkmarkColor = MaterialTheme.colors.onPrimary
+            ),
 
-        RadioButton(selected = selected, onClick = {
-            selected = !selected
-        })
+            )
 
-    }
-}
-
-@Preview
-@Composable
-fun PlatformItemPrev() {
-    JetgamesTheme {
-        PlatformItem(platform = Platform(5, "Playstation 5"))
     }
 }

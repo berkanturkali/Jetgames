@@ -1,6 +1,7 @@
 package com.example.jetgames.filter.viewmodel
 
 import androidx.lifecycle.*
+import com.example.jetgames.core.domain.model.platforms.Platform
 import com.example.jetgames.core.domain.usecase.filters.PlatformsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -24,4 +25,6 @@ class PlatformsScreenViewModel @Inject constructor(
     fun setRefresh() {
         _refresh.value = true
     }
+
+    fun sortPlatforms(platforms: List<Platform>) = platforms.sortedBy(Platform::name)
 }

@@ -26,7 +26,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
-import com.example.jetgames.common.components.EmptyItem
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.common.ui.theme.XXLightGray
@@ -68,12 +67,13 @@ fun Home(
 
     DefaultScreenUI(
         toolbar = {
-        HomeToolbar(
-            filterClick = {navigateToFilterScreen.invoke()},
-            galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
-            viewModel = viewModel
-        )
-    },
+            HomeToolbar(
+                filterClick = { navigateToFilterScreen.invoke() },
+                galleryListToggleClick = { viewModel.setGalleryMode(!isGalleryMode) },
+                viewModel = viewModel,
+                prefCount = homeState.filterCount
+            )
+        },
         floatingActionButton = {
             AnimatedVisibility(visible = listState.firstVisibleItemIndex > 0,
                 enter = scaleIn(),

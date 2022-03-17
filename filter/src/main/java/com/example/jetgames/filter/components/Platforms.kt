@@ -8,15 +8,16 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -27,18 +28,29 @@ import com.example.jetgames.common.R.dimen
 import com.example.jetgames.common.R.drawable
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.core.domain.model.platforms.Platform
-import com.example.jetgames.filter.R
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 fun Platforms(
     modifier: Modifier = Modifier,
     platforms: List<Platform>,
-    onFilterItemClick:(String) -> Unit
+    onFilterItemClick: (String) -> Unit,
+    onDeleteButtonClick: (Platform) -> Unit,
 ) {
 
-    var expanded by remember {
+    var expanded by rememberSaveable {
         mutableStateOf(false)
+    }
+
+    var expandable by rememberSaveable {
+        mutableStateOf(false)
+    }
+    expandable = platforms.isNotEmpty()
+
+    if(platforms.isEmpty()){
+        if(expanded){
+            expanded = false
+        }
     }
 
     val transitionState = remember {
@@ -52,13 +64,21 @@ fun Platforms(
     val arrowRotationDegree by transition.animateFloat({
         tween(durationMillis = 300)
     }, label = "") {
-        if (expanded) 90f else 0f
+        if (expandable) {
+            if (expanded) 90f else 0f
+        } else {
+            0f
+        }
     }
     Column(modifier = modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .clickable {
-            expanded = !expanded
+            if (expandable) {
+                expanded = !expanded
+            } else {
+                onFilterItemClick("platforms_screen")
+            }
         }
         .padding(horizontal = dimensionResource(
             id = dimen.dimen_8))) {
@@ -72,7 +92,7 @@ fun Platforms(
                         start.linkTo(parent.start)
                     }
                     .padding(start = dimensionResource(id = dimen.dimen_8)),
-                text = "Platform",
+                text = "Platforms (${platforms.size})",
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary)
 
@@ -120,10 +140,10 @@ fun Platforms(
         androidx.compose.animation.AnimatedVisibility(visible = expanded,
             enter = enterFadeIn + enterExpand,
             exit = exitFadeOut + exitCollapse) {
-
-            Column(modifier = Modifier.padding(horizontal = dimensionResource(id = dimen.dimen_8))) {
-                platforms.forEach {
-                    Platform(platform = it)
+            LazyColumn(modifier = Modifier.padding(horizontal = dimensionResource(id =
+            dimen.dimen_16))) {
+                items(platforms.count()) {
+                    Platform(platform = platforms[it], onDeleteButtonClick = onDeleteButtonClick)
                 }
             }
         }
@@ -134,6 +154,7 @@ fun Platforms(
 fun Platform(
     modifier: Modifier = Modifier,
     platform: Platform,
+    onDeleteButtonClick: (Platform) -> Unit,
 ) {
     Row(modifier = modifier
         .fillMaxWidth()
@@ -144,17 +165,14 @@ fun Platform(
             style = MaterialTheme.typography.caption,
             color = MaterialTheme.colors.onPrimary)
 
-    }
-}
+        Icon(painter = painterResource(id = drawable.ic_close),
+            contentDescription = "Remove",
+            tint = MaterialTheme.colors.onPrimary,
+            modifier = Modifier
+                .size(15.dp)
+                .clickable {
+                    onDeleteButtonClick.invoke(platform)
+                })
 
-
-@Preview
-@Composable
-fun PlatformsPrev() {
-    JetgamesTheme {
-        Platforms(platforms = listOf(
-            Platform(id = 4, "Playstation 4"),
-            Platform(id = 5, name = "Playstation 5")
-        )){}
     }
 }

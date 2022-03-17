@@ -1,8 +1,10 @@
 package com.example.jetgames.core.di
 
 import android.content.Context
+import com.example.jetgames.core.cache.dao.HomeFilterPreferencesDao
 import com.example.jetgames.core.cache.dao.PlatformsDao
 import com.example.jetgames.core.cache.db.JetgamesDb
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,4 +22,8 @@ internal object DbModule {
 
     @[Provides Singleton]
     fun providePlatformsDao(db: JetgamesDb): PlatformsDao = db.platformsDao
+
+    @[Provides Singleton]
+    fun provideHomeFilterPreferencesDao(db: JetgamesDb): HomeFilterPreferencesDao =
+        db.homeFilterPreferencesDao
 }

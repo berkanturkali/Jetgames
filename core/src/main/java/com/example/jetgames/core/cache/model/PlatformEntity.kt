@@ -1,6 +1,8 @@
 package com.example.jetgames.core.cache.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Platforms")

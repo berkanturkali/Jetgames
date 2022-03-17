@@ -1,8 +1,10 @@
 package com.example.jetgames.core.data.repo
 
+import com.example.jetgames.core.cache.abstraction.HomeFilterPreferencesCache
 import com.example.jetgames.core.cache.abstraction.PlatformsCache
 import com.example.jetgames.core.cache.fakes.FakePlatformsCache
 import com.example.jetgames.core.cache.mapper.platforms.PlatformEntityMapper
+import com.example.jetgames.core.cache.mapper.preferences.HomeFilterPreferencesEntityMapper
 import com.example.jetgames.core.data.DummyData
 import com.example.jetgames.core.data.contract.FilterRemote
 import com.example.jetgames.core.domain.repo.FiltersRepo
@@ -26,7 +28,11 @@ class FiltersRepoImplTest {
 
     private val platformEntityMapper = PlatformEntityMapper()
 
+
+
     private lateinit var platformsCache: PlatformsCache
+
+
 
     private val mockFilterRemote = mockk<FilterRemote>(relaxed = true)
 

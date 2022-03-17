@@ -45,8 +45,9 @@ fun BottomSheetDialogToolbar(
                 color = Color.White,
                 style = MaterialTheme.typography.h6,
             )
-        }
         Divider(thickness = 0.5.dp, color = XXLightGray.copy(alpha = 0.5f))
+        }
+
     }
 
 @Preview
