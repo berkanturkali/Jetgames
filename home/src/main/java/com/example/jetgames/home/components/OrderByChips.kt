@@ -20,8 +20,11 @@ import com.example.jetgames.home.util.OrderPreferencesProvider
 @Composable
 fun OrderByChips(
     modifier: Modifier = Modifier,
+    selectedOrder: OrderPreference,
     orderOptions: List<OrderPreference>,
+    onOrderSelected: (OrderPreference) -> Unit = {},
 ) {
+
     LazyRow(modifier = modifier
         .fillMaxWidth()
         .wrapContentHeight()
@@ -29,7 +32,10 @@ fun OrderByChips(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically) {
         items(orderOptions) {
-            OrderChip(name = it.order.value, isSelected = it.isSelected)
+            OrderChip(order = it,
+                isSelected = it.order.value == selectedOrder.order.value) { order ->
+                onOrderSelected.invoke(order)
+            }
         }
     }
 }
@@ -40,6 +46,6 @@ fun OrderByChipsPrev(
     @PreviewParameter(OrderPreferencesProvider::class) preferences: List<OrderPreference>,
 ) {
     JetgamesTheme {
-        OrderByChips(orderOptions = preferences)
+        OrderByChips(orderOptions = preferences, selectedOrder = OrderPreference())
     }
 }

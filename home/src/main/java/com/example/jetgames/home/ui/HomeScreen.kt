@@ -100,7 +100,11 @@ fun Home(
                 item {
                     Column {
                         Divider(thickness = 0.5.dp)
-                        OrderByChips(orderOptions = viewModel.orderOptions())
+                        OrderByChips(
+                            selectedOrder = homeState.selectedOrder,
+                            orderOptions = viewModel.orderOptions()){
+                            viewModel.setOrder(it)
+                        }
                         Divider(thickness = 0.5.dp)
                     }
                 }
@@ -190,13 +194,6 @@ fun Home(
                                     onRetryClick = games::retry)
                             }
                         }
-                        // TODO: scroll position bug will be fixed
-//                        loadState.source.refresh is LoadState.NotLoading && games.itemCount == 0 -> {
-//                            item {
-//                                EmptyItem(modifier = Modifier.fillParentMaxSize(),
-//                                    query = homeState.homeFilterPreferences.query)
-//                            }
-//                        }
                     }
                 }
             }

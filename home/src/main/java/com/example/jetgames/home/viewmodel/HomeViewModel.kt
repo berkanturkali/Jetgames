@@ -16,7 +16,6 @@ import com.example.jetgames.home.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,13 +38,17 @@ class HomeViewModel @Inject constructor(
 
     val homeState: StateFlow<HomeState> get() = _homeState
 
+    private val _selectedOrder = MutableStateFlow(OrderPreference())
+
     init {
         viewModelScope.launch {
             combine(
+                _selectedOrder,
                 _refreshing,
                 _homeViewPreferences,
-                _homeFilterPreferences) { refreshing, viewPreferences, filterPreferences ->
+                _homeFilterPreferences) { selectedOrder, refreshing, viewPreferences, filterPreferences ->
                 HomeState(
+                    selectedOrder = selectedOrder,
                     isRefreshing = refreshing,
                     filterCount = calculateBadge(filterPreferences.platforms),
                     homeViewPreferences = viewPreferences,
@@ -127,21 +130,22 @@ class HomeViewModel @Inject constructor(
     fun orderOptions(): List<OrderPreference> {
         return listOf(
             OrderPreference(
-                isSelected = false,
                 order = Order.NAME
             ),
             OrderPreference(
-                isSelected = false,
                 order = Order.RELEASED
             ),
             OrderPreference(
-                isSelected = false,
                 order = Order.RATING
             ),
             OrderPreference(
-                isSelected = true,
                 order = Order.METACRITIC
             ),
         )
     }
+
+    fun setOrder(orderPreference: OrderPreference) {
+        _selectedOrder.value = orderPreference
+    }
+
 }
