@@ -63,7 +63,7 @@ fun PlatformsScreen(
             is Resource.Success -> {
                 if (platforms.value!!.data!!.isNotEmpty()) {
                     val sortedList =
-                        viewModel.sortPlatforms(platforms.value!!.data!!.sortedBy(Platform::name))
+                        viewModel.sortPlatforms(platforms.value!!.data!!)
                     LazyColumn(state = listState, modifier = modifier) {
                         items(count = platforms.value!!.data!!.size) {
                             //platform item

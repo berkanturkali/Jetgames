@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.common.ui.theme.LightGray
 
 @Composable
 fun OrderChip(
@@ -24,7 +23,8 @@ fun OrderChip(
     FilterChip(
         modifier = modifier,
         shape = CircleShape,
-        border = if (!isSelected) BorderStroke(0.5.dp, color = LightGray) else null,
+        border = if (!isSelected) BorderStroke(0.5.dp,
+            color = MaterialTheme.colors.onSurface) else null,
         colors = ChipDefaults.filterChipColors(
             backgroundColor = Color.Transparent,
             selectedBackgroundColor = MaterialTheme.colors.secondary,

@@ -8,6 +8,8 @@ import androidx.paging.map
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.core.domain.model.games.lowerBound
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
+import com.example.jetgames.core.domain.model.preferences.Order
+import com.example.jetgames.core.domain.model.preferences.OrderPreference
 import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
 import com.example.jetgames.home.state.HomeState
@@ -120,5 +122,26 @@ class HomeViewModel @Inject constructor(
 
     private fun calculateBadge(vararg lists: List<Any>?): Int {
         return lists.filter { !it.isNullOrEmpty() }.size
+    }
+
+    fun orderOptions(): List<OrderPreference> {
+        return listOf(
+            OrderPreference(
+                isSelected = false,
+                order = Order.NAME
+            ),
+            OrderPreference(
+                isSelected = false,
+                order = Order.RELEASED
+            ),
+            OrderPreference(
+                isSelected = false,
+                order = Order.RATING
+            ),
+            OrderPreference(
+                isSelected = true,
+                order = Order.METACRITIC
+            ),
+        )
     }
 }
