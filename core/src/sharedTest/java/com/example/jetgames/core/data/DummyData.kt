@@ -155,4 +155,12 @@ internal object DummyData {
         id = 1,
         name = "Action"
     )
+
+    //genre dto
+    val genreDto = com.example.jetgames.core.remote.model.genres.GenreDto(
+        id = 1,
+        image_background = "",
+        name = "Action",
+        slug = "action"
+    )
 }
