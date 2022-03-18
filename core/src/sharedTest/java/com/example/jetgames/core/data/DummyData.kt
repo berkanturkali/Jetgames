@@ -1,5 +1,6 @@
 package com.example.jetgames.core.data
 
+import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
 import com.example.jetgames.core.domain.model.platforms.Platform
@@ -144,8 +145,14 @@ internal object DummyData {
         platforms = listOf(PlatformEntity(id= 5,name ="Playstation 5"))
     )
 
-    //filter preferences entity
+    //filter preferences
     val filterPreferences = HomePreferences.HomeFilterPreferences(
         platforms = listOf(Platform(id = 5,name = "Playstation 5"))
+    )
+
+    //genre entity
+    val genreEntity = GenreEntity(
+        id = 1,
+        name = "Action"
     )
 }

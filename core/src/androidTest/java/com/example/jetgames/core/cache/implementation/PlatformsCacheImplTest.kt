@@ -43,10 +43,10 @@ class PlatformsCacheImplTest {
     fun upsert_updatesData_when_dataAlreadyInDb() = runBlocking {
         val entity = DummyData.platformEntity
         platformsCache.upsert(entity)
-        val newEntity = entity.copy(id = 4)
+        val newEntity = entity.copy(name = "pc")
         platformsCache.upsert(newEntity)
         val result = platformsCache.platforms().first().first()
-        Truth.assertThat(result.id).isEqualTo(newEntity.id)
+        Truth.assertThat(result.name).isEqualTo(newEntity.name)
     }
 
     @Test
@@ -71,8 +71,6 @@ class PlatformsCacheImplTest {
             platformsCache.clear()
             val newResult = platformsCache.platforms().first()
             Truth.assertThat(newResult).isEmpty()
-
-
         }
     }
 
