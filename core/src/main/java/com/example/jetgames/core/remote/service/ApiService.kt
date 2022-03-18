@@ -3,6 +3,7 @@ package com.example.jetgames.core.remote.service
 import com.example.jetgames.core.BuildConfig
 import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.games.GamesResponse
+import com.example.jetgames.core.remote.model.genres.GenresResponse
 import com.example.jetgames.core.remote.model.platforms.PlatformsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -32,4 +33,9 @@ interface ApiService {
     suspend fun fetchPlatforms(
         @Query("key") key: String = BuildConfig.API_KEY,
     ): PlatformsResponse
+
+    @GET("genres")
+    suspend fun fetchGenres(
+        @Query("key") key: String = BuildConfig.API_KEY,
+    ): GenresResponse
 }

@@ -6,6 +6,7 @@ import com.example.jetgames.core.cache.mapper.platforms.PlatformEntityMapper
 import com.example.jetgames.core.cache.mapper.preferences.HomeFilterPreferencesEntityMapper
 import com.example.jetgames.core.cache.model.PlatformEntity
 import com.example.jetgames.core.data.contract.FilterRemote
+import com.example.jetgames.core.domain.model.genres.Genre
 import com.example.jetgames.core.domain.model.platforms.Platform
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.repo.FiltersRepo
@@ -14,6 +15,7 @@ import com.example.jetgames.core.remote.mapper.platforms.PlatformMapper
 import com.example.jetgames.core.remote.model.platforms.PlatformDto
 import com.example.jetgames.core.utils.networkBoundResource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
@@ -41,6 +43,10 @@ class FiltersRepoImpl @Inject constructor(
             },
             refresh = refresh
         )
+    }
+
+    override fun fetchGenres(refresh: Boolean): Flow<Resource<List<Genre>>> {
+        return flow { emit(Resource.Loading()) }
     }
 
 }

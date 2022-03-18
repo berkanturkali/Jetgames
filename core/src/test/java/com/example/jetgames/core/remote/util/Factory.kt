@@ -1,6 +1,7 @@
 package com.example.jetgames.core.remote.util
 
 import com.example.jetgames.core.remote.model.games.GamesResponse
+import com.example.jetgames.core.remote.model.genres.GenresResponse
 import com.example.jetgames.core.remote.model.platforms.PlatformsResponse
 import com.example.jetgames.core.remote.service.ApiService
 import com.google.common.io.Resources

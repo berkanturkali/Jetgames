@@ -1,6 +1,8 @@
 package com.example.jetgames.core.remote.impl
 
 import com.example.jetgames.core.data.contract.FilterRemote
+import com.example.jetgames.core.remote.model.genres.GenreDto
+import com.example.jetgames.core.remote.model.genres.GenresResponse
 import com.example.jetgames.core.remote.model.platforms.PlatformDto
 import com.example.jetgames.core.remote.model.platforms.PlatformsResponse
 import com.example.jetgames.core.remote.util.*

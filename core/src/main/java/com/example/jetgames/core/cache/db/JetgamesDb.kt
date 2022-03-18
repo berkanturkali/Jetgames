@@ -9,12 +9,13 @@ import com.example.jetgames.core.BuildConfig
 import com.example.jetgames.core.cache.converters.RoomConverters
 import com.example.jetgames.core.cache.dao.HomeFilterPreferencesDao
 import com.example.jetgames.core.cache.dao.PlatformsDao
+import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
 import com.squareup.moshi.Moshi
 
 @Database(
-    entities = [PlatformEntity::class, HomeFilterPreferencesEntity::class],
+    entities = [PlatformEntity::class, HomeFilterPreferencesEntity::class,GenreEntity::class],
     version = BuildConfig.databaseVersion,
     exportSchema = false
 )
