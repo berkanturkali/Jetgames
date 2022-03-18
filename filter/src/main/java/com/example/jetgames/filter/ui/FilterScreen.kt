@@ -71,7 +71,7 @@ fun FilterScreen(
             }
 
             //genres filter
-            Genres()
+            Genres(onGenresItemClick = onFilterItemClick)
 
             //metacritic filter
             Metacritic()

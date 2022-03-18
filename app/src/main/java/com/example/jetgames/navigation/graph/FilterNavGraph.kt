@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.example.jetgames.filter.ui.FilterScreen
+import com.example.jetgames.filter.ui.GenresScreen
 import com.example.jetgames.filter.ui.PlatformsScreen
 import com.example.jetgames.filter.viewmodel.FilterScreenViewModel
 import com.example.jetgames.navigation.Routes
@@ -24,6 +25,7 @@ fun NavGraphBuilder.filterNavGraph(
     ) {
         addFilterScreen(navController = navController)
         addPlatformsScreen(navController = navController)
+        addGenresScreen(navController = navController)
     }
 }
 
@@ -41,6 +43,7 @@ fun NavGraphBuilder.addFilterScreen(
             onFilterItemClick = {
                 val screen = when (it) {
                     Screen.PlatformsScreen.route -> Screen.PlatformsScreen
+                    Screen.GenresScreen.route -> Screen.GenresScreen
                     else -> {
                         throw Exception("invalid route")
                     }
@@ -71,5 +74,19 @@ fun NavGraphBuilder.addPlatformsScreen(
             parentViewModel.setPlatforms(platforms)
             navController.navigateUp()
         })
+    }
+}
+
+fun NavGraphBuilder.addGenresScreen(
+    navController: NavController
+){
+    bottomSheet(
+        route = Screen.GenresScreen.route
+    ){backstackEntry ->
+        val parentViewModel :FilterScreenViewModel =
+            hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
+
+        //Genres Dialog
+        GenresScreen()
     }
 }

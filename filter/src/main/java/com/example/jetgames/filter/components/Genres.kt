@@ -29,6 +29,7 @@ import com.example.jetgames.core.domain.model.games.Genre
 fun Genres(
     modifier: Modifier = Modifier,
     genres: List<Genre>? = null,
+    onGenresItemClick: (String) -> Unit =  {},
 ) {
     var expanded by remember {
         mutableStateOf(false)
@@ -83,7 +84,7 @@ fun Genres(
                         modifier = Modifier.rotate(arrowRotationDegree),
                         tint = Color.White)
                 },
-                onClick = {/*TODO: navigate to genres */ }
+                onClick = {onGenresItemClick("genres_screen") }
             )
         }
         val enterFadeIn = remember {

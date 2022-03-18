@@ -6,27 +6,18 @@ import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
-import com.example.jetgames.core.domain.model.platforms.Platform
+import com.example.jetgames.core.domain.model.genres.Genre
 
 @Composable
-fun PlatformItem(
+fun GenreItem(
     modifier: Modifier = Modifier,
-    flag: Boolean,
-    platform: Platform,
-    onItemSelected: (Platform, Boolean) -> Unit,
+    genre: Genre,
 ) {
-    var checked by rememberSaveable {
-        mutableStateOf(flag)
-    }
 
     Row(modifier = modifier
         .fillMaxWidth()
@@ -37,14 +28,13 @@ fun PlatformItem(
 
         Text(
             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8)),
-            text = platform.name!!,
+            text = genre.name,
             style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onPrimary)
         Checkbox(
-            checked = checked,
+            checked = true,
             onCheckedChange = {
-                checked = it
-                onItemSelected(platform, checked)
+
             },
             colors = CheckboxDefaults.colors(
                 checkedColor = MaterialTheme.colors.secondary,
@@ -53,4 +43,5 @@ fun PlatformItem(
         )
 
     }
+
 }
