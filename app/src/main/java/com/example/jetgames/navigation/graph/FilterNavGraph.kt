@@ -69,7 +69,7 @@ fun NavGraphBuilder.addPlatformsScreen(
             hiltViewModel(backstackEntry.rememberParentEntry(
                 navController = navController))
         PlatformsScreen(
-            items = parentViewModel.filterState.value.selectedPlatforms,
+            items = parentViewModel.filterState.value.selectedPlatforms ?: emptyList(),
             onApplyButtonClick = { platforms ->
             parentViewModel.setPlatforms(platforms)
             navController.navigateUp()
@@ -77,6 +77,7 @@ fun NavGraphBuilder.addPlatformsScreen(
     }
 }
 
+@SuppressLint("StateFlowValueCalledInComposition")
 fun NavGraphBuilder.addGenresScreen(
     navController: NavController
 ){
@@ -87,6 +88,11 @@ fun NavGraphBuilder.addGenresScreen(
             hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
 
         //Genres Dialog
-        GenresScreen()
+        GenresScreen(
+            items = parentViewModel.filterState.value.selectedGenres ?: emptyList()
+        ){
+            parentViewModel.setGenres(it)
+            navController.navigateUp()
+        }
     }
 }

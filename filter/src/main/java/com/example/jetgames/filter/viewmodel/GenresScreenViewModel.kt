@@ -30,4 +30,7 @@ class GenresScreenViewModel @Inject constructor(
 
     fun sortGenres(genres: List<Genre>) = genres.sortedBy(Genre::name)
 
+    fun isApplyButtonActive(items:List<String>,selectedGenres:List<String>) =
+        items.sorted() != selectedGenres.sorted()
+
 }

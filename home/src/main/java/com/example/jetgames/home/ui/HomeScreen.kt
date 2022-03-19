@@ -97,17 +97,18 @@ fun Home(
                 modifier = Modifier.fillMaxSize(),
                 state = listState
             ) {
-                item {
-                    Column {
-                        Divider(thickness = 0.5.dp)
-                        OrderByChips(
-                            selectedOrder = homeState.selectedOrder,
-                            orderOptions = viewModel.orderOptions()){
-                            viewModel.setOrder(it)
-                        }
-                        Divider(thickness = 0.5.dp)
-                    }
-                }
+                // TODO: move this out of lazy column cuz it causes scroll position bug
+//                item {
+//                    Column {
+//                        Divider(thickness = 0.5.dp)
+//                        OrderByChips(
+//                            selectedOrder = homeState.selectedOrder,
+//                            orderOptions = viewModel.orderOptions()){
+//                            viewModel.setOrder(it)
+//                        }
+//                        Divider(thickness = 0.5.dp)
+//                    }
+//                }
                 items(games.itemCount) { index ->
                     when (games[index]) {
                         is GameModel.SeparatorItem -> {

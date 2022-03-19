@@ -8,11 +8,14 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -22,17 +25,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetgames.common.R
-import com.example.jetgames.core.domain.model.games.Genre
+import com.example.jetgames.core.domain.model.genres.Genre
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 fun Genres(
     modifier: Modifier = Modifier,
-    genres: List<Genre>? = null,
-    onGenresItemClick: (String) -> Unit =  {},
+    genres: List<String>,
+    onGenresItemClick: (String) -> Unit = {},
+    onDeleteButtonClick: (String) -> Unit = {},
 ) {
     var expanded by remember {
         mutableStateOf(false)
+    }
+
+    var expandable by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    expandable = genres.isNotEmpty()
+
+    if(genres.isEmpty()){
+        if(expanded){
+            expanded = false
+        }
     }
 
     val transitionState = remember {
@@ -53,7 +69,11 @@ fun Genres(
         .fillMaxWidth()
         .wrapContentHeight()
         .clickable {
-            expanded = !expanded
+            if(expandable) {
+                expanded = !expanded
+            }else{
+                onGenresItemClick("genres_screen")
+            }
         }
         .padding(horizontal = dimensionResource(
             id = R.dimen.dimen_8))) {
@@ -61,13 +81,14 @@ fun Genres(
         ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
             val (title, arrow) = createRefs()
             Text(
-                modifier = Modifier.constrainAs(title) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                }
+                modifier = Modifier
+                    .constrainAs(title) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                    }
                     .padding(start = dimensionResource(id = R.dimen.dimen_8)),
-                text = "Genres",
+                text = "Genres (${genres.size})",
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary)
 
@@ -84,7 +105,7 @@ fun Genres(
                         modifier = Modifier.rotate(arrowRotationDegree),
                         tint = Color.White)
                 },
-                onClick = {onGenresItemClick("genres_screen") }
+                onClick = { onGenresItemClick("genres_screen") }
             )
         }
         val enterFadeIn = remember {
@@ -115,13 +136,9 @@ fun Genres(
         androidx.compose.animation.AnimatedVisibility(visible = expanded,
             enter = enterFadeIn + enterExpand,
             exit = exitFadeOut + exitCollapse) {
-            Column(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.dimen_8))) {
-                genres?.let {
-                    if (it.isNotEmpty()) {
-                        it.forEach {
-                            Genre(genre = it)
-                        }
-                    }
+            LazyColumn(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.dimen_16))) {
+                items(genres) {
+                    Genre(genre = it, onDeleteButtonClick = onDeleteButtonClick)
                 }
             }
         }
@@ -131,16 +148,26 @@ fun Genres(
 @Composable
 fun Genre(
     modifier: Modifier = Modifier,
-    genre: Genre,
+    genre: String,
+    onDeleteButtonClick: (String) -> Unit,
 ) {
     Row(modifier = modifier
         .fillMaxWidth()
         .height(40.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween) {
-        Text(text = genre.name!!,
+        Text(text = genre,
             style = MaterialTheme.typography.caption,
             color = MaterialTheme.colors.onPrimary)
 
+
+        Icon(painter = painterResource(id = R.drawable.ic_close),
+            contentDescription = "Remove",
+            tint = MaterialTheme.colors.onPrimary,
+            modifier = Modifier
+                .size(15.dp)
+                .clickable {
+                    onDeleteButtonClick.invoke(genre)
+                })
     }
 }

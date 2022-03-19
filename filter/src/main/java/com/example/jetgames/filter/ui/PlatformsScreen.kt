@@ -3,7 +3,6 @@ package com.example.jetgames.filter.ui
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
@@ -28,16 +27,16 @@ import com.example.jetgames.filter.viewmodel.PlatformsScreenViewModel
 @Composable
 fun PlatformsScreen(
     modifier: Modifier = Modifier,
-    items: List<Platform>? = null,
+    items: List<Platform>,
     viewModel: PlatformsScreenViewModel = hiltViewModel(),
-    onApplyButtonClick: (MutableList<Platform>?) -> Unit,
+    onApplyButtonClick: (List<Platform>) -> Unit,
 ) {
     val platforms = viewModel.platforms.observeAsState()
 
     val listState = rememberLazyListState()
 
     val selectedPlatforms by rememberSaveable {
-        mutableStateOf(items?.toMutableList() ?: mutableListOf())
+        mutableStateOf(items.toMutableList())
     }
 
     var isApplyButtonActive by rememberSaveable {
@@ -76,11 +75,7 @@ fun PlatformsScreen(
                                 } else {
                                     selectedPlatforms.add(platform)
                                 }
-                                isApplyButtonActive = if (items != null) {
-                                    items != selectedPlatforms
-                                } else {
-                                    selectedPlatforms.size > 0
-                                }
+                                isApplyButtonActive = viewModel.isApplyButtonActive(items, selectedPlatforms)
                             }
                         }
                         item {

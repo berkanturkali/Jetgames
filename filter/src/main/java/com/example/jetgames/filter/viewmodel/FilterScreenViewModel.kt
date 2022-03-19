@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jetgames.core.domain.model.games.Genre
 import com.example.jetgames.core.domain.model.platforms.Platform
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
@@ -26,10 +25,10 @@ class FilterScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _selectedPlatforms =
-        MutableStateFlow<MutableList<Platform>?>(
-            null)
+        MutableStateFlow<List<Platform>>(
+            emptyList())
 
-    private val _selectedGenres = MutableStateFlow<List<Genre>?>(null)
+    private val _selectedGenres = MutableStateFlow<List<String>>(emptyList())
 
     private val _selectedMetacritic = MutableStateFlow(MetacriticPreference())
 
@@ -55,12 +54,9 @@ class FilterScreenViewModel @Inject constructor(
                     selectedPlatforms = platforms,
                     selectedGenres = genres,
                     selectedMetacritics = metacritic,
-                    isApplyButtonVisible = if (currentPrefs.platforms != null) {
-                        // TODO: temp logic
-                        currentPrefs.platforms?.sortedBy(Platform::id) != platforms?.sortedBy(Platform::id)
-                    } else {
-                        !platforms.isNullOrEmpty()
-                    }
+                    isApplyButtonVisible = setApplyButtonVisibility(
+                        platforms = platforms,
+                        genres = genres)
                 )
             }
                 .catch { throwable ->
@@ -72,12 +68,13 @@ class FilterScreenViewModel @Inject constructor(
         }
     }
 
-    fun setPlatforms(platforms: List<Platform>?) {
-        _selectedPlatforms.value = platforms as MutableList<Platform>?
+    fun setPlatforms(platforms: List<Platform>) {
+        _selectedPlatforms.value = platforms
     }
 
-    fun setGenres(genres: List<Genre>?) {
+    fun setGenres(genres: List<String>) {
         _selectedGenres.value = genres
+
     }
 
     fun setMetacritics(metacritic: MetacriticPreference) {
@@ -85,13 +82,27 @@ class FilterScreenViewModel @Inject constructor(
     }
 
     fun removePlatform(platform: Platform) {
-        val newList = _selectedPlatforms.value!! - platform
+        val newList = _selectedPlatforms.value - platform
         setPlatforms(newList)
+    }
+
+    fun removeGenre(genre: String) {
+        val newList = _selectedGenres.value - genre
+        setGenres(newList)
+    }
+
+    private fun setApplyButtonVisibility(
+        platforms: List<Platform>,
+        genres: List<String>,
+    ): Boolean {
+        return !(platforms.sortedBy(Platform::id) == currentPrefs.platforms.sortedBy(Platform::id)
+                && genres.sorted() == currentPrefs.genres.sorted())
     }
 
     fun applyPreferences() {
         val preferences = HomePreferences.HomeFilterPreferences(
-            platforms = _selectedPlatforms.value
+            platforms = _selectedPlatforms.value,
+            genres = _selectedGenres.value
         )
         viewModelScope.launch(Dispatchers.Main) {
             _preferencesApplied.value =
@@ -104,6 +115,7 @@ class FilterScreenViewModel @Inject constructor(
             preferencesRepo.preferences().collect {
                 currentPrefs = it
                 setPlatforms(it.platforms)
+                setGenres(it.genres)
             }
         }
     }

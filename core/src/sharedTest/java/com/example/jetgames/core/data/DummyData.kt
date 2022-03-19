@@ -142,7 +142,8 @@ internal object DummyData {
 
     //filter preferences entity
     val filterPreferencesEntity = HomeFilterPreferencesEntity(
-        platforms = listOf(PlatformEntity(id= 5,name ="Playstation 5"))
+        platforms = listOf(PlatformEntity(id= 5,name ="Playstation 5")),
+        genres = listOf("Strategy","Sports")
     )
 
     //filter preferences

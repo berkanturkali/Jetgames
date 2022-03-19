@@ -1,6 +1,8 @@
 package com.example.jetgames.core.domain.model.preferences
 
+import androidx.compose.ui.text.toLowerCase
 import com.example.jetgames.core.domain.model.platforms.Platform
+import java.util.*
 
 sealed class HomePreferences {
     data class HomeViewPreferences(
@@ -9,19 +11,30 @@ sealed class HomePreferences {
 
     data class HomeFilterPreferences(
         val query: String? = null,
-        val platforms: List<Platform>? = null,
-    ) : HomePreferences(){
+        val platforms: List<Platform> = emptyList(),
+        val genres: List<String> = emptyList(),
+    ) : HomePreferences() {
 
         fun mapPlatforms(): String? {
-            return platforms?.let {
-                when {
-                    it.isEmpty() -> null
-                    it.size == 1 -> {
-                        it[0].id.toString()
-                    }
-                    else -> {
-                        it.map { platform -> platform.id }.joinToString(", ")
-                    }
+            return when {
+                platforms.isEmpty() -> null
+                platforms.size == 1 -> {
+                    platforms[0].id.toString()
+                }
+                else -> {
+                    platforms.map { platform -> platform.id }.joinToString(",")
+                }
+            }
+        }
+
+        fun mapGenres():String?{
+            return when{
+                genres.isEmpty() -> null
+                genres.size == 1 ->{
+                    genres[0].lowercase()
+                }
+                else->{
+                    genres.joinToString(",").lowercase()
                 }
             }
         }

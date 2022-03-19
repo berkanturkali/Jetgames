@@ -32,8 +32,8 @@ class GamesPagingSourceTest {
 
     @Test
     fun `check that prev and next keys are correct`() = runBlocking {
-        val pagingSource = GamesPagingSource(gamesRemote,null,null)
-        val games = gamesRemote.fetchGames(PAGE, SIZE,null,null)
+        val pagingSource = GamesPagingSource(gamesRemote,null,null,null)
+        val games = gamesRemote.fetchGames(PAGE, SIZE,null,null,null)
         Truth.assertThat(
             PagingSource.LoadResult.Page(
                 data = games,
@@ -52,8 +52,8 @@ class GamesPagingSourceTest {
     @Test
     fun `check that if error occurs returns Error`() = runBlocking {
         val gamesRemote = mockk<GamesRemote>()
-        coEvery { gamesRemote.fetchGames(PAGE,SIZE,null,null) } throws IOException()
-        val pagingSource = GamesPagingSource(gamesRemote,null,null)
+        coEvery { gamesRemote.fetchGames(PAGE,SIZE,null,null,null) } throws IOException()
+        val pagingSource = GamesPagingSource(gamesRemote,null,null,null)
         val result = pagingSource.load(
             PagingSource.LoadParams.Refresh(
                 key = null,

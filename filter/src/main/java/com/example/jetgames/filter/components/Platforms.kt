@@ -21,12 +21,10 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetgames.common.R.dimen
 import com.example.jetgames.common.R.drawable
-import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.core.domain.model.platforms.Platform
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
@@ -47,8 +45,8 @@ fun Platforms(
     }
     expandable = platforms.isNotEmpty()
 
-    if(platforms.isEmpty()){
-        if(expanded){
+    if (platforms.isEmpty()) {
+        if (expanded) {
             expanded = false
         }
     }
@@ -64,11 +62,7 @@ fun Platforms(
     val arrowRotationDegree by transition.animateFloat({
         tween(durationMillis = 300)
     }, label = "") {
-        if (expandable) {
-            if (expanded) 90f else 0f
-        } else {
-            0f
-        }
+        if (expanded) 90f else 0f
     }
     Column(modifier = modifier
         .fillMaxWidth()
@@ -142,7 +136,7 @@ fun Platforms(
             exit = exitFadeOut + exitCollapse) {
             LazyColumn(modifier = Modifier.padding(horizontal = dimensionResource(id =
             dimen.dimen_16))) {
-                items(platforms.count()) {
+                items(platforms.size) {
                     Platform(platform = platforms[it], onDeleteButtonClick = onDeleteButtonClick)
                 }
             }

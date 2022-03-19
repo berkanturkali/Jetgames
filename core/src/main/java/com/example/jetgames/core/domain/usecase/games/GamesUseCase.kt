@@ -21,6 +21,7 @@ class GamesUseCase @Inject constructor(
 
     override fun execute(params: HomePreferences.HomeFilterPreferences?): Flow<PagingData<Game>> {
         val platforms = params!!.mapPlatforms()
-        return repo.fetchGames(params.query, platforms = platforms)
+        val genres = params.mapGenres()
+        return repo.fetchGames(params.query, platforms = platforms,genres = genres)
     }
 }

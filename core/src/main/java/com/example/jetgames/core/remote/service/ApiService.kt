@@ -19,7 +19,8 @@ interface ApiService {
         @Query("ordering") ordering: String = "-metacritic",
         @Query("search") query: String?,
         @Query("search_exact") searchExact: Boolean = true,
-        @Query("platforms") platforms:String? = null,
+        @Query("platforms") platforms: String? = null,
+        @Query("genres") genres: String? = null,
     ): GamesResponse
 
     @GET("games/{id}")

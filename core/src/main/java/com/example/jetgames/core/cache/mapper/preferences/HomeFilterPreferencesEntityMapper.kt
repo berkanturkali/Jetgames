@@ -13,13 +13,15 @@ class HomeFilterPreferencesEntityMapper @Inject constructor(
 ) : EntityMapper<HomeFilterPreferencesEntity?, HomePreferences.HomeFilterPreferences> {
     override fun mapFromEntity(entity: HomeFilterPreferencesEntity?): HomePreferences.HomeFilterPreferences {
         return HomePreferences.HomeFilterPreferences(
-            platforms = platformEntityMapper.mapTypeList(entity?.platforms),
+            platforms = platformEntityMapper.mapTypeList(entity?.platforms) ?: emptyList(),
+            genres = entity?.genres ?: emptyList()
         )
     }
 
     override fun mapToEntity(type: HomePreferences.HomeFilterPreferences): HomeFilterPreferencesEntity {
         return HomeFilterPreferencesEntity(
             platforms = platformEntityMapper.mapToEntityList(type.platforms),
+            genres = type.genres
         )
     }
 }

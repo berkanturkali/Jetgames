@@ -8,5 +8,6 @@ interface GamesRemote {
         size: Int,
         query: String?,
         platforms: String?,
+        genres:String?
     ): List<GameDto>
 }

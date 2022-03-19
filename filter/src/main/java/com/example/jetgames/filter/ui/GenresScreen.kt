@@ -27,9 +27,10 @@ import com.example.jetgames.filter.viewmodel.GenresScreenViewModel
 @Composable
 fun GenresScreen(
     modifier: Modifier = Modifier,
+    items: List<String>,
     viewModel: GenresScreenViewModel = hiltViewModel(),
-
-    ) {
+    onApplyButtonClick: (List<String>) -> Unit,
+) {
 
     val genres = viewModel.genres.observeAsState()
 
@@ -37,6 +38,10 @@ fun GenresScreen(
 
     var isApplyButtonActive by rememberSaveable {
         mutableStateOf(false)
+    }
+
+    val selectedGenres by rememberSaveable {
+        mutableStateOf(items.toMutableList())
     }
 
     DefaultScreenUI(
@@ -64,11 +69,22 @@ fun GenresScreen(
                         items(count = genres.value!!.data!!.size) {
                             //platform item
                             GenreItem(
+                                isChecked = selectedGenres.contains(sortedList[it].name),
                                 genre = sortedList[it],
-                            )
+                            ) { genre, checked ->
+                                if (checked) {
+                                    selectedGenres.add(genre)
+                                } else {
+                                    selectedGenres.remove(genre)
+                                }
+                                isApplyButtonActive =
+                                    viewModel.isApplyButtonActive(items, selectedGenres)
+                            }
                         }
                         item {
-                            Button(onClick = { },
+                            Button(onClick = {
+                                onApplyButtonClick(selectedGenres)
+                            },
                                 enabled = isApplyButtonActive,
                                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary,
                                     contentColorFor(backgroundColor = MaterialTheme.colors.onSecondary)),

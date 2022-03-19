@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
                 HomeState(
                     selectedOrder = selectedOrder,
                     isRefreshing = refreshing,
-                    filterCount = calculateBadge(filterPreferences.platforms),
+                    filterCount = calculateBadge(filterPreferences.platforms,filterPreferences.genres),
                     homeViewPreferences = viewPreferences,
                     homeFilterPreferences = filterPreferences)
             }

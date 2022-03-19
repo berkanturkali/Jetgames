@@ -27,4 +27,7 @@ class PlatformsScreenViewModel @Inject constructor(
     }
 
     fun sortPlatforms(platforms: List<Platform>) = platforms.sortedBy(Platform::name)
+
+    fun isApplyButtonActive(items: List<Platform>, selectedPlatforms: List<Platform>) =
+        items.sortedBy(Platform::id) != selectedPlatforms.sortedBy(Platform::id)
 }

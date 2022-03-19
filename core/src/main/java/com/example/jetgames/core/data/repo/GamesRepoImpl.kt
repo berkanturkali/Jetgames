@@ -17,11 +17,18 @@ class GamesRepoImpl @Inject constructor(
     private val gamesRemote: GamesRemote,
     private val gameMapper: GameMapper,
 ) : GamesRepo {
-    override fun fetchGames(query: String?, platforms: String?): Flow<PagingData<Game>> {
+    override fun fetchGames(
+        query: String?,
+        platforms: String?,
+        genres: String?,
+    ): Flow<PagingData<Game>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = {
-                GamesPagingSource(gamesRemote = gamesRemote, query, platforms = platforms)
+                GamesPagingSource(gamesRemote = gamesRemote,
+                    query,
+                    platforms = platforms,
+                    genres = genres)
             }
         ).flow.map {
             it.map(gameMapper::mapFromModel)

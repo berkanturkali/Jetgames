@@ -19,6 +19,12 @@ internal class RoomConverters(
         moshi.adapter(type)
     }
 
+    private val listAdapter: JsonAdapter<List<String>> by lazy {
+        val type: ParameterizedType =
+            Types.newParameterizedType(List::class.java, String::class.java)
+        moshi.adapter(type)
+    }
+
     @TypeConverter
     fun fromPlatforms(platforms: List<PlatformEntity>?): String {
         return platformAdapter.toJson(platforms)
@@ -27,5 +33,15 @@ internal class RoomConverters(
     @TypeConverter
     fun fromPlatformsString(platforms: String): List<PlatformEntity>? {
         return platformAdapter.fromJson(platforms)
+    }
+
+    @TypeConverter
+    fun fromStringList(list: List<String>?): String {
+        return listAdapter.toJson(list)
+    }
+
+    @TypeConverter
+    fun toStringList(string: String): List<String>? {
+        return listAdapter.fromJson(string)
     }
 }
