@@ -1,88 +1,87 @@
 package com.example.jetgames.filter.components
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.jetgames.common.R
-import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.common.ui.theme.XLightGray
+import com.example.jetgames.common.ui.theme.XXLightGray
+import com.example.jetgames.common.util.calculateRgbFromMetacritic
 import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
+import com.example.jetgames.filter.viewmodel.FilterScreenViewModel
 
 @Composable
 fun Metacritic(
     modifier: Modifier = Modifier,
     selectedMetacritic: MetacriticPreference? = null,
+    viewModel: FilterScreenViewModel,
 ) {
-    Row(modifier = modifier
-        .fillMaxWidth()
-        .height(50.dp)
-        .clickable { /* TODO: show metacritic dialog */ }
-        .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween) {
+
+    val min = viewModel.min.collectAsState()
+
+    val max = viewModel.max.collectAsState()
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
+    ) {
         Text(text = "Metacritic",
-            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8)),
+            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8),
+                top = dimensionResource(
+                    id = R.dimen.dimen_8)),
             style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onPrimary)
 
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.dimen_8))) {
-            selectedMetacritic?.let {
-                Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_4))) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                            Text(text = "Min",
-                                fontSize = 8.sp,
-                                color = MaterialTheme.colors.onPrimary)
-                        }
-                        Text(text = it.min.toString(),
-                            style = MaterialTheme.typography.subtitle2,
-                            color = MaterialTheme.colors.onPrimary)
-                    }
-                    Divider(color = XLightGray,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .width(dimensionResource(id = R.dimen.dimen_8)))
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                            Text(text = "Max",
-                                fontSize = 8.sp,
-                                color = MaterialTheme.colors.onPrimary)
-                        }
-                        Text(text = it.max.toString(),
-                            style = MaterialTheme.typography.subtitle2,
-                            color = MaterialTheme.colors.onPrimary)
-                    }
-                }
-            }
-            IconButton(
-                content = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_next),
-                        contentDescription = null,
-                        tint = Color.White)
-                },
-                onClick = { /* TODO: show metacritic dialog */ },
-            )
+        Divider(thickness = 0.5.dp)
+
+        Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_16))) {
+
+            SliderItem(
+                title = "Min (${min.value.toInt()} - ${max.value.toInt()})",
+                value = min.value,
+                onValueChange = viewModel::setMin)
+
+
+            SliderItem(
+                title = "Max (${max.value.toInt()} - 100)",
+                value = max.value,
+                onValueChange =viewModel::setMax,
+               onValueChangeFinished = viewModel::onValueChangeFinishedForMax)
         }
     }
 }
 
-@Preview
 @Composable
-fun MetacriticPrev() {
-    JetgamesTheme {
-        Metacritic()
-    }
+private fun SliderItem(
+    modifier: Modifier = Modifier,
+    title: String,
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    onValueChangeFinished: () -> Unit = {},
+) {
+
+    Text(text = title,
+        style = MaterialTheme.typography.subtitle2,
+        color = MaterialTheme.colors.onPrimary)
+    Slider(
+        value = value,
+        onValueChange = onValueChange,
+        valueRange = 0f..100f,
+        colors = SliderDefaults.colors(
+            thumbColor = MaterialTheme.colors.onPrimary,
+            activeTickColor = MaterialTheme.colors.onPrimary,
+            activeTrackColor = value.toInt().calculateRgbFromMetacritic(),
+            inactiveTrackColor = XXLightGray.copy(alpha = 0.2f)
+        ),
+        onValueChangeFinished = onValueChangeFinished
+    )
+
 }

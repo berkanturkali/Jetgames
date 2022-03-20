@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +43,13 @@ class FilterScreenViewModel @Inject constructor(
 
     private var currentPrefs = HomePreferences.HomeFilterPreferences()
 
+    private val _min = MutableStateFlow(0f)
+
+    val min: StateFlow<Float> get() = _min
+
+    private val _max = MutableStateFlow(100f)
+
+    val max: StateFlow<Float> get() = _max
 
     init {
         getPreferences()
@@ -117,6 +125,26 @@ class FilterScreenViewModel @Inject constructor(
                 setPlatforms(it.platforms)
                 setGenres(it.genres)
             }
+        }
+    }
+
+    private fun isMinValid(min: Int, max: Int) = min < max
+
+    fun setMin(min: Float) {
+        if (!isMinValid(min.toInt(), max.value.toInt())) {
+            _min.value = max.value
+        } else {
+            _min.value = min
+        }
+    }
+
+    fun setMax(max: Float) {
+        _max.value = max
+    }
+
+    fun onValueChangeFinishedForMax() {
+        if (_max.value.toInt() < min.value.toInt()) {
+            setMin(_max.value)
         }
     }
 }

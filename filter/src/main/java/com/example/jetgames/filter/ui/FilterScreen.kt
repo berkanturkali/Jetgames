@@ -75,7 +75,7 @@ fun FilterScreen(
             Divider(thickness = 0.5.dp)
 
             //metacritic filter
-            Metacritic()
+            Metacritic(viewModel = viewModel)
             Divider(thickness = 0.5.dp)
         }
     }
