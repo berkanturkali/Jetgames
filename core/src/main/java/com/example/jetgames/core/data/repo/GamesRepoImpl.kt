@@ -11,6 +11,7 @@ import com.example.jetgames.core.remote.mapper.games.GameMapper
 import com.example.jetgames.core.remote.paging.GamesPagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 
 class GamesRepoImpl @Inject constructor(
@@ -21,6 +22,7 @@ class GamesRepoImpl @Inject constructor(
         query: String?,
         platforms: String?,
         genres: String?,
+        metacritic:String?
     ): Flow<PagingData<Game>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
@@ -28,7 +30,8 @@ class GamesRepoImpl @Inject constructor(
                 GamesPagingSource(gamesRemote = gamesRemote,
                     query,
                     platforms = platforms,
-                    genres = genres)
+                    genres = genres,
+                    metacritic = metacritic)
             }
         ).flow.map {
             it.map(gameMapper::mapFromModel)

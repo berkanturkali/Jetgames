@@ -21,6 +21,7 @@ interface ApiService {
         @Query("search_exact") searchExact: Boolean = true,
         @Query("platforms") platforms: String? = null,
         @Query("genres") genres: String? = null,
+        @Query("metacritic") metacritic:String? = null
     ): GamesResponse
 
     @GET("games/{id}")

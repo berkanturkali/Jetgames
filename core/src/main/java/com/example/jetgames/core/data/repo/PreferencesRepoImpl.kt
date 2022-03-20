@@ -13,7 +13,7 @@ class PreferencesRepoImpl @Inject constructor(
     private val preferencesCache: HomeFilterPreferencesCache,
 ) : PreferencesRepo {
 
-    override suspend fun insertHomePreferences(homePreferences: HomePreferences):Long {
+    override suspend fun insertHomePreferences(homePreferences: HomePreferences): Long {
         return preferencesCache.upsert(preferencesMapper.mapToEntity(homePreferences as HomePreferences.HomeFilterPreferences))
     }
 

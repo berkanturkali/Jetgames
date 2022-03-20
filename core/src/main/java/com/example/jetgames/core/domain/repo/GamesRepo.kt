@@ -10,6 +10,7 @@ interface GamesRepo {
     fun fetchGames(
         query: String?,
         platforms: String?,
-        genres:String?
+        genres:String?,
+        metacritic:String?,
     ): Flow<PagingData<Game>>
 }

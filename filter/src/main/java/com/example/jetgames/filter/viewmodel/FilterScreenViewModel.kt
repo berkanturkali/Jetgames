@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,7 +63,8 @@ class FilterScreenViewModel @Inject constructor(
                     selectedMetacritics = metacritic,
                     isApplyButtonVisible = setApplyButtonVisibility(
                         platforms = platforms,
-                        genres = genres)
+                        genres = genres,
+                        metacritic = metacritic)
                 )
             }
                 .catch { throwable ->
@@ -102,15 +102,19 @@ class FilterScreenViewModel @Inject constructor(
     private fun setApplyButtonVisibility(
         platforms: List<Platform>,
         genres: List<String>,
+        metacritic: MetacriticPreference,
     ): Boolean {
-        return !(platforms.sortedBy(Platform::id) == currentPrefs.platforms.sortedBy(Platform::id)
-                && genres.sorted() == currentPrefs.genres.sorted())
+        return !(platforms.sortedBy(Platform::id) == currentPrefs.platforms.sortedBy(Platform::id) &&
+                genres.sorted() == currentPrefs.genres.sorted() &&
+                metacritic == currentPrefs.metacriticPreference
+                )
     }
 
     fun applyPreferences() {
         val preferences = HomePreferences.HomeFilterPreferences(
             platforms = _selectedPlatforms.value,
-            genres = _selectedGenres.value
+            genres = _selectedGenres.value,
+            metacriticPreference = _selectedMetacritic.value
         )
         viewModelScope.launch(Dispatchers.Main) {
             _preferencesApplied.value =
@@ -124,6 +128,9 @@ class FilterScreenViewModel @Inject constructor(
                 currentPrefs = it
                 setPlatforms(it.platforms)
                 setGenres(it.genres)
+                setMetacritics(it.metacriticPreference)
+                _min.value = it.metacriticPreference.min.toFloat()
+                _max.value = it.metacriticPreference.max.toFloat()
             }
         }
     }
@@ -146,5 +153,10 @@ class FilterScreenViewModel @Inject constructor(
         if (_max.value.toInt() < min.value.toInt()) {
             setMin(_max.value)
         }
+        _selectedMetacritic.value = _selectedMetacritic.value.copy(max = _max.value.toInt())
+    }
+
+    fun onValueChangeFinishedForMin() {
+        _selectedMetacritic.value = _selectedMetacritic.value.copy(min = min.value.toInt())
     }
 }

@@ -8,6 +8,7 @@ import com.example.jetgames.core.domain.repo.GamesRepo
 import com.example.jetgames.core.domain.usecase.base.FlowUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 
 class GamesUseCase @Inject constructor(
@@ -22,6 +23,10 @@ class GamesUseCase @Inject constructor(
     override fun execute(params: HomePreferences.HomeFilterPreferences?): Flow<PagingData<Game>> {
         val platforms = params!!.mapPlatforms()
         val genres = params.mapGenres()
-        return repo.fetchGames(params.query, platforms = platforms,genres = genres)
+        val metacri = params.mapMetacritics()
+        return repo.fetchGames(params.query,
+            platforms = platforms,
+            genres = genres,
+            metacritic = metacri)
     }
 }

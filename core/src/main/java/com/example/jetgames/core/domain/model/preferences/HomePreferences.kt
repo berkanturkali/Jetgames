@@ -1,8 +1,6 @@
 package com.example.jetgames.core.domain.model.preferences
 
-import androidx.compose.ui.text.toLowerCase
 import com.example.jetgames.core.domain.model.platforms.Platform
-import java.util.*
 
 sealed class HomePreferences {
     data class HomeViewPreferences(
@@ -13,6 +11,7 @@ sealed class HomePreferences {
         val query: String? = null,
         val platforms: List<Platform> = emptyList(),
         val genres: List<String> = emptyList(),
+        val metacriticPreference: MetacriticPreference = MetacriticPreference(),
     ) : HomePreferences() {
 
         fun mapPlatforms(): String? {
@@ -27,15 +26,22 @@ sealed class HomePreferences {
             }
         }
 
-        fun mapGenres():String?{
-            return when{
+        fun mapGenres(): String? {
+            return when {
                 genres.isEmpty() -> null
-                genres.size == 1 ->{
+                genres.size == 1 -> {
                     genres[0].lowercase()
                 }
-                else->{
+                else -> {
                     genres.joinToString(",").lowercase()
                 }
+            }
+        }
+
+        fun mapMetacritics(): String? {
+            return when {
+                metacriticPreference.min == 0 && metacriticPreference.max == 100 -> null
+                else -> metacriticPreference.min.toString() + "," + metacriticPreference.max.toString()
             }
         }
     }

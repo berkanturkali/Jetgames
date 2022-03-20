@@ -19,7 +19,6 @@ import com.example.jetgames.filter.viewmodel.FilterScreenViewModel
 @Composable
 fun Metacritic(
     modifier: Modifier = Modifier,
-    selectedMetacritic: MetacriticPreference? = null,
     viewModel: FilterScreenViewModel,
 ) {
 
@@ -34,9 +33,7 @@ fun Metacritic(
             .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
     ) {
         Text(text = "Metacritic",
-            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8),
-                top = dimensionResource(
-                    id = R.dimen.dimen_8)),
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
             style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onPrimary)
 
@@ -47,14 +44,15 @@ fun Metacritic(
             SliderItem(
                 title = "Min (${min.value.toInt()} - ${max.value.toInt()})",
                 value = min.value,
-                onValueChange = viewModel::setMin)
+                onValueChange = viewModel::setMin,
+                onValueChangeFinished = viewModel::onValueChangeFinishedForMin)
 
 
             SliderItem(
                 title = "Max (${max.value.toInt()} - 100)",
                 value = max.value,
-                onValueChange =viewModel::setMax,
-               onValueChangeFinished = viewModel::onValueChangeFinishedForMax)
+                onValueChange = viewModel::setMax,
+                onValueChangeFinished = viewModel::onValueChangeFinishedForMax)
         }
     }
 }

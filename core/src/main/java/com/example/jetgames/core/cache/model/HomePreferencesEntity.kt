@@ -10,5 +10,7 @@ data class HomeFilterPreferencesEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int = 0,
     val platforms: List<PlatformEntity>?,
-    val genres:List<String>?
+    val genres: List<String>?,
+    val minMetacri: Int,
+    val maxMetacri: Int,
 )

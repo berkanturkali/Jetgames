@@ -20,7 +20,7 @@ class FakeHomeFilterPreferencesCache : HomeFilterPreferencesCache {
         return flow {
             emit(cache.values.first())
         }.catch {
-            emit(HomeFilterPreferencesEntity(platforms = null,genres = null))
+            emit(HomeFilterPreferencesEntity(platforms = null,genres = null, maxMetacri = 100, minMetacri = 0))
         }
     }
 }
