@@ -8,3 +8,7 @@ sealed class GameModel {
 fun GameModel.GameItem.lowerBound():Int{
     return this.game.metaCritic!! - (this.game.metaCritic % 5)
 }
+
+fun GameModel.GameItem.upper():Int{
+    return this.game.metaCritic!! + (this.game.metaCritic % 5)
+}

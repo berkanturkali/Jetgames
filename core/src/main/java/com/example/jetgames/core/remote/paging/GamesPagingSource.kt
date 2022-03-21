@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import com.example.jetgames.core.data.contract.GamesRemote
 import com.example.jetgames.core.remote.model.games.GameDto
 import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
 
 class GamesPagingSource constructor(
@@ -14,6 +13,7 @@ class GamesPagingSource constructor(
     private val platforms: String?,
     private val genres: String?,
     private val metacritic: String?,
+    private val order: String,
 ) : PagingSource<Int, GameDto>() {
     override fun getRefreshKey(state: PagingState<Int, GameDto>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -32,7 +32,8 @@ class GamesPagingSource constructor(
                     query,
                     platforms = platforms,
                     genres = genres,
-                    metacritic = metacritic)
+                    metacritic = metacritic,
+                    order = order)
             val prevKey = if (page == 1) null else page - 1
             val nextKey = if (response.isEmpty()) null else page + 1
             LoadResult.Page(

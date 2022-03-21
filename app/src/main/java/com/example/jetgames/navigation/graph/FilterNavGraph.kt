@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.example.jetgames.filter.ui.FilterScreen
 import com.example.jetgames.filter.ui.GenresScreen
+import com.example.jetgames.filter.ui.OrdersScreen
 import com.example.jetgames.filter.ui.PlatformsScreen
 import com.example.jetgames.filter.viewmodel.FilterScreenViewModel
 import com.example.jetgames.navigation.Routes
@@ -26,6 +27,7 @@ fun NavGraphBuilder.filterNavGraph(
         addFilterScreen(navController = navController)
         addPlatformsScreen(navController = navController)
         addGenresScreen(navController = navController)
+        addOrdersScreen(navController = navController)
     }
 }
 
@@ -44,6 +46,7 @@ fun NavGraphBuilder.addFilterScreen(
                 val screen = when (it) {
                     Screen.PlatformsScreen.route -> Screen.PlatformsScreen
                     Screen.GenresScreen.route -> Screen.GenresScreen
+                    Screen.OrdersScreen.route -> Screen.OrdersScreen
                     else -> {
                         throw Exception("invalid route")
                     }
@@ -71,27 +74,46 @@ fun NavGraphBuilder.addPlatformsScreen(
         PlatformsScreen(
             items = parentViewModel.filterState.value.selectedPlatforms ?: emptyList(),
             onApplyButtonClick = { platforms ->
-            parentViewModel.setPlatforms(platforms)
-            navController.navigateUp()
-        })
+                parentViewModel.setPlatforms(platforms)
+                navController.navigateUp()
+            })
     }
 }
 
 @SuppressLint("StateFlowValueCalledInComposition")
 fun NavGraphBuilder.addGenresScreen(
-    navController: NavController
-){
+    navController: NavController,
+) {
     bottomSheet(
         route = Screen.GenresScreen.route
-    ){backstackEntry ->
-        val parentViewModel :FilterScreenViewModel =
+    ) { backstackEntry ->
+        val parentViewModel: FilterScreenViewModel =
             hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
 
         //Genres Dialog
         GenresScreen(
             items = parentViewModel.filterState.value.selectedGenres ?: emptyList()
-        ){
+        ) {
             parentViewModel.setGenres(it)
+            navController.navigateUp()
+        }
+    }
+}
+
+
+@SuppressLint("StateFlowValueCalledInComposition")
+fun NavGraphBuilder.addOrdersScreen(
+    navController: NavController,
+) {
+    bottomSheet(
+        route = Screen.OrdersScreen.route
+    ) { backstackEntry ->
+        val parentViewModel: FilterScreenViewModel =
+            hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
+        //Orders Dialog
+        OrdersScreen(
+            currentOrder = parentViewModel.filterState.value.selectedOrder.order.value) {order->
+            parentViewModel.setSelectedOrder(order)
             navController.navigateUp()
         }
     }

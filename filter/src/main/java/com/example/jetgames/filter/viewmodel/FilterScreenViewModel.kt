@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jetgames.core.domain.model.platforms.Platform
-import com.example.jetgames.core.domain.model.preferences.HomePreferences
-import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
+import com.example.jetgames.core.domain.model.preferences.*
 import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.example.jetgames.filter.state.FilterState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +31,8 @@ class FilterScreenViewModel @Inject constructor(
 
     private val _selectedMetacritic = MutableStateFlow(MetacriticPreference())
 
+    private val _selectedOrder = MutableStateFlow(OrderPreference())
+
     private val _filterState = MutableStateFlow(FilterState())
 
     private val _preferencesApplied = MutableLiveData<Boolean>()
@@ -56,15 +57,18 @@ class FilterScreenViewModel @Inject constructor(
             combine(
                 _selectedPlatforms,
                 _selectedGenres,
-                _selectedMetacritic) { platforms, genres, metacritic ->
+                _selectedMetacritic,
+                _selectedOrder) { platforms, genres, metacritic, order ->
                 FilterState(
+                    selectedOrder = order,
                     selectedPlatforms = platforms,
                     selectedGenres = genres,
                     selectedMetacritics = metacritic,
                     isApplyButtonVisible = setApplyButtonVisibility(
                         platforms = platforms,
                         genres = genres,
-                        metacritic = metacritic)
+                        metacritic = metacritic,
+                        order = order)
                 )
             }
                 .catch { throwable ->
@@ -103,10 +107,12 @@ class FilterScreenViewModel @Inject constructor(
         platforms: List<Platform>,
         genres: List<String>,
         metacritic: MetacriticPreference,
+        order: OrderPreference,
     ): Boolean {
         return !(platforms.sortedBy(Platform::id) == currentPrefs.platforms.sortedBy(Platform::id) &&
                 genres.sorted() == currentPrefs.genres.sorted() &&
-                metacritic == currentPrefs.metacriticPreference
+                metacritic == currentPrefs.metacriticPreference &&
+                order == currentPrefs.order
                 )
     }
 
@@ -114,7 +120,8 @@ class FilterScreenViewModel @Inject constructor(
         val preferences = HomePreferences.HomeFilterPreferences(
             platforms = _selectedPlatforms.value,
             genres = _selectedGenres.value,
-            metacriticPreference = _selectedMetacritic.value
+            metacriticPreference = _selectedMetacritic.value,
+            order = _selectedOrder.value
         )
         viewModelScope.launch(Dispatchers.Main) {
             _preferencesApplied.value =
@@ -131,6 +138,7 @@ class FilterScreenViewModel @Inject constructor(
                 setMetacritics(it.metacriticPreference)
                 _min.value = it.metacriticPreference.min.toFloat()
                 _max.value = it.metacriticPreference.max.toFloat()
+                _selectedOrder.value = it.order
             }
         }
     }
@@ -158,5 +166,14 @@ class FilterScreenViewModel @Inject constructor(
 
     fun onValueChangeFinishedForMin() {
         _selectedMetacritic.value = _selectedMetacritic.value.copy(min = min.value.toInt())
+    }
+
+    fun setSelectedOrder(order: String) {
+        val enumOrder = when (order.lowercase()) {
+            Order.METACRITIC.value -> Order.METACRITIC
+            Order.RATING.value -> Order.RATING
+            else -> throw Exception("invalid order")
+        }
+        _selectedOrder.value = _selectedOrder.value.copy(order = enumOrder)
     }
 }

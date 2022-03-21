@@ -10,5 +10,6 @@ interface GamesRemote {
         platforms: String?,
         genres:String?,
         metacritic:String?,
+        order:String
     ): List<GameDto>
 }

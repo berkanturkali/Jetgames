@@ -17,6 +17,8 @@ object Routes {
 
     const val GENRES_ROUTE = "genres_screen"
 
+    const val ORDERS_ROUTE = "orders_screen"
+
     //graph routes
 
     const val HOME_GRAPH_ROUTE = "home"

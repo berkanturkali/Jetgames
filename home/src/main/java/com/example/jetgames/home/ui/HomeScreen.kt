@@ -6,7 +6,6 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -32,7 +31,10 @@ import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.common.ui.theme.XXLightGray
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
-import com.example.jetgames.home.components.*
+import com.example.jetgames.home.components.GameGalleryItem
+import com.example.jetgames.home.components.GameItem
+import com.example.jetgames.home.components.HomeToolbar
+import com.example.jetgames.home.components.SeparatorItem
 import com.example.jetgames.home.viewmodel.HomeViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
@@ -97,18 +99,6 @@ fun Home(
                 modifier = Modifier.fillMaxSize(),
                 state = listState
             ) {
-                // TODO: move this out of lazy column cuz it causes scroll position bug
-//                item {
-//                    Column {
-//                        Divider(thickness = 0.5.dp)
-//                        OrderByChips(
-//                            selectedOrder = homeState.selectedOrder,
-//                            orderOptions = viewModel.orderOptions()){
-//                            viewModel.setOrder(it)
-//                        }
-//                        Divider(thickness = 0.5.dp)
-//                    }
-//                }
                 items(games.itemCount) { index ->
                     when (games[index]) {
                         is GameModel.SeparatorItem -> {
@@ -116,7 +106,6 @@ fun Home(
                         }
                         is GameModel.GameItem -> {
                             val game = (games[index]) as GameModel.GameItem
-                            // TODO: Animate toggle
                             if (isGalleryMode) {
                                 GameGalleryItem(
                                     modifier = Modifier
@@ -129,7 +118,8 @@ fun Home(
                                     modifier = Modifier
                                         .animateItemPlacement(),
                                     game = game.game,
-                                    imageLoader = imageLoader, onItemClick = navigateToDetailScreen)
+                                    imageLoader = imageLoader,
+                                    onItemClick = navigateToDetailScreen)
                             }
                         }
                     }

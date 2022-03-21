@@ -15,12 +15,14 @@ class GamesRemoteImpl @Inject constructor(
         platforms: String?,
         genres: String?,
         metacritic:String?,
+        order:String,
     ): List<GameDto> {
         return apiService.fetchGames(page,
             size,
             query = query,
             platforms = platforms,
             genres = genres,
-            metacritic = metacritic).results
+            metacritic = metacritic,
+            ordering = order).results
     }
 }

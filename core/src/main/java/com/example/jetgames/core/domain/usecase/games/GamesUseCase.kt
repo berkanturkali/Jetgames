@@ -24,9 +24,12 @@ class GamesUseCase @Inject constructor(
         val platforms = params!!.mapPlatforms()
         val genres = params.mapGenres()
         val metacri = params.mapMetacritics()
+        val order = params.order.mapOrderToString()
         return repo.fetchGames(params.query,
             platforms = platforms,
             genres = genres,
-            metacritic = metacri)
+            metacritic = metacri,
+            order = order
+            )
     }
 }

@@ -8,12 +8,6 @@ class OrderPreferencesProvider:PreviewParameterProvider<List<OrderPreference>>{
     override val values: Sequence<List<OrderPreference>>
         get() =  sequenceOf(listOf(
             OrderPreference(
-                order = Order.NAME
-            ),
-            OrderPreference(
-                order = Order.RELEASED
-            ),
-            OrderPreference(
                 order = Order.RATING
             ),
             OrderPreference(

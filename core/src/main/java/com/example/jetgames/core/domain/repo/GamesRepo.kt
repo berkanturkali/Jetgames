@@ -12,5 +12,6 @@ interface GamesRepo {
         platforms: String?,
         genres:String?,
         metacritic:String?,
+        order:String
     ): Flow<PagingData<Game>>
 }

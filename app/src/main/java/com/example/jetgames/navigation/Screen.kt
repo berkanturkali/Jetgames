@@ -8,7 +8,7 @@ import com.example.jetgames.navigation.Routes.DETAIL_ROUTE
 import com.example.jetgames.navigation.Routes.FILTER_ROUTE
 import com.example.jetgames.navigation.Routes.GENRES_ROUTE
 import com.example.jetgames.navigation.Routes.HOME_ROUTE
-import com.example.jetgames.navigation.Routes.METACRITIC_FILTER_ROUTE
+import com.example.jetgames.navigation.Routes.ORDERS_ROUTE
 import com.example.jetgames.navigation.Routes.PLATFORMS_ROUTE
 import com.example.jetgames.navigation.Routes.SCREENSHOTS_ROUTE
 
@@ -26,9 +26,9 @@ sealed class Screen(val route: String, val arguments: List<NamedNavArgument>) {
 
     object FilterScreen : Screen(FILTER_ROUTE, arguments = emptyList())
 
-    object MetacriticScreen : Screen(METACRITIC_FILTER_ROUTE, arguments = emptyList())
-
     object PlatformsScreen : Screen(PLATFORMS_ROUTE, arguments = emptyList())
 
-    object GenresScreen:Screen(GENRES_ROUTE, arguments = emptyList())
+    object GenresScreen : Screen(GENRES_ROUTE, arguments = emptyList())
+
+    object OrdersScreen : Screen(ORDERS_ROUTE, arguments = emptyList())
 }

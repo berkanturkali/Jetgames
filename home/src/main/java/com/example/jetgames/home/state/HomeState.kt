@@ -4,7 +4,6 @@ import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.model.preferences.OrderPreference
 
 data class HomeState(
-    val selectedOrder:OrderPreference = OrderPreference(),
     var isRefreshing:Boolean =false,
     var filterCount:Int = 0,
     val homeViewPreferences: HomePreferences.HomeViewPreferences = HomePreferences.HomeViewPreferences(),

@@ -22,7 +22,8 @@ class GamesRepoImpl @Inject constructor(
         query: String?,
         platforms: String?,
         genres: String?,
-        metacritic:String?
+        metacritic:String?,
+        order:String,
     ): Flow<PagingData<Game>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
@@ -31,7 +32,8 @@ class GamesRepoImpl @Inject constructor(
                     query,
                     platforms = platforms,
                     genres = genres,
-                    metacritic = metacritic)
+                    metacritic = metacritic,
+                    order = order)
             }
         ).flow.map {
             it.map(gameMapper::mapFromModel)

@@ -74,6 +74,12 @@ fun FilterScreen(
                 onDeleteButtonClick = viewModel::removeGenre)
             Divider(thickness = 0.5.dp)
 
+            //order by
+            Order(onOrderItemClick = onFilterItemClick,
+                orderPref = screenState.value.selectedOrder)
+
+            Divider(thickness = 0.5.dp)
+
             //metacritic filter
             Metacritic(viewModel = viewModel)
             Divider(thickness = 0.5.dp)
