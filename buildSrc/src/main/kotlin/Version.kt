@@ -39,6 +39,7 @@ object Version {
     const val animations = "0.24.1-alpha"
     const val swipeRefresh = "0.24.1-alpha"
     const val navigation = "0.24.1-alpha"
+    const val insets = "0.24.1-alpha"
 
     /* lottie */
     const val lottie = "4.2.1"

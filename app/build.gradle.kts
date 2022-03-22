@@ -60,5 +60,8 @@ dependencies {
     //moshi
     implementation(Library.moshi)
 
+    //accompanist
+    implementation(Library.insets)
+
     debugImplementation(Library.leakCanary)
 }

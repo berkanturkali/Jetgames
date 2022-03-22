@@ -73,6 +73,8 @@ object Library {
     const val navigation =
         "com.google.accompanist:accompanist-navigation-material:${Version.navigation}"
 
+    const val insets = "com.google.accompanist:accompanist-insets-ui:${Version.insets}"
+
     /* lottie */
     const val lottie = "com.airbnb.android:lottie-compose:${Version.lottie}"
 

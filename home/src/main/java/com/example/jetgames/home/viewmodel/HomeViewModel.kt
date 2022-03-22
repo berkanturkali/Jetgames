@@ -9,6 +9,7 @@ import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.core.domain.model.games.lowerBound
 import com.example.jetgames.core.domain.model.games.upper
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
+import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
 import com.example.jetgames.core.domain.model.preferences.Order
 import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
@@ -47,7 +48,8 @@ class HomeViewModel @Inject constructor(
                 HomeState(
                     isRefreshing = refreshing,
                     filterCount = calculateBadge(filterPreferences.platforms,
-                        filterPreferences.genres),
+                        filterPreferences.genres,
+                        metacriticPreference = filterPreferences.metacriticPreference),
                     homeViewPreferences = viewPreferences,
                     homeFilterPreferences = filterPreferences)
             }
@@ -153,7 +155,13 @@ class HomeViewModel @Inject constructor(
         _query.value = query
     }
 
-    private fun calculateBadge(vararg lists: List<Any>?): Int {
-        return lists.filter { !it.isNullOrEmpty() }.size
+    private fun calculateBadge(
+        vararg lists: List<Any>?,
+        metacriticPreference: MetacriticPreference,
+    ): Int {
+        val listsFilterCount = lists.filter { !it.isNullOrEmpty() }.size
+        val metacriFilter =
+            if (metacriticPreference.min != 0) 1 else 0
+        return listsFilterCount + metacriFilter
     }
 }

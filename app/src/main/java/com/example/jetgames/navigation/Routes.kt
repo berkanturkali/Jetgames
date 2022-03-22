@@ -26,4 +26,6 @@ object Routes {
     const val ROOT_GRAPH_ROUTE = "root"
 
     const val FILTER_GRAPH_ROUTE = "filter"
+
+    const val FAVORITES_GRAPH_ROUTE = "favorites"
 }

@@ -4,7 +4,11 @@ import android.net.Uri
 import androidx.compose.animation.*
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -14,6 +18,7 @@ import com.example.jetgames.core.domain.model.navargs.ScreenshotsArgs
 import com.example.jetgames.details.ui.DetailScreen
 import com.example.jetgames.details.ui.ScreenshotsScreen
 import com.example.jetgames.home.ui.Home
+import com.example.jetgames.navigation.BottomNavigationItem
 import com.example.jetgames.navigation.Routes
 import com.example.jetgames.navigation.Routes.FILTER_GRAPH_ROUTE
 import com.example.jetgames.navigation.Screen
@@ -27,10 +32,11 @@ fun NavGraphBuilder.homeNavGraph(
     imageLoader: ImageLoader,
 ) {
     navigation(
-        startDestination = Screen.HomeScreen.route,
+        startDestination = BottomNavigationItem.HomeScreen.route,
         route = Routes.HOME_GRAPH_ROUTE,
     ) {
-        addHomeScreen(navController = navController, imageLoader = imageLoader)
+        addHomeScreen(navController = navController,
+            imageLoader = imageLoader)
         addDetailScreen(navController = navController, imageLoader = imageLoader)
         addScreenshotsScreen(imageLoader = imageLoader)
     }
@@ -41,7 +47,7 @@ fun NavGraphBuilder.addHomeScreen(
     imageLoader: ImageLoader,
 ) {
     composable(
-        route = Screen.HomeScreen.route,
+        route = BottomNavigationItem.HomeScreen.route,
         enterTransition = {
             slideInVertically(initialOffsetY = { +1000 },
                 animationSpec = spring())
@@ -58,11 +64,11 @@ fun NavGraphBuilder.addHomeScreen(
     ) {
         //home screen
         Home(imageLoader = imageLoader, navigateToDetailScreen = { id, list ->
-            val detailsArgs = DetailsArgs(id, list)
-            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
-            navController.navigate("${Screen.DetailScreen.route}/$args")
-        },
+                val detailsArgs = DetailsArgs(id, list)
+                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
+                navController.navigate("${Screen.DetailScreen.route}/$args")
+            },
             navigateToFilterScreen = {
                 navController.navigate(FILTER_GRAPH_ROUTE)
             }

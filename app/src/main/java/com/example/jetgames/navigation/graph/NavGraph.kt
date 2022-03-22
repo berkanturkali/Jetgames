@@ -1,8 +1,12 @@
 package com.example.jetgames.navigation.graph
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.NavHostController
 import coil.ImageLoader
@@ -17,7 +21,7 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 fun SetupNavGraph(
     navController: NavHostController,
     bottomSheetNavigator: BottomSheetNavigator,
-    imageLoader: ImageLoader,
+    imageLoader: ImageLoader
 ) {
     ModalBottomSheetLayout(
         sheetBackgroundColor = MaterialTheme.colors.primary,
@@ -28,7 +32,6 @@ fun SetupNavGraph(
         AnimatedNavHost(
             navController = navController,
             startDestination = Routes.HOME_GRAPH_ROUTE,
-            route = ROOT_GRAPH_ROUTE
         ) {
             //home graph
             homeNavGraph(navController = navController, imageLoader = imageLoader)

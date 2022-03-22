@@ -3,16 +3,19 @@ package com.example.jetgames
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.plusAssign
 import coil.ImageLoader
 import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.home.viewmodel.HomeViewModel
+import com.example.jetgames.navigation.BottomNavigationItem
+import com.example.jetgames.navigation.components.BottomNavBar
 import com.example.jetgames.navigation.graph.SetupNavGraph
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
@@ -29,15 +32,34 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JetgamesTheme {
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.primary) {
-                    val navController = rememberAnimatedNavController()
-                    val bottomSheetNavigator = rememberBottomSheetNavigator()
+                val navController = rememberAnimatedNavController()
+                val bottomSheetNavigator = rememberBottomSheetNavigator()
+                val topLevelDestinations = listOf(
+                    BottomNavigationItem.HomeScreen.route,
+                    BottomNavigationItem.FavoriteGraph.route
+                )
+                val isNavbarVisible =
+                    navController.currentBackStackEntryAsState().value?.destination?.route in topLevelDestinations
 
-                    navController.navigatorProvider += bottomSheetNavigator
-                    SetupNavGraph(navController = navController,
-                        bottomSheetNavigator = bottomSheetNavigator,
-                        imageLoader = imageLoader)
+                navController.navigatorProvider += bottomSheetNavigator
+                Scaffold(
+                    bottomBar = {
+                        AnimatedVisibility(visible = isNavbarVisible,
+                            enter = expandVertically(),
+                            exit = shrinkVertically()) {
+                            BottomNavBar(navController = navController)
+                        }
+                    }
+                ) { padding ->
+                    /*
+                     * https://stackoverflow.com/a/66574166/11943929
+                     */
+                    Box(modifier = Modifier
+                        .padding(padding)) {
+                        SetupNavGraph(navController = navController,
+                            bottomSheetNavigator = bottomSheetNavigator,
+                            imageLoader = imageLoader)
+                    }
                 }
             }
         }

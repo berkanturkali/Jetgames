@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Home(
+    modifier:Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
     navigateToDetailScreen: ((Int, List<String?>?) -> Unit)? = null,
@@ -82,10 +83,10 @@ fun Home(
                     scope.launch {
                         listState.scrollToItem(0)
                     }
-                }, modifier = Modifier
-                    .wrapContentSize(align = Alignment.BottomEnd, unbounded = true)
+                },
+                    modifier = Modifier
                     .padding(
-                        dimensionResource(id = R.dimen.dimen_32))) {
+                        dimensionResource(id = R.dimen.dimen_16))) {
                     Icon(painter = painterResource(id = R.drawable.ic_up),
                         contentDescription = null,
                         tint = Color.White)
