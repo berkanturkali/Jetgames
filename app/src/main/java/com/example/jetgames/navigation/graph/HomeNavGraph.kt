@@ -4,11 +4,7 @@ import android.net.Uri
 import androidx.compose.animation.*
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -64,11 +60,11 @@ fun NavGraphBuilder.addHomeScreen(
     ) {
         //home screen
         Home(imageLoader = imageLoader, navigateToDetailScreen = { id, list ->
-                val detailsArgs = DetailsArgs(id, list)
-                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
-                navController.navigate("${Screen.DetailScreen.route}/$args")
-            },
+            val detailsArgs = DetailsArgs(id, list)
+            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+            val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
+            navController.navigate("${Screen.DetailScreen.route}/$args")
+        },
             navigateToFilterScreen = {
                 navController.navigate(FILTER_GRAPH_ROUTE)
             }
@@ -97,7 +93,8 @@ fun NavGraphBuilder.addDetailScreen(
         },
     ) {
         //detail screen
-        DetailScreen(imageLoader = imageLoader) { screenshots, page ->
+        DetailScreen(imageLoader = imageLoader,
+            onBackButtonClick = navController::navigateUp) { screenshots, page ->
             val screenshotArgs = ScreenshotsArgs(screenshots = screenshots, selectedPage = page)
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val args = Uri.encode(moshi.adapter(ScreenshotsArgs::class.java).toJson(screenshotArgs))

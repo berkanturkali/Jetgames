@@ -1,13 +1,25 @@
 package com.example.jetgames.details.ui
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
@@ -24,7 +36,8 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailsViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
-    navigateToScreenshots: ((screenshots:List<String?>,page:Int) -> Unit)? = null
+    onBackButtonClick: () -> Unit,
+    navigateToScreenshots: ((screenshots: List<String?>, page: Int) -> Unit)? = null,
 ) {
 
     val screenshots = viewModel.screenShots.observeAsState()
@@ -33,6 +46,21 @@ fun DetailScreen(
     val scrollState = rememberScrollState()
 
     val df = DecimalFormat("0.#")
+
+    var isLiked by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    var isFavAnimationAlreadyShowed by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    val animatedFavIconSize by animateDpAsState(
+        targetValue = if (isLiked) 250.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = 450f
+        ))
 
     DefaultScreenUI {
 
@@ -45,11 +73,29 @@ fun DetailScreen(
                     if (game.value?.data != null) {
                         val gameDetail = game.value!!.data
                         //image
-                        if (gameDetail?.background_image != null || (screenshots.value != null && screenshots.value!!.isNotEmpty())) {
-                            DetailScreenImageSection(
-                                imageLoader = imageLoader,
-                                imageUrl = gameDetail!!.background_image,
-                            )
+                        Box {
+                            if (gameDetail?.background_image != null) {
+                                DetailScreenImageSection(
+                                    imageLoader = imageLoader,
+                                    imageUrl = gameDetail.background_image,
+                                )
+                                if (isLiked && !isFavAnimationAlreadyShowed) {
+                                    Icon(
+                                        tint = Color.Yellow,
+                                        painter = painterResource(id = R.drawable.ic_filled_star),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .size(animatedFavIconSize)
+                                            .align(Center))
+                                    if (animatedFavIconSize == 250.dp) {
+                                        isFavAnimationAlreadyShowed = true
+                                    }
+                                }
+                            }
+                            Toolbar(onBackButtonClick = onBackButtonClick, isLiked = isLiked) {
+                                isFavAnimationAlreadyShowed = false
+                                isLiked = it
+                            }
                         }
 
                         //name
@@ -83,7 +129,9 @@ fun DetailScreen(
                         //Screenshots
                         screenshots.value?.let {
                             if (it.isNotEmpty()) {
-                                Screenshots(imageLoader = imageLoader, screenshots = it,onScreenshotClicked = navigateToScreenshots)
+                                Screenshots(imageLoader = imageLoader,
+                                    screenshots = it,
+                                    onScreenshotClicked = navigateToScreenshots)
                             }
                         }
 
