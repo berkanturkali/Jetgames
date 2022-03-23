@@ -1,11 +1,8 @@
-package com.example.jetgames.home.components
+package com.example.jetgames.common.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,11 +25,14 @@ import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.GameImage
+import com.example.jetgames.common.components.Name
 import com.example.jetgames.common.components.RatingBar
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.core.domain.model.games.*
-import com.example.jetgames.home.gradientBackground
-import com.example.jetgames.home.rememberDominantColorState
+import com.example.jetgames.common.util.gradientBackground
+import com.example.jetgames.common.util.rememberDominantColorState
+import com.example.jetgames.home.components.MetaCritic
 
 @Composable
 fun GameItem(
@@ -69,7 +69,7 @@ fun GameItem(
                 dimensionResource(id = R.dimen.dimen_16))) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .gradientBackground(color = backgroundColor, 45f)
             ) {
 

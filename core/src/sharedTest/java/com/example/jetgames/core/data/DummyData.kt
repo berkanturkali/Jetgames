@@ -146,7 +146,9 @@ internal object DummyData {
         platforms = listOf(PlatformEntity(id = 5, name = "Playstation 5")),
         genres = listOf("Strategy", "Sports"),
         minMetacri = 0,
-        maxMetacri = 100
+        maxMetacri = 100,
+        order = "metacritic",
+        direction = '-'
     )
 
     //filter preferences

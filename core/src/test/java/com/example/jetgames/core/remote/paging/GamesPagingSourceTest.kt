@@ -3,10 +3,7 @@ package com.example.jetgames.core.remote.paging
 import androidx.paging.PagingSource
 import com.example.jetgames.core.data.contract.GamesRemote
 import com.example.jetgames.core.remote.impl.GamesRemoteImpl
-import com.example.jetgames.core.remote.util.PAGE
-import com.example.jetgames.core.remote.util.RequestDispatcher
-import com.example.jetgames.core.remote.util.SIZE
-import com.example.jetgames.core.remote.util.makeApiService
+import com.example.jetgames.core.remote.util.*
 import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -32,8 +29,8 @@ class GamesPagingSourceTest {
 
     @Test
     fun `check that prev and next keys are correct`() = runBlocking {
-        val pagingSource = GamesPagingSource(gamesRemote,null,null,null,null)
-        val games = gamesRemote.fetchGames(PAGE, SIZE,null,null,null,null)
+        val pagingSource = GamesPagingSource(gamesRemote, null, null, null, null, order = ORDERING)
+        val games = gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null, order = ORDERING)
         Truth.assertThat(
             PagingSource.LoadResult.Page(
                 data = games,
@@ -52,8 +49,8 @@ class GamesPagingSourceTest {
     @Test
     fun `check that if error occurs returns Error`() = runBlocking {
         val gamesRemote = mockk<GamesRemote>()
-        coEvery { gamesRemote.fetchGames(PAGE,SIZE,null,null,null,null) } throws IOException()
-        val pagingSource = GamesPagingSource(gamesRemote,null,null,null,null)
+        coEvery { gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null,order = ORDERING) } throws IOException()
+        val pagingSource = GamesPagingSource(gamesRemote, null, null, null, null,order = ORDERING)
         val result = pagingSource.load(
             PagingSource.LoadParams.Refresh(
                 key = null,

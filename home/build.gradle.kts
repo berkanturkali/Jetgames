@@ -39,6 +39,5 @@ dependencies {
 
     implementation(Library.hiltNavigation)
 
-    //palette
-    implementation(Library.palette)
+
 }

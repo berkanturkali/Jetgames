@@ -1,3 +1,5 @@
+import ProjectLib.core
+
 plugins {
     androidLib
 }
@@ -7,6 +9,7 @@ android {
 }
 
 dependencies {
+    implementation(project(core))
     //compose
     api(Library.composeUiPreview)
     api(Library.composeUiTooling)
@@ -18,4 +21,12 @@ dependencies {
 
     //Timber
     api(Library.timber)
+
+    //palette
+    implementation(Library.palette)
+
+    //coil
+    implementation(Library.coil)
+
+    implementation(Library.placeholder)
 }

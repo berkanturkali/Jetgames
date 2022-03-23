@@ -1,8 +1,8 @@
 package com.example.jetgames.core.domain.model.games
 
 import androidx.compose.ui.graphics.Color
-import com.example.jetgames.common.util.calculateRgbFromMetacritic
-import com.example.jetgames.common.util.calculateRgbFromRating
+import com.example.jetgames.core.utils.calculateRgbFromMetacritic
+import com.example.jetgames.core.utils.calculateRgbFromRating
 
 
 data class Game(

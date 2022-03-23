@@ -1,4 +1,4 @@
-package com.example.jetgames.common.util
+package com.example.jetgames.core.utils
 
 
 import androidx.compose.ui.graphics.Color

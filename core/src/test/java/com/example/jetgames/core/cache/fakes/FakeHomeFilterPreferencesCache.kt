@@ -2,7 +2,6 @@ package com.example.jetgames.core.cache.fakes
 
 import com.example.jetgames.core.cache.abstraction.HomeFilterPreferencesCache
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
-import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -20,7 +19,12 @@ class FakeHomeFilterPreferencesCache : HomeFilterPreferencesCache {
         return flow {
             emit(cache.values.first())
         }.catch {
-            emit(HomeFilterPreferencesEntity(platforms = null,genres = null, maxMetacri = 100, minMetacri = 0))
+            emit(HomeFilterPreferencesEntity(platforms = null,
+                genres = null,
+                maxMetacri = 100,
+                minMetacri = 0,
+                order = "metacritic",
+                direction = '-'))
         }
     }
 }

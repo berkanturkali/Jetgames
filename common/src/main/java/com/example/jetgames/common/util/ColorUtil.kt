@@ -1,13 +1,11 @@
-package com.example.jetgames.home
+package com.example.jetgames.common.util
 
 import android.content.Context
-import androidx.annotation.FloatRange
 import androidx.collection.LruCache
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -20,8 +18,6 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.size.Scale
 import com.example.jetgames.common.ui.theme.Black
-import com.example.jetgames.common.ui.theme.XBlack
-import com.example.jetgames.common.ui.theme.XXBlack
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.pow

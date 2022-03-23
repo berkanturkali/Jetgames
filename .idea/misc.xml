@@ -135,10 +135,14 @@
         <entry key="../../../../layout/compose-model-1647872051084.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1647966322370.xml" value="0.67" />
         <entry key="../../../../layout/compose-model-1648023959846.xml" value="0.18611111111111112" />
+        <entry key="../../../../layout/compose-model-1648028995578.xml" value="0.18611111111111112" />
+        <entry key="../../../../layout/compose-model-1648032250148.xml" value="0.18611111111111112" />
+        <entry key="../../../../layout/compose-model-1648033302637.xml" value="0.12" />
         <entry key="common/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.105" />
         <entry key="common/src/main/res/drawable/ic_launcher_background.xml" value="0.105" />
         <entry key="common/src/main/res/drawable/ic_star.xml" value="0.1035" />
         <entry key="common/src/main/res/drawable/ic_xbox.xml" value="0.105" />
+        <entry key="core/src/main/res/drawable/ic_game.xml" value="0.1005" />
       </map>
     </option>
   </component>

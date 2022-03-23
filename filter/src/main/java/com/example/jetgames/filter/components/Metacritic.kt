@@ -12,8 +12,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.XXLightGray
-import com.example.jetgames.common.util.calculateRgbFromMetacritic
-import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
+import com.example.jetgames.core.utils.calculateRgbFromMetacritic
 import com.example.jetgames.filter.viewmodel.FilterScreenViewModel
 
 @Composable

@@ -26,7 +26,8 @@ class GamesRemoteImplTest {
 
     @Test
     fun `check that fetchGames returns game list of same size`() = runBlocking {
-        val games: List<GameDto> = gamesRemote.fetchGames(1, 20, null, null, null, null)
+        val games: List<GameDto> =
+            gamesRemote.fetchGames(1, 20, null, null, null, null, order = ORDERING)
         val responseSize = getResponseList(GAMES_RESPONSE_PATH).sumOf {
             it.results.size
         }
@@ -36,14 +37,14 @@ class GamesRemoteImplTest {
 
     @Test
     fun `check that calling fetchGames make request to correct path`() = runBlocking {
-        gamesRemote.fetchGames(1, 20, null, null, null, null)
+        gamesRemote.fetchGames(1, 20, null, null, null, null, order = ORDERING)
         Truth.assertThat(GAMES_URL_PATH)
             .isEqualTo(mockWebServer.takeRequest().path)
     }
 
     @Test
     fun `check that calling fetch games makes a GET request`() = runBlocking {
-        gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null)
+        gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null, order = ORDERING)
         Truth.assertThat("GET $GAMES_URL_PATH HTTP/1.1")
             .isEqualTo(mockWebServer.takeRequest().requestLine)
     }
@@ -52,7 +53,7 @@ class GamesRemoteImplTest {
     fun `check that fetchGames returns correct data`() {
         runBlocking {
             val response = getResponseList(GAMES_RESPONSE_PATH).flatMap { it.results }
-            val games = gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null)
+            val games = gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null, order = ORDERING)
             Truth.assertThat(response).containsExactlyElementsIn(games)
         }
     }
@@ -61,7 +62,8 @@ class GamesRemoteImplTest {
     fun `check that fetchGames returns correct data with query`() {
         runBlocking {
             val response = getResponseList(SEARCH_RESPONSE_PATH).flatMap { it.results }
-            val games = gamesRemote.fetchGames(PAGE, SIZE, SEARCH_QUERY, null, null, null)
+            val games =
+                gamesRemote.fetchGames(PAGE, SIZE, SEARCH_QUERY, null, null, null, order = ORDERING)
             Truth.assertThat(response).containsExactlyElementsIn(games)
         }
     }
@@ -69,7 +71,13 @@ class GamesRemoteImplTest {
     @Test
     fun `check that fetchGames returns empty list when no game is found`() =
         runBlocking {
-            val games = gamesRemote.fetchGames(PAGE, SIZE, NO_MATCH_SEARCH_QUERY, null, null, null)
+            val games = gamesRemote.fetchGames(PAGE,
+                SIZE,
+                NO_MATCH_SEARCH_QUERY,
+                null,
+                null,
+                null,
+                order = ORDERING)
             Truth.assertThat(games).isEmpty()
         }
 

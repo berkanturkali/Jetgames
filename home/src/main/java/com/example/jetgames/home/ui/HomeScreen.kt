@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
@@ -27,12 +26,12 @@ import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
 import com.example.jetgames.common.components.ErrorItem
+import com.example.jetgames.common.components.GameItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.common.ui.theme.XXLightGray
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.home.components.GameGalleryItem
-import com.example.jetgames.home.components.GameItem
 import com.example.jetgames.home.components.HomeToolbar
 import com.example.jetgames.home.components.SeparatorItem
 import com.example.jetgames.home.viewmodel.HomeViewModel
@@ -45,7 +44,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Home(
-    modifier:Modifier = Modifier,
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     imageLoader: ImageLoader,
     navigateToDetailScreen: ((Int, List<String?>?) -> Unit)? = null,
@@ -85,8 +84,8 @@ fun Home(
                     }
                 },
                     modifier = Modifier
-                    .padding(
-                        dimensionResource(id = R.dimen.dimen_16))) {
+                        .padding(
+                            dimensionResource(id = R.dimen.dimen_16))) {
                     Icon(painter = painterResource(id = R.drawable.ic_up),
                         contentDescription = null,
                         tint = Color.White)

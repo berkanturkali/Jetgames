@@ -1,4 +1,4 @@
-package com.example.jetgames.home.components
+package com.example.jetgames.common.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

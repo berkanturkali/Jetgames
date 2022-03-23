@@ -95,6 +95,7 @@ fun DetailScreen(
                             Toolbar(onBackButtonClick = onBackButtonClick, isLiked = isLiked) {
                                 isFavAnimationAlreadyShowed = false
                                 isLiked = it
+
                             }
                         }
 
