@@ -6,4 +6,5 @@ object ProjectLib {
     const val home: String = ":home"
     const val details: String = ":details"
     const val filter: String = ":filter"
+    const val favorites:String = ":favorites"
 }

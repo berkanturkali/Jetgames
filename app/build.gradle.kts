@@ -1,6 +1,7 @@
 import ProjectLib.common
 import ProjectLib.core
 import ProjectLib.details
+import ProjectLib.favorites
 import ProjectLib.filter
 import ProjectLib.home
 import ProjectLib.remote
@@ -33,6 +34,7 @@ dependencies {
     implementation(project(home))
     implementation(project(details))
     implementation(project(filter))
+    implementation(project(favorites))
     implementation(
         Library.composeUiPreview,
         Library.composeUiTooling,

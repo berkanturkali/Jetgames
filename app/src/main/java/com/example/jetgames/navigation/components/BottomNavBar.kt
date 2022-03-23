@@ -23,7 +23,7 @@ fun BottomNavBar(
 
     val items = listOf(
         BottomNavigationItem.HomeScreen,
-        BottomNavigationItem.FavoriteGraph,
+        BottomNavigationItem.FavoritesScreen,
     )
 
     val backStackEntry = navController.currentBackStackEntryAsState()

@@ -15,6 +15,9 @@ import androidx.navigation.plusAssign
 import coil.ImageLoader
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.navigation.BottomNavigationItem
+import com.example.jetgames.navigation.Routes
+import com.example.jetgames.navigation.Routes.FAVORITES_GRAPH_ROUTE
+import com.example.jetgames.navigation.Screen
 import com.example.jetgames.navigation.components.BottomNavBar
 import com.example.jetgames.navigation.graph.SetupNavGraph
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -36,7 +39,7 @@ class MainActivity : ComponentActivity() {
                 val bottomSheetNavigator = rememberBottomSheetNavigator()
                 val topLevelDestinations = listOf(
                     BottomNavigationItem.HomeScreen.route,
-                    BottomNavigationItem.FavoriteGraph.route
+                    BottomNavigationItem.FavoritesScreen.route
                 )
                 val isNavbarVisible =
                     navController.currentBackStackEntryAsState().value?.destination?.route in topLevelDestinations

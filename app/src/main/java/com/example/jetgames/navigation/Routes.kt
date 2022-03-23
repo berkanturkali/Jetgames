@@ -19,6 +19,8 @@ object Routes {
 
     const val ORDERS_ROUTE = "orders_screen"
 
+    const val FAVORITES_ROUTE =  "favorites_screen"
+
     //graph routes
 
     const val HOME_GRAPH_ROUTE = "home"

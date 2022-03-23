@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/details" />
+            <option value="$PROJECT_DIR$/favorites" />
             <option value="$PROJECT_DIR$/filter" />
             <option value="$PROJECT_DIR$/home" />
             <option value="$PROJECT_DIR$/remote" />

@@ -6,7 +6,7 @@ import androidx.navigation.navArgument
 import com.example.jetgames.core.domain.model.navargs.DetailsNavType
 import com.example.jetgames.core.domain.model.navargs.ScreenshotsNavType
 import com.example.jetgames.navigation.Routes.DETAIL_ROUTE
-import com.example.jetgames.navigation.Routes.FAVORITES_GRAPH_ROUTE
+import com.example.jetgames.navigation.Routes.FAVORITES_ROUTE
 import com.example.jetgames.navigation.Routes.FILTER_ROUTE
 import com.example.jetgames.navigation.Routes.GENRES_ROUTE
 import com.example.jetgames.navigation.Routes.HOME_ROUTE
@@ -44,8 +44,8 @@ sealed class BottomNavigationItem(
         title = "Home",
         com.example.jetgames.common.R.drawable.ic_home)
 
-    // TODO: will be implemented
-    object FavoriteGraph : BottomNavigationItem(route = FAVORITES_GRAPH_ROUTE,
+
+    object FavoritesScreen : BottomNavigationItem(route = FAVORITES_ROUTE,
         title = "Favorites",
         com.example.jetgames.common.R.drawable.ic_star)
 }

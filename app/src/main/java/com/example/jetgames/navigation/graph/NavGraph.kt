@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.example.jetgames.common.R
 import com.example.jetgames.navigation.Routes
+import com.example.jetgames.navigation.Routes.HOME_GRAPH_ROUTE
 import com.example.jetgames.navigation.Routes.ROOT_GRAPH_ROUTE
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.material.BottomSheetNavigator
@@ -31,12 +32,14 @@ fun SetupNavGraph(
         sheetShape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_16))) {
         AnimatedNavHost(
             navController = navController,
-            startDestination = Routes.HOME_GRAPH_ROUTE,
+            startDestination = HOME_GRAPH_ROUTE,
         ) {
             //home graph
             homeNavGraph(navController = navController, imageLoader = imageLoader)
             //filter graph
             filterNavGraph(navController = navController)
+            //favorites graph
+            favoritesNavGraph(navController = navController)
         }
     }
 }
