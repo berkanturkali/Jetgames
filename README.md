@@ -72,5 +72,6 @@ Multi-module jetpack compose app that consumes data from [RAWG Video Games API](
 | [remote](/remote/) | Java/Kotlin Library  | Api factory and base mapper class for remote models.            |
 | [home](/home/)     | Android Library      | UI components for the Home screen.                                      |
 | [details](/details/) | Android Library    | UI components for the Details screen.                           |
-| [filter](/filter/) (work in progress)      | Android Library      | UI components for the Filter screen.                         |
+| [filter](/filter/) | Android Library      | UI components for the Filter screen.                         |
+| [favorites](/favorites/) (work in progress)  | Android Library   | UI components for the Favorites screen.                         |
 | [common](/common/) | Android Library      | Common stuff.                                              |
