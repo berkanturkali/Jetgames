@@ -11,16 +11,18 @@ import com.example.jetgames.core.cache.dao.FavoritesDao
 import com.example.jetgames.core.cache.dao.GenresDao
 import com.example.jetgames.core.cache.dao.HomeFilterPreferencesDao
 import com.example.jetgames.core.cache.dao.PlatformsDao
+import com.example.jetgames.core.cache.model.FavoriteEntity
 import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
-import com.squareup.moshi.Moshi
 
-@Database(
-    entities = [PlatformEntity::class, HomeFilterPreferencesEntity::class,GenreEntity::class],
+@Database(entities = [
+    PlatformEntity::class,
+    HomeFilterPreferencesEntity::class,
+    GenreEntity::class,
+    FavoriteEntity::class],
     version = BuildConfig.databaseVersion,
-    exportSchema = false
-)
+    exportSchema = false)
 @TypeConverters(RoomConverters::class)
 abstract class JetgamesDb : RoomDatabase() {
 
@@ -28,9 +30,9 @@ abstract class JetgamesDb : RoomDatabase() {
 
     abstract val homeFilterPreferencesDao: HomeFilterPreferencesDao
 
-    abstract val genresDao:GenresDao
+    abstract val genresDao: GenresDao
 
-    abstract val favoritesDao:FavoritesDao
+    abstract val favoritesDao: FavoritesDao
 
     companion object {
         fun build(context: Context): JetgamesDb = Room.databaseBuilder(

@@ -1,5 +1,6 @@
 package com.example.jetgames.core.data
 
+import com.example.jetgames.core.cache.model.FavoriteEntity
 import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
@@ -155,7 +156,7 @@ internal object DummyData {
     val filterPreferences = HomePreferences.HomeFilterPreferences(
         platforms = listOf(Platform(id = 5, name = "Playstation 5")),
         genres = emptyList(),
-        metacriticPreference = MetacriticPreference(min = 55,max = 65)
+        metacriticPreference = MetacriticPreference(min = 55, max = 65)
     )
 
     //genre entity
@@ -170,5 +171,15 @@ internal object DummyData {
         image_background = "",
         name = "Action",
         slug = "action"
+    )
+
+    //favorite entity
+    val favoriteEntity = FavoriteEntity(
+        id = 1,
+        image = null,
+        name = "Grand Theft Auto V",
+        rating = 4.95,
+        releaseDate = "September 17 2013",
+        metacritic = 97
     )
 }

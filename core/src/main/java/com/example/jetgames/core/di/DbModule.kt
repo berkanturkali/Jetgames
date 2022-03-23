@@ -1,6 +1,7 @@
 package com.example.jetgames.core.di
 
 import android.content.Context
+import com.example.jetgames.core.cache.dao.FavoritesDao
 import com.example.jetgames.core.cache.dao.GenresDao
 import com.example.jetgames.core.cache.dao.HomeFilterPreferencesDao
 import com.example.jetgames.core.cache.dao.PlatformsDao
@@ -26,6 +27,9 @@ internal object DbModule {
 
     @[Provides Singleton]
     fun provideGenresDao(db: JetgamesDb): GenresDao = db.genresDao
+
+    @[Provides Singleton]
+    fun provideFavoritesDao(db: JetgamesDb):FavoritesDao = db.favoritesDao
 
     @[Provides Singleton]
     fun provideHomeFilterPreferencesDao(db: JetgamesDb): HomeFilterPreferencesDao =
