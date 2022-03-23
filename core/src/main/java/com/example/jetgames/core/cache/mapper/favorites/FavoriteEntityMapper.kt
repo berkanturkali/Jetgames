@@ -3,8 +3,9 @@ package com.example.jetgames.core.cache.mapper.favorites
 import com.example.jetgames.core.cache.mapper.base.EntityMapper
 import com.example.jetgames.core.cache.model.FavoriteEntity
 import com.example.jetgames.core.domain.model.favorites.Favorite
+import javax.inject.Inject
 
-class FavoriteEntityMapper : EntityMapper<FavoriteEntity, Favorite> {
+class FavoriteEntityMapper @Inject constructor() : EntityMapper<FavoriteEntity, Favorite> {
     override fun mapFromEntity(entity: FavoriteEntity): Favorite {
         return Favorite(
             id = entity.id,
