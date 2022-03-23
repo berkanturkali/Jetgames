@@ -1,0 +1,29 @@
+package com.example.jetgames.core.cache.mapper.favorites
+
+import com.example.jetgames.core.cache.mapper.base.EntityMapper
+import com.example.jetgames.core.cache.model.FavoriteEntity
+import com.example.jetgames.core.domain.model.favorites.Favorite
+
+class FavoriteEntityMapper : EntityMapper<FavoriteEntity, Favorite> {
+    override fun mapFromEntity(entity: FavoriteEntity): Favorite {
+        return Favorite(
+            id = entity.id,
+            name = entity.name,
+            rating = entity.rating,
+            releaseDate = entity.releaseDate,
+            image = entity.image,
+            metacri = entity.metacritic
+        )
+    }
+
+    override fun mapToEntity(type: Favorite): FavoriteEntity {
+        return FavoriteEntity(
+            id = type.id,
+            name = type.name,
+            rating = type.rating,
+            releaseDate = type.releaseDate,
+            image = type.image,
+            metacritic = type.metacri
+        )
+    }
+}

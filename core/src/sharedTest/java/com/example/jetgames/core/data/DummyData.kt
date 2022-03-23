@@ -4,6 +4,7 @@ import com.example.jetgames.core.cache.model.FavoriteEntity
 import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
+import com.example.jetgames.core.domain.model.favorites.Favorite
 import com.example.jetgames.core.domain.model.platforms.Platform
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
@@ -181,5 +182,13 @@ internal object DummyData {
         rating = 4.95,
         releaseDate = "September 17 2013",
         metacritic = 97
+    )
+    val favorite = Favorite(
+        id = 1,
+        image = null,
+        name = "Grand Theft Auto V",
+        rating = 4.95,
+        releaseDate = "September 17 2013",
+        metacri = 97
     )
 }
