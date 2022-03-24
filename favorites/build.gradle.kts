@@ -3,6 +3,7 @@ import ProjectLib.core
 
 plugins {
     androidLib
+    daggerHilt
 }
 
 android {
@@ -17,4 +18,8 @@ dependencies {
     implementation(
         Library.composeMaterial
     )
+
+    //hilt
+    implementation(Library.daggerHiltAndroid)
+    kapt(Library.daggerHiltCompiler)
 }

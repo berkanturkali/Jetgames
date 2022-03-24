@@ -31,4 +31,8 @@ class FavoritesRepoImpl @Inject constructor(
     override suspend fun clear() {
         favoritesCache.clear()
     }
+
+    override suspend fun favorite(id: Int): Favorite {
+        return favoriteEntityMapper.mapFromEntity(favoritesCache.favorite(id))
+    }
 }

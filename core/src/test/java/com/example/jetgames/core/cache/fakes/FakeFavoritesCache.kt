@@ -26,6 +26,10 @@ class FakeFavoritesCache : FavoritesCache {
         cache.remove(favoriteEntity.id)
     }
 
+    override suspend fun favorite(id: Int): FavoriteEntity? {
+        return cache[id]
+    }
+
     override suspend fun clear() {
         cache.clear()
     }

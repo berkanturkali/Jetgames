@@ -90,6 +90,17 @@ class FavoritesCacheImplTest {
         }
     }
 
+    @Test
+    fun favorite_getsData_correctly(){
+        runBlocking {
+            val entity = favoritesCache.favorite(1)
+            Truth.assertThat(entity).isNull()
+            val newEntity = DummyData.favoriteEntity
+            favoritesCache.upsert(newEntity)
+            val new = favoritesCache.favorite(newEntity.id)
+            Truth.assertThat(new).isNotNull()
+        }
+    }
 
     @After
     fun tearDown() {

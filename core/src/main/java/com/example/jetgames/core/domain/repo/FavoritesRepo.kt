@@ -12,4 +12,6 @@ interface FavoritesRepo {
     suspend fun delete(game: Favorite)
 
     suspend fun clear()
+
+    suspend fun favorite(id:Int):Favorite
 }

@@ -21,6 +21,10 @@ class FavoritesCacheImpl @Inject constructor(
         return dao.delete(favoriteEntity)
     }
 
+    override suspend fun favorite(id: Int): FavoriteEntity? {
+        return dao.favorite(id)
+    }
+
     override suspend fun clear() {
         return dao.clear()
     }

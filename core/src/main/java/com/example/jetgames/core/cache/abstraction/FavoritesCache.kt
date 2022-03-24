@@ -11,5 +11,7 @@ interface FavoritesCache {
 
     suspend fun delete(favoriteEntity: FavoriteEntity)
 
+    suspend fun favorite(id:Int):FavoriteEntity?
+
     suspend fun clear()
 }
