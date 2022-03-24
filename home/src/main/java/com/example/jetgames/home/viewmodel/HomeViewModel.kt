@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
+import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.core.domain.model.games.lowerBound
 import com.example.jetgames.core.domain.model.games.upper
@@ -163,5 +164,10 @@ class HomeViewModel @Inject constructor(
         val metacriFilter =
             if (metacriticPreference.min != 0) 1 else 0
         return listsFilterCount + metacriFilter
+    }
+
+    fun getIcon(game:Game):String?{
+        val rating = game.ratings?.maxByOrNull { it?.percent!! }
+        return rating?.icon
     }
 }

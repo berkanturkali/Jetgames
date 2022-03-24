@@ -5,10 +5,8 @@ data class Rating(
     val id: Int?,
     val percent: Double?,
     val title: String?,
-    var icon :String?
-) {
-
-}
+    val icon :String?
+)
 
 /*
 recomended = "\uD83D\uDC4D"

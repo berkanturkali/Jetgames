@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.jetgames.core.domain.executor.abstraction.PostExecutionThread
 import com.example.jetgames.core.domain.model.detail.GameDetails
 import com.example.jetgames.core.domain.model.favorites.Favorite
+import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.navargs.DetailsArgs
 import com.example.jetgames.core.domain.repo.FavoritesRepo
 import com.example.jetgames.core.domain.repo.GameDetailRepo
@@ -112,5 +113,10 @@ class DetailsViewModel @Inject constructor(
 
     private fun setLiked(isLiked: Boolean) {
         _isGameLiked.value = isLiked
+    }
+
+    fun getIcon(game: GameDetails):String?{
+        val rating = game.ratings?.maxByOrNull { it?.percent!! }
+        return rating?.icon
     }
 }

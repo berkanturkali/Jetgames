@@ -13,7 +13,8 @@ class FavoriteEntityMapper @Inject constructor() : EntityMapper<FavoriteEntity?,
             rating = entity?.rating,
             releaseDate = entity?.releaseDate,
             image = entity?.image,
-            metacri = entity?.metacritic
+            metacri = entity?.metacritic,
+            icon = entity?.icon
         )
     }
 
@@ -24,7 +25,8 @@ class FavoriteEntityMapper @Inject constructor() : EntityMapper<FavoriteEntity?,
             rating = type.rating,
             releaseDate = type.releaseDate,
             image = type.image,
-            metacritic = type.metacri
+            metacritic = type.metacri,
+            icon = type.icon
         )
     }
 }

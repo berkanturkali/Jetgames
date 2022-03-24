@@ -22,4 +22,9 @@ dependencies {
     //hilt
     implementation(Library.daggerHiltAndroid)
     kapt(Library.daggerHiltCompiler)
+
+    implementation(Library.hiltNavigation)
+
+    //coil
+    implementation(Library.coil)
 }

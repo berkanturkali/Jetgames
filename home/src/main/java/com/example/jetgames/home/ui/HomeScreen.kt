@@ -75,7 +75,8 @@ fun Home(
             )
         },
         floatingActionButton = {
-            AnimatedVisibility(visible = listState.firstVisibleItemIndex > 0,
+            AnimatedVisibility(
+                visible = listState.firstVisibleItemIndex > 0,
                 enter = scaleIn(),
                 exit = scaleOut()) {
                 FloatingActionButton(onClick = {
@@ -96,30 +97,40 @@ fun Home(
 
         SwipeRefresh(state = swipeRefreshState, onRefresh = games::refresh) {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = modifier.fillMaxSize(),
                 state = listState
             ) {
                 items(games.itemCount) { index ->
-                    when (games[index]) {
+                    when (val gameModel = games[index]) {
                         is GameModel.SeparatorItem -> {
-                            SeparatorItem(separator = (games[index] as GameModel.SeparatorItem).separator)
+                            SeparatorItem(separator = gameModel.separator)
                         }
                         is GameModel.GameItem -> {
-                            val game = (games[index]) as GameModel.GameItem
+                            val game = gameModel.game
                             if (isGalleryMode) {
                                 GameGalleryItem(
                                     modifier = Modifier
                                         .animateItemPlacement(),
-                                    game = game.game,
+                                    game = game,
                                     imageLoader = imageLoader,
                                     onItemClick = navigateToDetailScreen)
                             } else {
                                 GameItem(
                                     modifier = Modifier
                                         .animateItemPlacement(),
-                                    game = game.game,
                                     imageLoader = imageLoader,
-                                    onItemClick = navigateToDetailScreen)
+                                    onItemClick = navigateToDetailScreen,
+                                    metaCritic = game.metaCritic,
+                                    metacriticColor = game.calculateRgbFromMetacritic(),
+                                    rating = game.rating?.toFloat(),
+                                    ratingColor = game.calculateRgbFromRating(),
+                                    id = game.id!!,
+                                    screenShots = game.screenShots,
+                                    icon = viewModel.getIcon(game = game),
+                                    name = game.name,
+                                    released = game.released,
+                                    image = game.backgroundImage
+                                )
                             }
                         }
                     }
@@ -153,9 +164,11 @@ fun Home(
                                                 .placeholder(visible = true,
                                                     highlight = PlaceholderHighlight.shimmer(
                                                         XXLightGray)),
-                                            game = Game(name = "Dummy", metaCritic = 85),
                                             imageLoader = imageLoader,
-                                            isLoading = true)
+                                            isLoading = true,
+                                            id = 1,
+                                            name = "Dummy",
+                                            metaCritic = 95)
                                     }
                                 }
                             }

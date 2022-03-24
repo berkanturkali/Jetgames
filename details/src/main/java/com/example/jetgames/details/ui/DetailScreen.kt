@@ -66,7 +66,8 @@ fun DetailScreen(
                                         rating = game.rating,
                                         image = game.background_image,
                                         metacri = game.metacritic,
-                                        releaseDate = game.released)
+                                        releaseDate = game.released,
+                                        icon = viewModel.getIcon(game))
                                     if (it) {
                                         viewModel.addToFavorites(favorite = favorite)
                                     } else {
@@ -77,11 +78,8 @@ fun DetailScreen(
                         }
 
                         //name
-                        val rating = gameDetail?.ratings?.maxByOrNull {
-                            it?.percent!!
-                        }
                         if (gameDetail?.name != null) {
-                            Name(name = gameDetail.name, icon = rating?.icon)
+                            Name(name = gameDetail.name, icon = viewModel.getIcon(game = gameDetail))
                         }
                         //Rating & Metascore
                         if (gameDetail?.metacritic != null && gameDetail.rating != null) {

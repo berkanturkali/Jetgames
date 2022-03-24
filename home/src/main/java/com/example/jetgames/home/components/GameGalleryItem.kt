@@ -18,6 +18,7 @@ import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.example.jetgames.common.R
 import com.example.jetgames.common.components.GameImage
+import com.example.jetgames.common.components.MetaCritic
 import com.example.jetgames.common.components.Name
 import com.example.jetgames.common.components.RatingTop
 import com.example.jetgames.common.ui.theme.JetgamesTheme

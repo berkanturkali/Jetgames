@@ -10,7 +10,7 @@ interface FavoritesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(favoriteEntity: FavoriteEntity): Long
 
-    @Query("SELECT * FROM favorites")
+    @Query("SELECT * FROM favorites ORDER BY date DESC")
     fun favorites(): Flow<List<FavoriteEntity>>
 
     @Delete
