@@ -61,7 +61,8 @@ class MainActivity : ComponentActivity() {
                         .padding(padding)) {
                         SetupNavGraph(navController = navController,
                             bottomSheetNavigator = bottomSheetNavigator,
-                            imageLoader = imageLoader)
+                            imageLoader = imageLoader,
+                            )
                     }
                 }
             }

@@ -97,14 +97,14 @@ fun GameItem(
             Row(modifier = modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
             ) {
-                    GameImage(
-                        modifier = childModifier
-                            .size(100.dp)
-                            .clip(RoundedCornerShape(corner = CornerSize(16.dp))),
-                        description = null,
-                        image = image,
-                        imageLoader = imageLoader
-                    )
+                GameImage(
+                    modifier = childModifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(corner = CornerSize(16.dp))),
+                    description = null,
+                    image = image,
+                    imageLoader = imageLoader
+                )
 
                 Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_16)))
 
@@ -150,24 +150,3 @@ fun GameItem(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun GameItemPrev(
-//) {
-//    JetgamesTheme {
-//        GameItem(game = Game(
-//            "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-//            esrbRating = EsrbRating(4, "Mature"),
-//            genres = listOf(Genre(47792, 2, "", "Shooter")),
-//            id = 3498,
-//            metaCritic = 92,
-//            name = "The Witcher 3: Wild Hunt",
-//            parentPlatforms = listOf(ParentPlatform(Platform(1, "Pc"))),
-//            rating = 4.67,
-//            rating_top = 5,
-//            ratingsCount = 4986,
-//            released = "12 Dec 2021"
-//        ), imageLoader = LocalImageLoader.current)
-//    }
-//}
