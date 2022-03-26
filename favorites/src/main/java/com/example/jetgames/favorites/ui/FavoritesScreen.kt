@@ -26,44 +26,51 @@ fun FavoritesScreen(
 
     val favorites = screenState.value.favorites
 
+    val isEmptyViewVisible = screenState.value.showEmptyView
+
     DefaultScreenUI {
 
-        //favorites
-        LazyColumn(modifier = modifier) {
-            items(items = favorites, key = {
-                it.id
-            }) {
+        if (isEmptyViewVisible) {
+            //empty view
 
-                val dismissState = rememberDismissState(
-                    confirmStateChange = { dismissValue ->
-                        when (dismissValue) {
-                            //swipe rtl
-                            DismissValue.DismissedToStart -> {
-                                viewModel.removeFromFavorites(it)
-                                true
+        } else {
+            //favorites
+            LazyColumn(modifier = modifier) {
+                items(items = favorites, key = {
+                    it.id
+                }) {
+
+                    val dismissState = rememberDismissState(
+                        confirmStateChange = { dismissValue ->
+                            when (dismissValue) {
+                                //swipe rtl
+                                DismissValue.DismissedToStart -> {
+                                    viewModel.removeFromFavorites(it)
+                                    true
+                                }
+                                else -> false
                             }
-                            else -> false
                         }
+                    )
+
+                    SwipeToDismiss(
+                        state = dismissState,
+                        modifier = Modifier.animateItemPlacement(),
+                        background = {}) {
+
+                        //Games
+                        GameItem(
+                            id = it.id,
+                            icon = it.icon,
+                            imageLoader = imageLoader,
+                            image = it.image,
+                            name = it.name,
+                            metaCritic = it.metacri,
+                            metacriticColor = it.metacri?.calculateRgbFromMetacritic(),
+                            rating = it.rating?.toFloat(),
+                            ratingColor = it.rating?.calculateRgbFromRating(),
+                            released = it.releaseDate)
                     }
-                )
-
-                SwipeToDismiss(
-                    state = dismissState,
-                    modifier = Modifier.animateItemPlacement(),
-                    background = {}) {
-
-                    //Games
-                    GameItem(
-                        id = it.id,
-                        icon = it.icon,
-                        imageLoader = imageLoader,
-                        image = it.image,
-                        name = it.name,
-                        metaCritic = it.metacri,
-                        metacriticColor = it.metacri?.calculateRgbFromMetacritic(),
-                        rating = it.rating?.toFloat(),
-                        ratingColor = it.rating?.calculateRgbFromRating(),
-                        released = it.releaseDate)
                 }
             }
         }

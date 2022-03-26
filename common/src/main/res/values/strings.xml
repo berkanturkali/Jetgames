@@ -14,4 +14,5 @@
     <string name="screenshots">Screenshots</string>
     <string name="clear_query">Clear Query</string>
     <string name="no_result_for">No result was found for %1s.</string>
+    <string name="nothing_here">Nothing Here</string>
 </resources>
