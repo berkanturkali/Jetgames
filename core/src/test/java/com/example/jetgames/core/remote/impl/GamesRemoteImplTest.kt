@@ -71,16 +71,17 @@ class GamesRemoteImplTest {
     @Test
     fun `check that fetchGames returns empty list when no game is found`() =
         runBlocking {
-            val games = gamesRemote.fetchGames(PAGE,
+            val games = gamesRemote.fetchGames(
+                PAGE,
                 SIZE,
                 NO_MATCH_SEARCH_QUERY,
                 null,
                 null,
                 null,
-                order = ORDERING)
+                order = ORDERING
+            )
             Truth.assertThat(games).isEmpty()
         }
-
 
     private fun getResponse(responsePath: String): GamesResponse {
         return gamesResponseAdapter.fromJson(getJson(responsePath))!!

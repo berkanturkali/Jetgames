@@ -28,7 +28,7 @@ fun NavGraphBuilder.addFavoritesScreen(
     composable(
         route = BottomNavigationItem.FavoritesScreen.route
     ) {
-        //Favorites Screen
+        // Favorites Screen
         FavoritesScreen(
             imageLoader = imageLoader
         )

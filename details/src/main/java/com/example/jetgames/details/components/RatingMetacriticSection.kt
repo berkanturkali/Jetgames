@@ -17,9 +17,7 @@ import com.example.jetgames.common.R
 import com.example.jetgames.common.components.RatingTop
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.common.ui.theme.XXLightGray
-import com.example.jetgames.core.domain.model.detail.GameDetails
 import java.text.DecimalFormat
-import kotlin.math.min
 
 @Composable
 fun RatingMetacriticSection(
@@ -27,20 +25,25 @@ fun RatingMetacriticSection(
     metacritic: Int,
     metacriticColor: Color,
     rating: Double,
-    formattedRating:String,
+    formattedRating: String,
     ratingColor: Color,
 
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(120.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-    Row(modifier = modifier
-        .fillMaxWidth()
-        .height(120.dp),
-        verticalAlignment = Alignment.CenterVertically) {
-        Column(horizontalAlignment = CenterHorizontally,
+        Column(
+            horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .weight(0.5f)
                 .wrapContentHeight()
-                .padding(vertical = dimensionResource(id = R.dimen.dimen_8))) {
-            Text(text = stringResource(id = R.string.metacritic),
+                .padding(vertical = dimensionResource(id = R.dimen.dimen_8))
+        ) {
+            Text(
+                text = stringResource(id = R.string.metacritic),
                 modifier = Modifier.align(CenterHorizontally),
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary
@@ -49,29 +52,35 @@ fun RatingMetacriticSection(
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen_16)))
 
             MetaCritic(metaCritic = metacritic, ratingColor = metacriticColor)
-
         }
-        Divider(color = XXLightGray.copy(alpha = 0.5f),
+        Divider(
+            color = XXLightGray.copy(alpha = 0.5f),
             modifier = Modifier
                 .fillMaxHeight()
-                .width(0.5.dp))
+                .width(0.5.dp)
+        )
 
-        Column(horizontalAlignment = CenterHorizontally,
+        Column(
+            horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .wrapContentHeight()
                 .weight(0.5f)
-                .padding(vertical = dimensionResource(id = R.dimen.dimen_8))) {
-            Text(text = stringResource(id = R.string.rating_title),
+                .padding(vertical = dimensionResource(id = R.dimen.dimen_8))
+        ) {
+            Text(
+                text = stringResource(id = R.string.rating_title),
                 modifier = Modifier.align(CenterHorizontally),
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen_8)))
-            Text(text = "$formattedRating / 5",
+            Text(
+                text = "$formattedRating / 5",
                 modifier = Modifier.align(CenterHorizontally),
                 style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onPrimary)
+                color = MaterialTheme.colors.onPrimary
+            )
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen_8)))
 
@@ -85,16 +94,17 @@ fun RatingMetacriticSection(
 fun RatingMetacriticSectionPrev() {
     JetgamesTheme {
         val rating = 4.0
-        val percent =if(rating == 1.0)((rating -1) * 0.2) else rating * 0.2
+        val percent = if (rating == 1.0)((rating - 1) * 0.2) else rating * 0.2
         val red = 255
         val green = percent * 255
         val blue = 0
-        val color = Color(red,green.toInt(), blue)
+        val color = Color(red, green.toInt(), blue)
         RatingMetacriticSection(
             ratingColor = color,
             rating = rating,
             metacriticColor = Color.Green,
             metacritic = 85,
-            formattedRating = DecimalFormat("0.#").format(rating))
+            formattedRating = DecimalFormat("0.#").format(rating)
+        )
     }
 }

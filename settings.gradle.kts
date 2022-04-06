@@ -1,7 +1,7 @@
 rootProject.name = "Jetgames"
 
-//Main module
-include (":app")
+// Main module
+include(":app")
 include(":common")
 include(":remote")
 include(":core")

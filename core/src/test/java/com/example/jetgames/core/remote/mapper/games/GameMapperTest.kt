@@ -26,7 +26,6 @@ class GameMapperTest {
 
     private val storeMapper = StoreMapper(storeXMapper = storeXMapper)
 
-
     val gameMapper = GameMapper(
         esrbRatingMapper = esrbMapper,
         genreMapper = genreMapper,
@@ -39,7 +38,7 @@ class GameMapperTest {
     )
 
     @Test
-    fun mapFromModel(){
+    fun mapFromModel() {
         val dto = DummyData.game
         val domain = gameMapper.mapFromModel(dto)
         Truth.assertThat(dto.id).isEqualTo(domain.id)

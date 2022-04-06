@@ -1,5 +1,9 @@
 object Version {
 
+    /* androidx */
+    const val appcompat = "1.4.1"
+    const val material = "1.5.0"
+
     /* compose */
     const val compose = "1.2.0-alpha04"
     const val activity = "1.4.0"

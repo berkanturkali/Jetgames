@@ -2,17 +2,15 @@ package com.example.jetgames.common.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 //
-//private val DarkColorPalette = darkColors(
+// private val DarkColorPalette = darkColors(
 //    primary = Purple200,
 //    primaryVariant = Purple700,
 //    secondary = Teal200
-//)
+// )
 //
-//private val LightColorPalette = lightColors(
+// private val LightColorPalette = lightColors(
 //    primary = Purple500,
 //    primaryVariant = Purple700,
 //    secondary = Teal200
@@ -25,7 +23,7 @@ import androidx.compose.runtime.Composable
 //    onBackground = Color.Black,
 //    onSurface = Color.Black,
 //    */
-//)
+// )
 
 @Composable
 fun JetgamesTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {

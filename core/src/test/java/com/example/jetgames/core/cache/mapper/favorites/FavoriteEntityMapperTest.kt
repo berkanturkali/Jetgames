@@ -6,9 +6,7 @@ import org.junit.Test
 
 class FavoriteEntityMapperTest {
 
-
     private val favoriteEntityMapper = FavoriteEntityMapper()
-
 
     @Test
     fun `check that map from entity maps data correctly`() {

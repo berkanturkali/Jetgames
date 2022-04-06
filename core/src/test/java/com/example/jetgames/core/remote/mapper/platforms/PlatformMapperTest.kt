@@ -8,11 +8,10 @@ class PlatformMapperTest {
 
     private val mapper = PlatformMapper()
 
-
     @Test
-    fun `check that PlatformMapper maps data correctly`(){
-      val entity = mapper.mapFromModel(DummyData.platformDto)
-      Truth.assertThat(entity.id).isEqualTo(DummyData.platformDto.id)
-      Truth.assertThat(entity.name).isEqualTo(DummyData.platformDto.name)
+    fun `check that PlatformMapper maps data correctly`() {
+        val entity = mapper.mapFromModel(DummyData.platformDto)
+        Truth.assertThat(entity.id).isEqualTo(DummyData.platformDto.id)
+        Truth.assertThat(entity.name).isEqualTo(DummyData.platformDto.name)
     }
 }

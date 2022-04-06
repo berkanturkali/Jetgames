@@ -9,8 +9,8 @@ import javax.inject.Inject
 class HomeFilterPreferencesCacheImpl @Inject constructor(
     private val dao: HomeFilterPreferencesDao,
 ) : HomeFilterPreferencesCache {
-    override suspend fun upsert(filterPreferencesEntity: HomeFilterPreferencesEntity):Long {
-       return dao.upsert(filterPreferencesEntity = filterPreferencesEntity)
+    override suspend fun upsert(filterPreferencesEntity: HomeFilterPreferencesEntity): Long {
+        return dao.upsert(filterPreferencesEntity = filterPreferencesEntity)
     }
 
     override fun preferences(): Flow<HomeFilterPreferencesEntity> {

@@ -25,7 +25,6 @@ import java.io.IOException
 
 class FiltersRepoImplTest {
 
-
     private val platformMapper = PlatformMapper()
 
     private val platformEntityMapper = PlatformEntityMapper()
@@ -75,8 +74,13 @@ class FiltersRepoImplTest {
             Truth.assertThat(value.data).isNotNull()
             Truth.assertThat(value.data).isNotEmpty()
             Truth.assertThat(value.data)
-                .containsExactlyElementsIn(platformEntityMapper.mapTypeList(platformMapper.mapModelList(
-                    listOf(DummyData.platformDto))))
+                .containsExactlyElementsIn(
+                    platformEntityMapper.mapTypeList(
+                        platformMapper.mapModelList(
+                            listOf(DummyData.platformDto)
+                        )
+                    )
+                )
         }
     }
 
@@ -136,8 +140,11 @@ class FiltersRepoImplTest {
             coVerify(exactly = 0) { mockFilterRemote.fetchGenres() }
             Truth.assertThat(value).isInstanceOf(Resource.Success::class.java)
             Truth.assertThat(value.data).isNotEmpty()
-            Truth.assertThat(value.data).containsExactlyElementsIn(genreEntityMapper.mapTypeList(
-                listOf(DummyData.genreEntity)))
+            Truth.assertThat(value.data).containsExactlyElementsIn(
+                genreEntityMapper.mapTypeList(
+                    listOf(DummyData.genreEntity)
+                )
+            )
         }
     }
 

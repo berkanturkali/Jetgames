@@ -54,7 +54,7 @@ class FavoritesRepoImplTest {
     fun `check that clear clears all of the data`() {
         runBlocking {
             val domain = DummyData.favorite
-            val newDomain = domain.copy(id =2)
+            val newDomain = domain.copy(id = 2)
             repo.upsert(domain)
             repo.upsert(newDomain)
             val favs = cache.favorites().first()

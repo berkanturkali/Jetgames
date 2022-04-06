@@ -20,11 +20,9 @@ class ApplicationPlugin : BasePlugin() {
         }
     override val libraryConfig: LibraryConfig
         get() = {
-            implementation(Library.coreKtx,
-                Library.activity,
-                Library.daggerHiltAndroid,
-                Library.navComponent,
-                Library.navigation)
+            implementation(
+                Library.coreKtx,
+                Library.activity)
             testImplementation(Library.junit)
             androidTestImplementation(Library.junitExt, Library.espresso, Library.composeJunit)
 

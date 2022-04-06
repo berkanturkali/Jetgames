@@ -4,5 +4,5 @@ import com.example.jetgames.core.remote.model.details.GameDetailsDto
 
 interface GameDetailRemote {
 
-    suspend fun game(id:Int):GameDetailsDto
+    suspend fun game(id: Int): GameDetailsDto
 }

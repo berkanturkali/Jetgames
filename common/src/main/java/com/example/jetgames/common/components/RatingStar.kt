@@ -22,16 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetgames.common.R
 
-
 @Composable
 fun RatingTop(
     modifier: Modifier = Modifier,
     rating: Double,
     color: Color = Color.Yellow,
     fontSize: TextUnit = 14.sp,
-    showTitle:Boolean = true,
+    showTitle: Boolean = true,
 ) {
-    if(showTitle) {
+    if (showTitle) {
         Text(
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
             text = stringResource(id = R.string.rating),
@@ -43,9 +42,12 @@ fun RatingTop(
             color = MaterialTheme.colors.onPrimary
         )
     }
-    RatingBar(color = color, rating = rating.toFloat(), modifier = modifier
-        .height(16.dp)
-        .padding(horizontal = 12.dp))
+    RatingBar(
+        color = color, rating = rating.toFloat(),
+        modifier = modifier
+            .height(16.dp)
+            .padding(horizontal = 12.dp)
+    )
 }
 
 @Composable

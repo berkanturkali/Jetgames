@@ -6,7 +6,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
-class JetgamesApp:Application() {
+class JetgamesApp : Application() {
 
     @Inject
     lateinit var timber: Timber.Tree

@@ -1,8 +1,7 @@
 package com.example.jetgames.common.components
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,10 +11,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -48,8 +49,10 @@ fun GameItem(
 
     val dominantColorState = rememberDominantColorState()
 
-    val backgroundColor by animateColorAsState(targetValue = dominantColorState.color,
-        animationSpec = spring(stiffness = Spring.StiffnessLow))
+    val backgroundColor by animateColorAsState(
+        targetValue = dominantColorState.color,
+        animationSpec = spring(stiffness = Spring.StiffnessLow)
+    )
 
     LaunchedEffect(image) {
         if (image != null) {
@@ -59,24 +62,38 @@ fun GameItem(
         }
     }
 
+    val animatedProgress = remember { Animatable(initialValue = 300f) }
+    LaunchedEffect(Unit) {
+        animatedProgress.animateTo(
+            targetValue = 0f,
+            animationSpec = tween(300, easing = FastOutSlowInEasing)
+        )
+    }
+    val animatedModifier = modifier
+        .graphicsLayer(translationX = animatedProgress.value)
+
     Card(
         onClick = {
             val screenshots = screenShots?.map { it?.image }
             onItemClick?.invoke(id, screenshots)
         },
-        modifier = modifier
-            .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
-                horizontal = dimensionResource(id = R.dimen.dimen_8)),
+        modifier = animatedModifier
+            .padding(
+                vertical = dimensionResource(id = R.dimen.dimen_8),
+                horizontal = dimensionResource(id = R.dimen.dimen_8)
+            ),
         elevation = dimensionResource(id = R.dimen.dimen_8),
         shape = RoundedCornerShape(
-            dimensionResource(id = R.dimen.dimen_16))) {
+            dimensionResource(id = R.dimen.dimen_16)
+        )
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .gradientBackground(color = backgroundColor, 45f)
         ) {
 
-            //Metascore
+            // Metascore
             if (metaCritic != null) {
                 Column(
                     modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End
@@ -88,14 +105,18 @@ fun GameItem(
                         modifier = Modifier
                             .padding(horizontal = 10.dp, vertical = 4.dp),
                         fontSize = 14.sp,
-                        childModifier = childModifier.padding(horizontal = 12.dp,
-                            vertical = 2.dp))
+                        childModifier = childModifier.padding(
+                            horizontal = 12.dp,
+                            vertical = 2.dp
+                        )
+                    )
                 }
             }
 
-            //image & name
-            Row(modifier = modifier
-                .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
+            // image & name
+            Row(
+                modifier = modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.dimen_16))
             ) {
                 GameImage(
                     modifier = childModifier
@@ -119,24 +140,35 @@ fun GameItem(
                 }
             }
 
-            //date & rating
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
-                    horizontal = dimensionResource(id = R.dimen.dimen_8)),
+            // date & rating
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = dimensionResource(id = R.dimen.dimen_8),
+                        horizontal = dimensionResource(id = R.dimen.dimen_8)
+                    ),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically) {
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 if (rating != null) {
-                    RatingBar(rating = rating,
+                    RatingBar(
+                        rating = rating,
                         modifier = Modifier
                             .height(12.dp)
-                            .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
-                        color = ratingColor ?: Color.Yellow)
+                            .padding(horizontal = dimensionResource(id = R.dimen.dimen_8))
+                            .then(childModifier),
+                        color = ratingColor ?: Color.Yellow
+                    )
                 }
                 if (released != null) {
                     Text(
-                        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.dimen_8),
-                            vertical = dimensionResource(id = R.dimen.dimen_8)),
+                        modifier = Modifier
+                            .padding(
+                                horizontal = dimensionResource(id = R.dimen.dimen_8),
+                                vertical = dimensionResource(id = R.dimen.dimen_8)
+                            )
+                            .then(childModifier),
                         text = released,
                         fontSize = 12.sp,
                         style = MaterialTheme.typography.h5,

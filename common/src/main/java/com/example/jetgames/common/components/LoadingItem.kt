@@ -22,13 +22,17 @@ fun LoadingItem(
     childModifier: Modifier = Modifier,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
-    Box(modifier = modifier
-        .wrapContentHeight()) {
-        LottieAnimation(modifier = childModifier
-            .align(Alignment.Center)
-            .size(125.dp),
+    Box(
+        modifier = modifier
+            .wrapContentHeight()
+    ) {
+        LottieAnimation(
+            modifier = childModifier
+                .align(Alignment.Center)
+                .size(125.dp),
             composition = composition,
-            iterations = LottieConstants.IterateForever)
+            iterations = LottieConstants.IterateForever
+        )
     }
 }
 
@@ -36,8 +40,10 @@ fun LoadingItem(
 @Composable
 private fun LoadingAnimationPreview() {
     JetgamesTheme {
-            LoadingItem(modifier = Modifier
+        LoadingItem(
+            modifier = Modifier
                 .background(MaterialTheme.colors.primary)
-                .fillMaxWidth())
+                .fillMaxWidth()
+        )
     }
 }

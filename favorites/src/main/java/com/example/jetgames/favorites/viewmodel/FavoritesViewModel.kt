@@ -9,7 +9,6 @@ import com.example.jetgames.favorites.state.FavoritesScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +16,6 @@ class FavoritesViewModel @Inject constructor(
     private val repo: FavoritesRepo,
     private val postExecutionThread: PostExecutionThread,
 ) : ViewModel() {
-
 
     private val _favorites = MutableStateFlow<List<Favorite>>(emptyList())
 
@@ -45,7 +43,6 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-
     private fun getFavorites() {
         repo.favorites()
             .onEach {
@@ -54,7 +51,7 @@ class FavoritesViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    fun removeFromFavorites(favorite: Favorite){
+    fun removeFromFavorites(favorite: Favorite) {
         viewModelScope.launch(postExecutionThread.io) {
             repo.delete(favorite)
         }

@@ -31,8 +31,10 @@ fun NavGraphBuilder.homeNavGraph(
         startDestination = BottomNavigationItem.HomeScreen.route,
         route = Routes.HOME_GRAPH_ROUTE,
     ) {
-        addHomeScreen(navController = navController,
-            imageLoader = imageLoader)
+        addHomeScreen(
+            navController = navController,
+            imageLoader = imageLoader
+        )
         addDetailScreen(navController = navController, imageLoader = imageLoader)
         addScreenshotsScreen(imageLoader = imageLoader)
     }
@@ -45,8 +47,10 @@ fun NavGraphBuilder.addHomeScreen(
     composable(
         route = BottomNavigationItem.HomeScreen.route,
         enterTransition = {
-            slideInVertically(initialOffsetY = { +1000 },
-                animationSpec = spring())
+            slideInVertically(
+                initialOffsetY = { +1000 },
+                animationSpec = spring()
+            )
         },
         exitTransition = {
             shrinkVertically(shrinkTowards = Alignment.Top)
@@ -58,13 +62,14 @@ fun NavGraphBuilder.addHomeScreen(
             slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
         }
     ) {
-        //home screen
-        Home(imageLoader = imageLoader, navigateToDetailScreen = { id, list ->
-            val detailsArgs = DetailsArgs(id, list)
-            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
-            navController.navigate("${Screen.DetailScreen.route}/$args")
-        },
+        // home screen
+        Home(
+            imageLoader = imageLoader, navigateToDetailScreen = { id, list ->
+                val detailsArgs = DetailsArgs(id, list)
+                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
+                navController.navigate("${Screen.DetailScreen.route}/$args")
+            },
             navigateToFilterScreen = {
                 navController.navigate(FILTER_GRAPH_ROUTE)
             }
@@ -86,15 +91,17 @@ fun NavGraphBuilder.addDetailScreen(
             scaleOut()
         },
         popEnterTransition = {
-            slideInHorizontally(initialOffsetX = { -1000 }, animationSpec = tween(700))
+            slideInHorizontally(initialOffsetX = { -1000 }, animationSpec = tween(400))
         },
         popExitTransition = {
             slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
         },
     ) {
-        //detail screen
-        DetailScreen(imageLoader = imageLoader,
-            onBackButtonClick = navController::navigateUp) { screenshots, page ->
+        // detail screen
+        DetailScreen(
+            imageLoader = imageLoader,
+            onBackButtonClick = navController::navigateUp
+        ) { screenshots, page ->
             val screenshotArgs = ScreenshotsArgs(screenshots = screenshots, selectedPage = page)
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val args = Uri.encode(moshi.adapter(ScreenshotsArgs::class.java).toJson(screenshotArgs))
@@ -108,9 +115,13 @@ fun NavGraphBuilder.addScreenshotsScreen(
 ) {
     composable(
         route = Screen.ScreenshotsScreen.route + "/{screenshotsArgs}",
-        arguments = Screen.ScreenshotsScreen.arguments
+        arguments = Screen.ScreenshotsScreen.arguments,
+        enterTransition = {
+            scaleIn()
+        },
+
     ) {
-        //Screenshots screen
+        // Screenshots screen
         ScreenshotsScreen(imageLoader = imageLoader)
     }
 }

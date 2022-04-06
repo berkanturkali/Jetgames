@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 
-
 @Composable
 fun MetaCritic(
     metaCritic: Int,
@@ -28,8 +27,10 @@ fun MetaCritic(
     Card(
         modifier = modifier,
         elevation = 8.dp,
-        border = if (!isLoading) BorderStroke(1.dp, ratingColor ?: Color.Yellow) else BorderStroke(0.dp,
-            Color.Transparent),
+        border = if (!isLoading) BorderStroke(1.dp, ratingColor ?: Color.Yellow) else BorderStroke(
+            0.dp,
+            Color.Transparent
+        ),
         shape = RoundedCornerShape(6.dp),
         backgroundColor = Color.Transparent,
     ) {

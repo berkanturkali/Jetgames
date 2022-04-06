@@ -21,7 +21,9 @@ fun PlatformLogoItem(platformImageResource: Int, modifier: Modifier = Modifier, 
         alignment = Alignment.Center,
         painter = rememberImagePainter(
             data = platformImageResource,
-            builder = { crossfade(true) }), contentDescription = null
+            builder = { crossfade(true) }
+        ),
+        contentDescription = null
     )
 }
 
@@ -43,7 +45,7 @@ fun platformLogo(platforms: List<ParentPlatform?>): List<Int> {
             platformLogosList.add(R.drawable.ic_android)
         } else if (platformName.contains("apple") || platformName.contains("mac")) {
             platformLogosList.add(R.drawable.ic_apple)
-        }else if (platformName.contains("nintendo")){
+        } else if (platformName.contains("nintendo")) {
             platformLogosList.add(R.drawable.ic_game)
         }
     }

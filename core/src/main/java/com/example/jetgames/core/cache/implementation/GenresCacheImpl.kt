@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GenresCacheImpl @Inject constructor(
-    private val dao:GenresDao
-):GenresCache {
+    private val dao: GenresDao
+) : GenresCache {
     override suspend fun upsert(genreEntity: GenreEntity): Long {
         return dao.upsert(genreEntity)
     }

@@ -1,8 +1,6 @@
 package com.example.jetgames.common.ui.theme
 
-import android.annotation.SuppressLint
 import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
 
 val Blue = Color(0XFF1DA1F2)

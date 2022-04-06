@@ -8,7 +8,6 @@ interface ProjectExtension {
 
     companion object
 }
-
 fun ProjectExtension.config(extensionContainer: ExtensionContainer) {
     configure(extensionContainer.getByName(name))
 }

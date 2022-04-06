@@ -6,38 +6,32 @@ plugins {
     androidLib
     daggerHilt
 }
-android {
-    compileSdk = Config.compileSdkVersion
-}
-
 dependencies {
     implementation(project(common))
     implementation(project(core))
 
-    //hilt
+    // hilt
     implementation(Library.daggerHiltAndroid)
     kapt(Library.daggerHiltCompiler)
 
-    //androidx
+    // androidx
     implementation(Library.lifecycle)
     implementation(Library.lifecycleKtx)
 
-    //pagination
+    // pagination
     implementation(Library.pagingCompose)
 
-    //compose
+    // compose
     implementation(Library.composeMaterial)
     implementation(Library.materialIcons)
     implementation(Library.constraintLayout)
 
-    //accompanist
+    // accompanist
     implementation(Library.swipeRefresh)
     implementation(Library.placeholder)
 
-    //coil
+    // coil
     implementation(Library.coil)
 
     implementation(Library.hiltNavigation)
-
-
 }

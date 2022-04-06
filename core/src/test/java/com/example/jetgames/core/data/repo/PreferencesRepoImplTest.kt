@@ -48,5 +48,4 @@ class PreferencesRepoImplTest {
         repo.insertHomePreferences(preferences)
         Truth.assertThat(repo.preferences().first().platforms).isNotNull()
     }
-
 }

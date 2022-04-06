@@ -12,14 +12,14 @@ class MetacriticPlatformMapperTest {
     private val metacriticPlatformMapper = MetacriticPlatformMapper(platformMapper = platformMapper)
 
     @Test
-    fun `check that mapFromModel map data correctly`(){
-         val dto = DummyData.metacriticPlaform
+    fun `check that mapFromModel map data correctly`() {
+        val dto = DummyData.metacriticPlaform
         val domain = metacriticPlatformMapper.mapFromModel(dto)
         Truth.assertThat(domain.metascore).isEqualTo(dto.metascore)
     }
 
     @Test
-    fun `check that when dto is null metacritic of the domain object is -1`(){
+    fun `check that when dto is null metacritic of the domain object is -1`() {
         val domain = metacriticPlatformMapper.mapFromModel(null)
         Truth.assertThat(domain.metascore).isEqualTo(-1)
     }

@@ -36,7 +36,6 @@ class GameDetailRemoteImplTest {
             .isEqualTo(mockWebServer.takeRequest().requestLine)
     }
 
-
     @After
     fun tearDown() {
         mockWebServer.shutdown()

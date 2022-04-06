@@ -21,7 +21,9 @@ fun PlatformLogoItem(platformImageResource: Int, modifier: Modifier = Modifier, 
         alignment = Alignment.Center,
         painter = rememberImagePainter(
             data = platformImageResource,
-            builder = { crossfade(true) }), contentDescription = null
+            builder = { crossfade(true) }
+        ),
+        contentDescription = null
     )
 }
 

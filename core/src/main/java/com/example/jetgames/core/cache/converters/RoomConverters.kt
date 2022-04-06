@@ -8,8 +8,7 @@ import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.lang.reflect.ParameterizedType
 
-internal class RoomConverters(
-) {
+internal class RoomConverters() {
 
     private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 

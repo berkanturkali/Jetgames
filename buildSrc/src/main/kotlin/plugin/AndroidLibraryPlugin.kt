@@ -1,5 +1,6 @@
 package plugin
 
+import Library
 import androidModule
 import androidTestImplementation
 import extensions.AndroidLib
@@ -8,6 +9,7 @@ import implementation
 import kotlinAndroid
 import kotlinKapt
 import testImplementation
+import debugImplementation
 
 class AndroidLibraryPlugin : BasePlugin() {
     override val pluginConfig: PluginConfig
@@ -18,12 +20,17 @@ class AndroidLibraryPlugin : BasePlugin() {
         }
     override val libraryConfig: LibraryConfig
         get() = {
-            implementation("androidx.core:core-ktx:1.7.0",
-                "androidx.appcompat:appcompat:1.4.1",
-                "com.google.android.material:material:1.5.0")
-            testImplementation("junit:junit:4.13.2")
-            androidTestImplementation("androidx.test.ext:junit:1.1.3",
-                "androidx.test.espresso:espresso-core:3.4.0")
+            implementation(
+                Library.coreKtx,
+                Library.appcompat,
+                Library.material,
+                Library.timber)
+            testImplementation(Library.junit)
+            androidTestImplementation(
+                Library.junitExt,
+                Library.espresso)
+
+            debugImplementation(Library.composeUiTooling)
         }
     override val extensions: Array<ProjectExtension>
         get() = arrayOf(ProjectExtension.AndroidLib)

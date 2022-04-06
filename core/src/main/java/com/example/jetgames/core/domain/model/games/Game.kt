@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.Color
 import com.example.jetgames.core.utils.calculateRgbFromMetacritic
 import com.example.jetgames.core.utils.calculateRgbFromRating
 
-
 data class Game(
     val backgroundImage: String? = null,
     val esrbRating: EsrbRating? = null,

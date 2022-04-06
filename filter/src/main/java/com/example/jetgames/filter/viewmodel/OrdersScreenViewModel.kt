@@ -8,11 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 
 class OrdersScreenViewModel : ViewModel() {
 
-
     private val _orders = MutableStateFlow<List<String>>(orderOptions())
 
     val orders: StateFlow<List<String>> get() = _orders
-
 
     private fun orderOptions(): List<String> {
         return listOf(

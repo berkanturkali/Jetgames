@@ -20,7 +20,6 @@ class KotlinLibraryPlugin : BasePlugin() {
             implementation(
                 Library.hiltCore,
             )
-            implementation(Library.core)
             kapt(Library.daggerHiltCompiler)
         }
 

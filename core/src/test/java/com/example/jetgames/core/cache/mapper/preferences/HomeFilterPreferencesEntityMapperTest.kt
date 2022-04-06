@@ -11,7 +11,6 @@ class HomeFilterPreferencesEntityMapperTest {
 
     private val mapper = HomeFilterPreferencesEntityMapper(platformEntityMapper = platformEntityMapper)
 
-
     @Test
     fun `check that mapToEntity maps to entity correctly`() {
         val domain = DummyData.filterPreferences
@@ -23,7 +22,7 @@ class HomeFilterPreferencesEntityMapperTest {
     }
 
     @Test
-    fun `check that mapFromEntity maps to domain correctly`(){
+    fun `check that mapFromEntity maps to domain correctly`() {
         val entity = DummyData.filterPreferencesEntity
         val domain = mapper.mapFromEntity(entity = entity)
         Truth.assertThat(entity.platforms!!.first().name).isEqualTo(domain.platforms.first().name)

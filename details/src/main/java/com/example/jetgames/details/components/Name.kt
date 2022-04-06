@@ -39,9 +39,11 @@ fun Name(
         Pair(
             id,
             InlineTextContent(
-                Placeholder(width = 20.sp,
+                Placeholder(
+                    width = 20.sp,
                     height = 20.sp,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.Center)
+                    placeholderVerticalAlign = PlaceholderVerticalAlign.Center
+                )
             ) {
                 icon?.let {
                     Text(text = icon)
@@ -53,9 +55,12 @@ fun Name(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = 12.dp,
+            .padding(
+                horizontal = 12.dp,
                 vertical = dimensionResource(
-                    id = R.dimen.dimen_8)),
+                    id = R.dimen.dimen_8
+                )
+            ),
         text = text,
         inlineContent = content,
         fontSize = 28.sp,
@@ -71,6 +76,6 @@ fun Name(
 @Composable
 fun NamePrev() {
     JetgamesTheme {
-        Name(name ="Gta V",icon = "\uD83C\uDFAF")
+        Name(name = "Gta V", icon = "\uD83C\uDFAF")
     }
 }

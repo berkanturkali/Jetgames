@@ -10,10 +10,7 @@ import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.example.jetgames.filter.state.FilterState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -25,7 +22,8 @@ class FilterScreenViewModel @Inject constructor(
 
     private val _selectedPlatforms =
         MutableStateFlow<List<Platform>>(
-            emptyList())
+            emptyList()
+        )
 
     private val _selectedGenres = MutableStateFlow<List<String>>(emptyList())
 
@@ -58,7 +56,8 @@ class FilterScreenViewModel @Inject constructor(
                 _selectedPlatforms,
                 _selectedGenres,
                 _selectedMetacritic,
-                _selectedOrder) { platforms, genres, metacritic, order ->
+                _selectedOrder
+            ) { platforms, genres, metacritic, order ->
                 FilterState(
                     selectedOrder = order,
                     selectedPlatforms = platforms,
@@ -68,11 +67,11 @@ class FilterScreenViewModel @Inject constructor(
                         platforms = platforms,
                         genres = genres,
                         metacritic = metacritic,
-                        order = order)
+                        order = order
+                    )
                 )
             }
                 .catch { throwable ->
-
                 }
                 .collect {
                     _filterState.value = it
@@ -86,7 +85,6 @@ class FilterScreenViewModel @Inject constructor(
 
     fun setGenres(genres: List<String>) {
         _selectedGenres.value = genres
-
     }
 
     fun setMetacritics(metacritic: MetacriticPreference) {
@@ -109,11 +107,12 @@ class FilterScreenViewModel @Inject constructor(
         metacritic: MetacriticPreference,
         order: OrderPreference,
     ): Boolean {
-        return !(platforms.sortedBy(Platform::id) == currentPrefs.platforms.sortedBy(Platform::id) &&
+        return !(
+            platforms.sortedBy(Platform::id) == currentPrefs.platforms.sortedBy(Platform::id) &&
                 genres.sorted() == currentPrefs.genres.sorted() &&
                 metacritic == currentPrefs.metacriticPreference &&
                 order == currentPrefs.order
-                )
+            )
     }
 
     fun applyPreferences() {

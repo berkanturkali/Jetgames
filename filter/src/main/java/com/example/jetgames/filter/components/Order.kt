@@ -12,7 +12,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetgames.common.R
-import com.example.jetgames.core.domain.model.preferences.ASCDESC
 import com.example.jetgames.core.domain.model.preferences.OrderPreference
 import java.util.*
 
@@ -23,11 +22,18 @@ fun Order(
     orderPref: OrderPreference,
 ) {
 
-    ConstraintLayout(modifier = modifier
-        .fillMaxWidth()
-        .clickable {
-            onOrderItemClick("orders_screen")
-        }) {
+    ConstraintLayout(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(
+                horizontal = dimensionResource(
+                    id = R.dimen.dimen_8
+                )
+            )
+            .clickable {
+                onOrderItemClick("orders_screen")
+            }
+    ) {
         val (title, selectedOrder, arrow) = createRefs()
 
         Text(
@@ -37,10 +43,11 @@ fun Order(
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 }
-                .padding(start = dimensionResource(id = R.dimen.dimen_16)),
+                .padding(start = dimensionResource(id = R.dimen.dimen_8)),
             text = "Order By",
             style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
 
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
 
@@ -54,7 +61,8 @@ fun Order(
                     it.titlecase(Locale.getDefault())
                 },
                 style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onPrimary)
+                color = MaterialTheme.colors.onPrimary
+            )
         }
 
         IconButton(
@@ -67,7 +75,8 @@ fun Order(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_next),
                     contentDescription = null,
-                    tint = Color.White)
+                    tint = Color.White
+                )
             },
             onClick = { }
         )

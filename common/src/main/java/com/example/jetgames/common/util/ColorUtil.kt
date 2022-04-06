@@ -23,7 +23,6 @@ import kotlinx.coroutines.withContext
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-
 fun Modifier.verticalGradientScrim(
     color: Color,
 ): Modifier = composed {
@@ -132,7 +131,6 @@ private suspend fun calculateDominantSwatchInImage(
         else -> null
     }
 
-
     return withContext(Dispatchers.Default) {
         bitmap?.let {
             val palette = Palette.Builder(it)
@@ -146,8 +144,5 @@ private suspend fun calculateDominantSwatchInImage(
     }
 }
 
-
 @Immutable
 private data class DominantColors(val color: Color, val onColor: Color)
-
-

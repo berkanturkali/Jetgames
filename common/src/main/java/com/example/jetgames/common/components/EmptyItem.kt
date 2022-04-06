@@ -25,7 +25,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.Error
 import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.common.ui.theme.LightGray
 import com.example.jetgames.common.ui.theme.XLightGray
 
 @Composable
@@ -34,17 +33,19 @@ fun LottieEmptyScreen(
     message: String = stringResource(id = R.string.nothing_here),
 ) {
 
-    Column(modifier = modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
+    Column(
+        modifier = modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty))
         LottieAnimation(
             modifier = Modifier.size(100.dp),
             composition = composition,
-            iterations = LottieConstants.IterateForever)
+            iterations = LottieConstants.IterateForever
+        )
 
         ErrorMessage(message = message, color = Error)
-
     }
 }
 
@@ -54,16 +55,18 @@ fun ResourceEmptyScreen(
     message: String = stringResource(id = R.string.nothing_here),
     @DrawableRes drawable: Int = R.drawable.ic_bad,
 ) {
-    Column(modifier = modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
+    Column(
+        modifier = modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
         Icon(
             painter = painterResource(drawable),
             contentDescription = null,
-            tint = XLightGray.copy(alpha = 0.6f))
+            tint = XLightGray.copy(alpha = 0.6f)
+        )
 
         ErrorMessage(message = message)
-
     }
 }
 

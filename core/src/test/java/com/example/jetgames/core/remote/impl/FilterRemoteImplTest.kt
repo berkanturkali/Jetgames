@@ -1,8 +1,6 @@
 package com.example.jetgames.core.remote.impl
 
 import com.example.jetgames.core.data.contract.FilterRemote
-import com.example.jetgames.core.remote.model.genres.GenreDto
-import com.example.jetgames.core.remote.model.genres.GenresResponse
 import com.example.jetgames.core.remote.model.platforms.PlatformDto
 import com.example.jetgames.core.remote.model.platforms.PlatformsResponse
 import com.example.jetgames.core.remote.util.*
@@ -25,7 +23,6 @@ class FilterRemoteImplTest {
         mockWebServer.start()
         filterRemote = FilterRemoteImpl(makeApiService(mockWebServer))
     }
-
 
     @Test
     fun `check that fetchPlatforms returns platforms list of same size`() = runBlocking {
@@ -60,7 +57,6 @@ class FilterRemoteImplTest {
         }
     }
 
-
     private fun getResponse(responsePath: String): PlatformsResponse {
         return platformsResponseAdapter.fromJson(getJson(responsePath))!!
     }
@@ -68,7 +64,6 @@ class FilterRemoteImplTest {
     private fun getResponseList(vararg responsePath: String): List<PlatformsResponse> {
         return responsePath.map(::getResponse)
     }
-
 
     @After
     fun tearDown() {

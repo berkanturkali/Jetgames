@@ -5,7 +5,7 @@ import com.example.jetgames.core.cache.model.PlatformEntity
 import com.example.jetgames.core.domain.model.platforms.Platform
 import javax.inject.Inject
 
-class PlatformEntityMapper @Inject constructor():EntityMapper<PlatformEntity,Platform> {
+class PlatformEntityMapper @Inject constructor() : EntityMapper<PlatformEntity, Platform> {
     override fun mapFromEntity(entity: PlatformEntity): Platform {
         return Platform(
             id = entity.id,

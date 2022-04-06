@@ -21,24 +21,37 @@ import com.example.jetgames.common.ui.theme.JetgamesTheme
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-internal fun Toolbar(
+fun Toolbar(
     modifier: Modifier = Modifier,
     isLiked: Boolean,
     onBackButtonClick: () -> Unit,
     onFavButtonClick: (Boolean) -> Unit,
 ) {
 
-    Box(contentAlignment = Alignment.Center,
-        modifier = Modifier.background(brush = Brush.verticalGradient(listOf(MaterialTheme.colors.primary,
-            MaterialTheme.colors.primary.copy(0f))))) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.background(
+            brush = Brush.verticalGradient(
+                listOf(
+                    MaterialTheme.colors.primary,
+                    MaterialTheme.colors.primary.copy(0f)
+                )
+            )
+        )
+    ) {
 
-        Row(modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = dimensionResource(id = com.example.jetgames.common.R.dimen.dimen_16),
-                vertical = dimensionResource(
-                    id = com.example.jetgames.common.R.dimen.dimen_8)),
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = dimensionResource(id = com.example.jetgames.common.R.dimen.dimen_16),
+                    vertical = dimensionResource(
+                        id = com.example.jetgames.common.R.dimen.dimen_8
+                    )
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically) {
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Surface(
                 modifier = Modifier
                     .size(35.dp),
@@ -60,7 +73,6 @@ internal fun Toolbar(
                     onFavButtonClick.invoke(it)
                 }
             ) {
-
 
                 val transition = updateTransition(isLiked, label = null)
 
@@ -89,7 +101,8 @@ internal fun Toolbar(
 
                 Icon(
                     painter = if (isLiked) painterResource(id = com.example.jetgames.common.R.drawable.ic_filled_star) else painterResource(
-                        id = com.example.jetgames.common.R.drawable.ic_star),
+                        id = com.example.jetgames.common.R.drawable.ic_star
+                    ),
                     contentDescription = null,
                     tint = tint,
                     modifier = Modifier.size(size)
@@ -104,7 +117,6 @@ internal fun Toolbar(
 fun ToolbarPrev() {
     JetgamesTheme {
         Toolbar(onBackButtonClick = { /*TODO*/ }, isLiked = false) {
-
         }
     }
 }

@@ -31,10 +31,12 @@ fun Metacritic(
             .wrapContentHeight()
             .padding(horizontal = dimensionResource(id = R.dimen.dimen_8)),
     ) {
-        Text(text = "Metacritic",
+        Text(
+            text = "Metacritic",
             modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
             style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
 
         Divider(thickness = 0.5.dp)
 
@@ -44,14 +46,15 @@ fun Metacritic(
                 title = "Min (${min.value.toInt()} - ${max.value.toInt()})",
                 value = min.value,
                 onValueChange = viewModel::setMin,
-                onValueChangeFinished = viewModel::onValueChangeFinishedForMin)
-
+                onValueChangeFinished = viewModel::onValueChangeFinishedForMin
+            )
 
             SliderItem(
                 title = "Max (${max.value.toInt()} - 100)",
                 value = max.value,
                 onValueChange = viewModel::setMax,
-                onValueChangeFinished = viewModel::onValueChangeFinishedForMax)
+                onValueChangeFinished = viewModel::onValueChangeFinishedForMax
+            )
         }
     }
 }
@@ -65,9 +68,11 @@ private fun SliderItem(
     onValueChangeFinished: () -> Unit = {},
 ) {
 
-    Text(text = title,
+    Text(
+        text = title,
         style = MaterialTheme.typography.subtitle2,
-        color = MaterialTheme.colors.onPrimary)
+        color = MaterialTheme.colors.onPrimary
+    )
     Slider(
         value = value,
         onValueChange = onValueChange,
@@ -80,5 +85,4 @@ private fun SliderItem(
         ),
         onValueChangeFinished = onValueChangeFinished
     )
-
 }

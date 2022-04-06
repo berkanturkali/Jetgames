@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.jetgames.core.domain.model.platforms.Platform
 import com.example.jetgames.core.domain.usecase.filters.PlatformsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,7 +16,7 @@ class PlatformsScreenViewModel @Inject constructor(
     private val _refresh = MutableLiveData<Boolean>()
 
     val platforms = Transformations.switchMap(_refresh) {
-        liveData { platformsUseCase.execute(it).collect(::emit) }
+        liveData { platformsUseCase.execute(it).collectLatest(::emit) }
     }
 
     init {

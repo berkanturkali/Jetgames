@@ -16,14 +16,20 @@ import com.example.jetgames.common.R
 @Composable
 fun ApplyFilterFab(
     modifier: Modifier = Modifier,
-    onButtonClick : (() -> Unit)? = null
-){
-        FloatingActionButton(onClick = {onButtonClick?.invoke()}, modifier = modifier
+    onButtonClick: (() -> Unit)? = null
+) {
+    FloatingActionButton(
+        onClick = { onButtonClick?.invoke() },
+        modifier = modifier
             .wrapContentSize(align = Alignment.BottomEnd, unbounded = true)
             .padding(
-                dimensionResource(id = R.dimen.dimen_32))) {
-            Icon(painter = painterResource(id = R.drawable.ic_apply),
-                contentDescription = "Apply Filters",
-                tint = Color.White)
-        }
+                dimensionResource(id = R.dimen.dimen_32)
+            )
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_apply),
+            contentDescription = "Apply Filters",
+            tint = Color.White
+        )
     }
+}

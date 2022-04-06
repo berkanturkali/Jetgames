@@ -7,5 +7,5 @@ data class Favorite(
     val rating: Double?,
     val metacri: Int?,
     val releaseDate: String?,
-    val icon:String?
+    val icon: String?
 )

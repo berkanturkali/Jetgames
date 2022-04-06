@@ -5,26 +5,21 @@ plugins {
     androidLib
     daggerHilt
 }
-
-android {
-    compileSdk = Config.compileSdkVersion
-}
-
 dependencies {
     implementation(project(common))
     implementation(project(core))
 
-    //compose
+    // compose
     implementation(
         Library.composeMaterial
     )
 
-    //hilt
+    // hilt
     implementation(Library.daggerHiltAndroid)
     kapt(Library.daggerHiltCompiler)
 
     implementation(Library.hiltNavigation)
 
-    //coil
+    // coil
     implementation(Library.coil)
 }

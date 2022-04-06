@@ -23,15 +23,19 @@ interface RemoteModule {
     val GamesRemoteImpl.bindGamesRemote: GamesRemote
 
     @get:Binds
-    val GameDetailRemoteImpl.bindGameDetailRemote:GameDetailRemote
+    val GameDetailRemoteImpl.bindGameDetailRemote: GameDetailRemote
 
     @get:Binds
-    val FilterRemoteImpl.bindFilterRemote:FilterRemote
+    val FilterRemoteImpl.bindFilterRemote: FilterRemote
 
     companion object {
         @[Provides Singleton]
         fun apiService(remoteFactory: RemoteFactory): ApiService =
-            remoteFactory.createRetrofit(BuildConfig.BASE_URL, BuildConfig.DEBUG)
+            remoteFactory.createRetrofit(
+                BuildConfig.BASE_URL,
+                BuildConfig.DEBUG,
+                BuildConfig.API_KEY
+            )
                 .create(ApiService::class.java)
     }
 }

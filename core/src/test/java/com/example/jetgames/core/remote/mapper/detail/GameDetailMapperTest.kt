@@ -7,7 +7,6 @@ import org.junit.Test
 
 class GameDetailMapperTest {
 
-
     private val esrbMapper = EsrbRatingMapper()
 
     private val genreMapper = GenreMapper()
@@ -36,9 +35,8 @@ class GameDetailMapperTest {
         tagMapper = tagMapper
     )
 
-
     @Test
-    fun `check that mapFromModel map remote model correctly`(){
+    fun `check that mapFromModel map remote model correctly`() {
         val dto = DummyData.gameDetailsDto
         val domain = gameDetailMapper.mapFromModel(dto)
         Truth.assertThat(domain.id).isEqualTo(dto.id)

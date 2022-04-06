@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PreferencesRepo {
 
-    suspend fun insertHomePreferences(homePreferences: HomePreferences):Long
+    suspend fun insertHomePreferences(homePreferences: HomePreferences): Long
 
     fun preferences(): Flow<HomePreferences.HomeFilterPreferences>
 }

@@ -13,6 +13,6 @@ data class HomeFilterPreferencesEntity(
     val genres: List<String>?,
     val minMetacri: Int,
     val maxMetacri: Int,
-    val order:String,
-    val direction:Char
+    val order: String,
+    val direction: Char
 )

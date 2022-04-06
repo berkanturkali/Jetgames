@@ -27,13 +27,15 @@ class GamesPagingSource constructor(
         val take = 20
         return try {
             val response =
-                gamesRemote.fetchGames(page,
+                gamesRemote.fetchGames(
+                    page,
                     take,
                     query,
                     platforms = platforms,
                     genres = genres,
                     metacritic = metacritic,
-                    order = order)
+                    order = order
+                )
             val prevKey = if (page == 1) null else page - 1
             val nextKey = if (response.isEmpty()) null else page + 1
             LoadResult.Page(

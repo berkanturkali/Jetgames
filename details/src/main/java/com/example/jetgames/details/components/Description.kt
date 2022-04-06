@@ -44,9 +44,9 @@ fun Description(
 
     LaunchedEffect(description, isExpanded, textLayoutResult, seeMoreSize) {
         val lastLineIndex = minimizedMaxLines - 1
-        if (!isExpanded && textLayoutResult != null && seeMoreSize != null
-            && lastLineIndex + 1 == textLayoutResult.lineCount
-            && textLayoutResult.isLineEllipsized(lastLineIndex)
+        if (!isExpanded && textLayoutResult != null && seeMoreSize != null &&
+            lastLineIndex + 1 == textLayoutResult.lineCount &&
+            textLayoutResult.isLineEllipsized(lastLineIndex)
         ) {
             var lastCharIndex = textLayoutResult.getLineEnd(lastLineIndex, visibleEnd = true) + 1
             var charRect: Rect
@@ -63,9 +63,11 @@ fun Description(
 
     Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8))) {
 
-        Text(text = stringResource(id = R.string.description),
+        Text(
+            text = stringResource(id = R.string.description),
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
 
         Divider(thickness = 0.5.dp, color = XXLightGray)
 
@@ -76,10 +78,12 @@ fun Description(
                 overflow = TextOverflow.Ellipsis,
                 onTextLayout = { textLayoutResultState.value = it },
                 style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.onPrimary)
+                color = MaterialTheme.colors.onPrimary
+            )
             if (!isExpanded) {
                 val density = LocalDensity.current
-                Text(text = "... See more",
+                Text(
+                    text = "... See more",
                     color = LightGray,
                     onTextLayout = { seeMoreSizeState.value = it.size },
                     modifier = Modifier
@@ -95,7 +99,8 @@ fun Description(
                             isExpanded = true
                             cutDesc = null
                         }
-                        .alpha(if (seeMoreOffset != null) 1f else 0f))
+                        .alpha(if (seeMoreOffset != null) 1f else 0f)
+                )
             }
         }
     }

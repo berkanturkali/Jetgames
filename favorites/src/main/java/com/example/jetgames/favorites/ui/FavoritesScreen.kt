@@ -31,10 +31,9 @@ fun FavoritesScreen(
     DefaultScreenUI {
 
         if (isEmptyViewVisible) {
-            //empty view
-
+            // empty view
         } else {
-            //favorites
+            // favorites
             LazyColumn(modifier = modifier) {
                 items(items = favorites, key = {
                     it.id
@@ -43,7 +42,7 @@ fun FavoritesScreen(
                     val dismissState = rememberDismissState(
                         confirmStateChange = { dismissValue ->
                             when (dismissValue) {
-                                //swipe rtl
+                                // swipe rtl
                                 DismissValue.DismissedToStart -> {
                                     viewModel.removeFromFavorites(it)
                                     true
@@ -56,9 +55,10 @@ fun FavoritesScreen(
                     SwipeToDismiss(
                         state = dismissState,
                         modifier = Modifier.animateItemPlacement(),
-                        background = {}) {
+                        background = {}
+                    ) {
 
-                        //Games
+                        // Games
                         GameItem(
                             id = it.id,
                             icon = it.icon,
@@ -69,7 +69,8 @@ fun FavoritesScreen(
                             metacriticColor = it.metacri?.calculateRgbFromMetacritic(),
                             rating = it.rating?.toFloat(),
                             ratingColor = it.rating?.calculateRgbFromRating(),
-                            released = it.releaseDate)
+                            released = it.releaseDate
+                        )
                     }
                 }
             }

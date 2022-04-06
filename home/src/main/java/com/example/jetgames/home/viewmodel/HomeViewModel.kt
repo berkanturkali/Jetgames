@@ -45,14 +45,18 @@ class HomeViewModel @Inject constructor(
             combine(
                 _refreshing,
                 _homeViewPreferences,
-                _homeFilterPreferences) { refreshing, viewPreferences, filterPreferences ->
+                _homeFilterPreferences
+            ) { refreshing, viewPreferences, filterPreferences ->
                 HomeState(
                     isRefreshing = refreshing,
-                    filterCount = calculateBadge(filterPreferences.platforms,
+                    filterCount = calculateBadge(
+                        filterPreferences.platforms,
                         filterPreferences.genres,
-                        metacriticPreference = filterPreferences.metacriticPreference),
+                        metacriticPreference = filterPreferences.metacriticPreference
+                    ),
                     homeViewPreferences = viewPreferences,
-                    homeFilterPreferences = filterPreferences)
+                    homeFilterPreferences = filterPreferences
+                )
             }
                 .catch { throwable ->
                 }
@@ -87,7 +91,7 @@ class HomeViewModel @Inject constructor(
                                     if (lower == after.game.metaCritic) {
                                         return@insertSeparators GameModel.SeparatorItem("$lower Metascore")
                                     } else {
-                                        return@insertSeparators GameModel.SeparatorItem("${lower}-${after.game.metaCritic} Metascore")
+                                        return@insertSeparators GameModel.SeparatorItem("$lower-${after.game.metaCritic} Metascore")
                                     }
                                 }
                             }
@@ -142,7 +146,6 @@ class HomeViewModel @Inject constructor(
             }
     }.cachedIn(viewModelScope)
 
-
     fun setRefresh(isRefreshing: Boolean) {
         _refreshing.value = isRefreshing
     }
@@ -166,7 +169,7 @@ class HomeViewModel @Inject constructor(
         return listsFilterCount + metacriFilter
     }
 
-    fun getIcon(game:Game):String?{
+    fun getIcon(game: Game): String? {
         val rating = game.ratings?.maxByOrNull { it?.percent!! }
         return rating?.icon
     }

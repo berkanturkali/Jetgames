@@ -2,7 +2,7 @@ package com.example.jetgames.navigation
 
 object Routes {
 
-    //screenroutes
+    // screenroutes
     const val HOME_ROUTE = "home_screen"
 
     const val DETAIL_ROUTE = "detail_screen"
@@ -11,17 +11,15 @@ object Routes {
 
     const val FILTER_ROUTE = "filter_screen"
 
-    const val METACRITIC_FILTER_ROUTE = "metacritic_screen"
-
     const val PLATFORMS_ROUTE = "platforms_screen"
 
     const val GENRES_ROUTE = "genres_screen"
 
     const val ORDERS_ROUTE = "orders_screen"
 
-    const val FAVORITES_ROUTE =  "favorites_screen"
+    const val FAVORITES_ROUTE = "favorites_screen"
 
-    //graph routes
+    // graph routes
 
     const val HOME_GRAPH_ROUTE = "home"
 

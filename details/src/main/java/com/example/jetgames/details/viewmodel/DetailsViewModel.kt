@@ -6,20 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.jetgames.core.domain.executor.abstraction.PostExecutionThread
 import com.example.jetgames.core.domain.model.detail.GameDetails
 import com.example.jetgames.core.domain.model.favorites.Favorite
-import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.navargs.DetailsArgs
 import com.example.jetgames.core.domain.repo.FavoritesRepo
 import com.example.jetgames.core.domain.repo.GameDetailRepo
 import com.example.jetgames.core.domain.util.Resource
 import com.example.jetgames.details.state.DetailsScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -58,7 +53,6 @@ class DetailsViewModel @Inject constructor(
                 )
             }
                 .catch { throwable ->
-
                 }
                 .collect {
                     _detailsScreenState.value = it
@@ -115,7 +109,7 @@ class DetailsViewModel @Inject constructor(
         _isGameLiked.value = isLiked
     }
 
-    fun getIcon(game: GameDetails):String?{
+    fun getIcon(game: GameDetails): String? {
         val rating = game.ratings?.maxByOrNull { it?.percent!! }
         return rating?.icon
     }

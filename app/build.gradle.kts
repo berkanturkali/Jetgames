@@ -11,14 +11,6 @@ plugins {
 }
 
 android {
-    compileSdk = Config.compileSdkVersion
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-    buildFeatures {
-        compose = true
-    }
     kapt {
         correctErrorTypes = true
     }
@@ -28,6 +20,7 @@ hilt {
 }
 
 dependencies {
+    // project libs
     implementation(project(common))
     implementation(project(core))
     implementation(project(remote))
@@ -35,35 +28,37 @@ dependencies {
     implementation(project(details))
     implementation(project(filter))
     implementation(project(favorites))
+
+    // compose
     implementation(
-        Library.composeUiPreview,
-        Library.composeUiTooling,
         Library.composeMaterial,
         Library.composeUi,
         Library.composeLiveData,
-        Library.constraintLayout)
+        Library.constraintLayout,
+        Library.composeUiUtil
+    )
 
     debugImplementation(Library.composeUiTooling)
 
-    //navigation
+    // navigation
     implementation(Library.navComponent, Library.navigation)
 
-    //animation
-    implementation(Library.animations)
-
-    //hilt
+    // hilt
     implementation(Library.daggerHiltAndroid)
     implementation(Library.hiltNavigation)
     kapt(Library.daggerHiltCompiler)
 
-    //coil
+    // coil
     implementation(Library.coil)
 
-    //moshi
+    // moshi
     implementation(Library.moshi)
 
-    //accompanist
-    implementation(Library.insets)
+    // accompanist
+    implementation(Library.insets, Library.animations)
 
+    // leak canary
     debugImplementation(Library.leakCanary)
+
+    implementation(Library.timber)
 }

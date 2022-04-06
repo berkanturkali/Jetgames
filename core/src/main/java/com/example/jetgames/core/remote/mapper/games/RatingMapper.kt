@@ -16,7 +16,7 @@ class RatingMapper @Inject constructor() : RemoteModelMapper<RatingDto, Rating> 
         )
     }
 
-    private fun setIcon(title:String?): String? {
+    private fun setIcon(title: String?): String? {
         return when (title) {
             "exceptional" -> "\uD83C\uDFAF"
             "recommended" -> "\uD83D\uDC4D"

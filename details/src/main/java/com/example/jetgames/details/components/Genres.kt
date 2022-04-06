@@ -1,6 +1,9 @@
 package com.example.jetgames.details.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -37,18 +40,26 @@ fun Genres(
             color = MaterialTheme.colors.onPrimary
         )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_8)),
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_8)),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8))) {
-            genres.forEach { genre ->
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8))
+        ) {
+            items(genres) { genre ->
                 Text(
                     modifier = Modifier
-                        .shadow(elevation = dimensionResource(id = R.dimen.dimen_4),
+                        .shadow(
+                            elevation = dimensionResource(id = R.dimen.dimen_4),
                             shape = CircleShape,
-                            clip = false)
-                        .padding(horizontal = dimensionResource(
-                            id = R.dimen.dimen_8),
-                            vertical = dimensionResource(id = R.dimen.dimen_4)),
+                            clip = true
+                        )
+                        .background(MaterialTheme.colors.secondary)
+                        .padding(
+                            horizontal = dimensionResource(
+                                id = R.dimen.dimen_8
+                            ),
+                            vertical = dimensionResource(id = R.dimen.dimen_4)
+                        ),
                     text = genre?.name.toString(),
                     style = MaterialTheme.typography.body1,
                     maxLines = 1,

@@ -17,7 +17,7 @@ interface FavoritesDao {
     suspend fun delete(favoriteEntity: FavoriteEntity)
 
     @Query("SELECT * FROM favorites WHERE id = :id")
-    suspend fun favorite(id: Int):FavoriteEntity?
+    suspend fun favorite(id: Int): FavoriteEntity?
 
     @Query("DELETE FROM favorites")
     suspend fun clear()

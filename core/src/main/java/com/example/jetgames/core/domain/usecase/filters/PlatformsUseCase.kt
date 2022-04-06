@@ -7,7 +7,6 @@ import com.example.jetgames.core.domain.usecase.base.FlowUseCase
 import com.example.jetgames.core.domain.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class PlatformsUseCase @Inject constructor(

@@ -4,15 +4,15 @@ import com.example.jetgames.core.data.DummyData
 import com.google.common.truth.Truth
 import org.junit.Test
 
-class PlatformMapperTest{
+class PlatformMapperTest {
 
-
-    private val mapper =PlatformMapper()
+    private val mapper = PlatformMapper()
 
     @Test
-    fun mapFromModel(){
+    fun mapFromModel() {
         val dto = DummyData.platform
-        val domain = mapper.mapFromModel(dto
+        val domain = mapper.mapFromModel(
+            dto
         )
         Truth.assertThat(dto.name).isEqualTo(domain.name)
     }

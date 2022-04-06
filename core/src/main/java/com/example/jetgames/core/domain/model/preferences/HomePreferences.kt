@@ -12,7 +12,7 @@ sealed class HomePreferences {
         val platforms: List<Platform> = emptyList(),
         val genres: List<String> = emptyList(),
         val metacriticPreference: MetacriticPreference = MetacriticPreference(),
-        val order:OrderPreference = OrderPreference()
+        val order: OrderPreference = OrderPreference()
     ) : HomePreferences() {
 
         fun mapPlatforms(): String? {

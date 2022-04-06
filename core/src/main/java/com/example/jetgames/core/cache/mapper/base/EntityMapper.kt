@@ -10,7 +10,7 @@ interface EntityMapper<E, T> {
         return entities?.mapTo(mutableListOf(), ::mapFromEntity)
     }
 
-    fun mapToEntityList(types:List<T>?):List<E>?{
-        return types?.mapTo(mutableListOf(),::mapToEntity)
+    fun mapToEntityList(types: List<T>?): List<E>? {
+        return types?.mapTo(mutableListOf(), ::mapToEntity)
     }
 }

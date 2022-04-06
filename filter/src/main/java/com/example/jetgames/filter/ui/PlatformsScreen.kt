@@ -49,23 +49,24 @@ fun PlatformsScreen(
     ) {
 
         when (platforms.value) {
-            is Resource.Loading -> {
+            is Resource.Loading<*> -> {
                 LoadingItem(modifier = Modifier.fillMaxSize())
             }
-            is Resource.Error -> {
+            is Resource.Error<*> -> {
                 ErrorItem(
                     modifier = Modifier
                         .fillMaxSize(),
                     message = platforms.value!!.error!!,
-                    onRetryClick = viewModel::setRefresh)
+                    onRetryClick = viewModel::setRefresh
+                )
             }
-            is Resource.Success -> {
+            is Resource.Success<*> -> {
                 if (platforms.value!!.data!!.isNotEmpty()) {
                     val sortedList =
                         viewModel.sortPlatforms(platforms.value!!.data!!)
                     LazyColumn(state = listState, modifier = modifier) {
                         items(count = platforms.value!!.data!!.size) {
-                            //platform item
+                            // platform item
                             PlatformItem(
                                 flag = selectedPlatforms.contains(sortedList[it]),
                                 platform = sortedList[it],
@@ -79,22 +80,25 @@ fun PlatformsScreen(
                             }
                         }
                         item {
-                            Button(onClick = { onApplyButtonClick(selectedPlatforms) },
+                            Button(
+                                onClick = { onApplyButtonClick(selectedPlatforms) },
                                 enabled = isApplyButtonActive,
-                                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary,
-                                    contentColorFor(backgroundColor = MaterialTheme.colors.onSecondary)),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = MaterialTheme.colors.secondary,
+                                    contentColorFor(backgroundColor = MaterialTheme.colors.onSecondary)
+                                ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(dimensionResource(id = com.example.jetgames.common.R.dimen.dimen_8))) {
+                                    .padding(dimensionResource(id = com.example.jetgames.common.R.dimen.dimen_8))
+                            ) {
                                 Text(text = "Apply")
                             }
                         }
                     }
                 } else {
-                    //empty view
+                    // empty view
                 }
             }
-
         }
     }
 }

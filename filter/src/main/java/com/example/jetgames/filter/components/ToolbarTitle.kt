@@ -17,5 +17,6 @@ fun ToolbarTitle(
         textAlign = TextAlign.Start,
         text = "Filter",
         style = MaterialTheme.typography.h5,
-        color = MaterialTheme.colors.onPrimary)
+        color = MaterialTheme.colors.onPrimary
+    )
 }

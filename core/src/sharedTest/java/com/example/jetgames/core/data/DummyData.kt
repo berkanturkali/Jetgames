@@ -13,12 +13,12 @@ import com.example.jetgames.core.remote.model.details.MetacriticPlatformDto
 import com.example.jetgames.core.remote.model.games.*
 
 internal object DummyData {
-    //esrb rating
+    // esrb rating
     val esrbRating = EsrbRatingDto(
         1, "Mature", "Mature"
     )
 
-    //genre
+    // genre
     val genre = GenreDto(
         id = 4,
         name = "Action",
@@ -27,14 +27,14 @@ internal object DummyData {
         image_background = ""
     )
 
-    //platform
+    // platform
     val platform = PlatformDto(
         id = 2,
         name = "Playstation",
         slug = "playstation"
     )
 
-    //Rating
+    // Rating
     val rating = RatingDto(
         id = 4,
         title = "recommended",
@@ -42,13 +42,13 @@ internal object DummyData {
         percent = 60.43
     )
 
-    //screenshot
+    // screenshot
     val screenshot = ShortScreenshotDto(
         id = 1,
         image = ""
     )
 
-    //tag
+    // tag
     val tag = TagDto(
         id = 31,
         name = "SinglePlayer",
@@ -58,7 +58,7 @@ internal object DummyData {
         image_background = ""
     )
 
-    //storeX
+    // storeX
     val storeX = StoreXDto(
         id = 2,
         name = "Xbox-Store",
@@ -68,13 +68,13 @@ internal object DummyData {
         image_background = ""
     )
 
-    //store
+    // store
     val store = StoreDto(
         id = 12321,
         store = storeX
     )
 
-    //platformXX
+    // platformXX
     val platformXX = PlatformXXDto(
         games_count = 5159,
         id = 1,
@@ -86,7 +86,7 @@ internal object DummyData {
         image_background = ""
     )
 
-    //platformX
+    // platformX
     val platformX = PlatformXDto(
         platform = platformXX,
         released_at = "2013-03-05",
@@ -94,25 +94,24 @@ internal object DummyData {
         requirements_ru = null
     )
 
-    //parent platform
+    // parent platform
     val parentPlatform = ParentPlatformDto(
         platform = platform
     )
 
-    //game
+    // game
     val game = GameDto(
         esrb_rating = esrbRating,
         genres = listOf(genre),
         id = 3
     )
 
-    //metacritic platform
+    // metacritic platform
     val metacriticPlaform = MetacriticPlatformDto(
         metascore = 85,
         platform = platform,
         url = ""
     )
-
 
     val gameDetailsDto = GameDetailsDto(
         description = "The third game in a series, it holds nothing back from the player. Open world adventures of the renowned monster slayer Geralt of Rivia are now even on a larger scale.",
@@ -131,19 +130,19 @@ internal object DummyData {
         website = "www.dummydomain.com"
     )
 
-    //platform dto
+    // platform dto
     val platformDto = com.example.jetgames.core.remote.model.platforms.PlatformDto(
         id = 5,
         name = "Playstation 5"
     )
 
-    //platform entity
+    // platform entity
     val platformEntity = PlatformEntity(
         id = 5,
         name = "Playstation 5"
     )
 
-    //filter preferences entity
+    // filter preferences entity
     val filterPreferencesEntity = HomeFilterPreferencesEntity(
         platforms = listOf(PlatformEntity(id = 5, name = "Playstation 5")),
         genres = listOf("Strategy", "Sports"),
@@ -153,20 +152,20 @@ internal object DummyData {
         direction = '-'
     )
 
-    //filter preferences
+    // filter preferences
     val filterPreferences = HomePreferences.HomeFilterPreferences(
         platforms = listOf(Platform(id = 5, name = "Playstation 5")),
         genres = emptyList(),
         metacriticPreference = MetacriticPreference(min = 55, max = 65)
     )
 
-    //genre entity
+    // genre entity
     val genreEntity = GenreEntity(
         id = 1,
         name = "Action"
     )
 
-    //genre dto
+    // genre dto
     val genreDto = com.example.jetgames.core.remote.model.genres.GenreDto(
         id = 1,
         image_background = "",
@@ -174,7 +173,7 @@ internal object DummyData {
         slug = "action"
     )
 
-    //favorite entity
+    // favorite entity
     val favoriteEntity = FavoriteEntity(
         id = 1,
         image = null,

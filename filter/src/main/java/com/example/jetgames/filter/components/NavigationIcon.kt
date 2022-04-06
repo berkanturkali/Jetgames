@@ -13,8 +13,10 @@ fun NavigationIcon(
     modifier: Modifier = Modifier,
     onNavigationClick: () -> Unit,
 ) {
-    IconButton(onClick = { onNavigationClick.invoke() },
-        modifier = modifier) {
+    IconButton(
+        onClick = { onNavigationClick.invoke() },
+        modifier = modifier
+    ) {
         Icon(
             tint = MaterialTheme.colors.onPrimary,
             painter = painterResource(id = R.drawable.ic_back),

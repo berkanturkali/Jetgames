@@ -4,19 +4,19 @@ import com.example.jetgames.core.data.DummyData
 import com.google.common.truth.Truth
 import org.junit.Test
 
-class RatingMapperTest{
+class RatingMapperTest {
 
     private val mapper = RatingMapper()
 
     @Test
-    fun mapFromModelTest(){
+    fun mapFromModelTest() {
         val dto = DummyData.rating
         val domain = mapper.mapFromModel(dto)
         Truth.assertThat(domain.id).isEqualTo(dto.id)
     }
 
     @Test
-    fun `check that icon is correct`(){
+    fun `check that icon is correct`() {
         val dto = DummyData.rating
         val domain = mapper.mapFromModel(dto)
         Truth.assertThat(domain.icon).isEqualTo("\uD83D\uDC4D")

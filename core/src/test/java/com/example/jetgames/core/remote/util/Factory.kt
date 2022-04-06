@@ -1,7 +1,6 @@
 package com.example.jetgames.core.remote.util
 
 import com.example.jetgames.core.remote.model.games.GamesResponse
-import com.example.jetgames.core.remote.model.genres.GenresResponse
 import com.example.jetgames.core.remote.model.platforms.PlatformsResponse
 import com.example.jetgames.core.remote.service.ApiService
 import com.google.common.io.Resources
@@ -16,7 +15,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import java.lang.reflect.ParameterizedType
 import java.net.URL
-
 
 internal const val REQUEST_PATH: String = "/games"
 internal const val PLATFORMS_PATH: String = "/platforms"

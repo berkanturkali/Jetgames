@@ -9,7 +9,6 @@ class PlatformEntityMapperTest {
 
     private val mapper = PlatformEntityMapper()
 
-
     @Test
     fun `check that mapToEntity maps correctly`() {
         val domain = Platform(

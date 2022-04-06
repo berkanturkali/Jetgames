@@ -23,16 +23,17 @@ fun SetupNavGraph(
         scrimColor = MaterialTheme.colors.primaryVariant.copy(alpha = 0.3f),
         bottomSheetNavigator = bottomSheetNavigator,
         sheetElevation = dimensionResource(id = R.dimen.dimen_4),
-        sheetShape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_16))) {
+        sheetShape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_16))
+    ) {
         AnimatedNavHost(
             navController = navController,
             startDestination = HOME_GRAPH_ROUTE,
         ) {
-            //home graph
+            // home graph
             homeNavGraph(navController = navController, imageLoader = imageLoader)
-            //filter graph
+            // filter graph
             filterNavGraph(navController = navController)
-            //favorites graph
+            // favorites graph
             favoritesNavGraph(navController = navController, imageLoader = imageLoader)
         }
     }

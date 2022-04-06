@@ -8,7 +8,7 @@ import org.gradle.plugin.use.PluginDependencySpec
 
 internal val PluginContainer.kotlinAndroid: Unit
     get() {
-        apply("kotlin-android")
+        apply("org.jetbrains.kotlin.android")
     }
 
 internal val PluginContainer.androidModule: Unit
@@ -60,10 +60,14 @@ fun DependencyHandler.testImplementation(dependency: Any) = add(
 )
 
 fun DependencyHandler.androidTestImplementation(dependency: Any) = add(
-    "androidTestImplementation",dependency
+    "androidTestImplementation", dependency
 )
 
-fun DependencyHandler.androidTestImplementation(vararg  dependencies:Any){
+fun DependencyHandler.debugImplementation(dependency: Any) = add(
+    "debugImplementation", dependency
+)
+
+fun DependencyHandler.androidTestImplementation(vararg dependencies: Any) {
     dependencies.forEach(::androidTestImplementation)
 }
 

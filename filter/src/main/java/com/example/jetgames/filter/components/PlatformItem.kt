@@ -28,9 +28,10 @@ fun PlatformItem(
         mutableStateOf(flag)
     }
 
-    Row(modifier = modifier
-        .fillMaxWidth()
-        .height(40.dp),
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(40.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -39,7 +40,8 @@ fun PlatformItem(
             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8)),
             text = platform.name!!,
             style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
         Checkbox(
             checked = checked,
             onCheckedChange = {
@@ -51,6 +53,5 @@ fun PlatformItem(
                 checkmarkColor = MaterialTheme.colors.onPrimary
             ),
         )
-
     }
 }

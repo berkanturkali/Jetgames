@@ -14,7 +14,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
 class GenresCacheImplTest {
 
@@ -22,16 +21,16 @@ class GenresCacheImplTest {
 
     private lateinit var genresCache: GenresCache
 
-
     @Before
     fun setup() {
-        jetgamesDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
-            JetgamesDb::class.java)
+        jetgamesDb = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            JetgamesDb::class.java
+        )
             .allowMainThreadQueries().build()
 
         genresCache = GenresCacheImpl(jetgamesDb.genresDao)
     }
-
 
     @Test
     fun upsert_insertsData_successfully() {
@@ -51,7 +50,7 @@ class GenresCacheImplTest {
         val result = genresCache.genres().first().first()
         Truth.assertThat(result.id).isEqualTo(entity.id)
         Truth.assertThat(result.name).isEqualTo(entity.name)
-        val newEntity =entity.copy(name = "indie")
+        val newEntity = entity.copy(name = "indie")
         genresCache.upsert(newEntity)
         val newResult = genresCache.genres().first().first()
         Truth.assertThat(newResult.id).isEqualTo(newEntity.id)
@@ -90,7 +89,6 @@ class GenresCacheImplTest {
             Truth.assertThat(result).isEmpty()
         }
     }
-
 
     @After
     fun tearDown() {

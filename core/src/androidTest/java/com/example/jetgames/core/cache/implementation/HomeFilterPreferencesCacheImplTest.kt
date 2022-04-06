@@ -7,7 +7,6 @@ import com.example.jetgames.core.cache.abstraction.HomeFilterPreferencesCache
 import com.example.jetgames.core.cache.db.JetgamesDb
 import com.example.jetgames.core.cache.model.PlatformEntity
 import com.example.jetgames.core.data.DummyData
-import com.example.jetgames.core.domain.model.platforms.Platform
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -25,8 +24,10 @@ class HomeFilterPreferencesCacheImplTest {
 
     @Before
     fun setup() {
-        jetGamesDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
-            JetgamesDb::class.java)
+        jetGamesDb = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            JetgamesDb::class.java
+        )
             .allowMainThreadQueries().build()
         cache = HomeFilterPreferencesCacheImpl(jetGamesDb.homeFilterPreferencesDao)
     }
@@ -59,7 +60,6 @@ class HomeFilterPreferencesCacheImplTest {
             Truth.assertThat(newPrefs.platforms!!).containsExactlyElementsIn(newPlatforms)
         }
     }
-
 
     @After
     fun tearDown() {

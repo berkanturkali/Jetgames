@@ -16,6 +16,7 @@ private class AppKtlintExtension : ProjectExtension {
             version.set(Version.ktlint)
             outputToConsole.set(true)
             disabledRules.add("import-ordering")
+            disabledRules.add("no-wildcard-imports")
             filter {
                 exclude("**/generated/**")
                 include("**/kotlin/**")

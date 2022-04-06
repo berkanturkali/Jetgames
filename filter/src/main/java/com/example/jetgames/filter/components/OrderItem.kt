@@ -19,9 +19,10 @@ fun OrderItem(
     onItemSelected: (String) -> Unit,
 ) {
 
-    Row(modifier = modifier
-        .fillMaxWidth()
-        .height(40.dp),
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(40.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -30,12 +31,14 @@ fun OrderItem(
             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8)),
             text = order,
             style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
 
         RadioButton(
             selected = selected,
             onClick = {
                 onItemSelected(order)
-            })
+            }
+        )
     }
 }

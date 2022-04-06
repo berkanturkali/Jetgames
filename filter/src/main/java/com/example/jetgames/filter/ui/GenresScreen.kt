@@ -59,7 +59,8 @@ fun GenresScreen(
                     modifier = Modifier
                         .fillMaxSize(),
                     message = genres.value!!.error!!,
-                    onRetryClick = viewModel::setRefresh)
+                    onRetryClick = viewModel::setRefresh
+                )
             }
             is Resource.Success -> {
                 if (genres.value!!.data!!.isNotEmpty()) {
@@ -67,7 +68,7 @@ fun GenresScreen(
                         viewModel.sortGenres(genres.value!!.data!!)
                     LazyColumn(state = listState, modifier = modifier) {
                         items(count = genres.value!!.data!!.size) {
-                            //platform item
+                            // platform item
                             GenreItem(
                                 isChecked = selectedGenres.contains(sortedList[it].name),
                                 genre = sortedList[it],
@@ -82,24 +83,27 @@ fun GenresScreen(
                             }
                         }
                         item {
-                            Button(onClick = {
-                                onApplyButtonClick(selectedGenres)
-                            },
+                            Button(
+                                onClick = {
+                                    onApplyButtonClick(selectedGenres)
+                                },
                                 enabled = isApplyButtonActive,
-                                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary,
-                                    contentColorFor(backgroundColor = MaterialTheme.colors.onSecondary)),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = MaterialTheme.colors.secondary,
+                                    contentColorFor(backgroundColor = MaterialTheme.colors.onSecondary)
+                                ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(dimensionResource(id = R.dimen.dimen_8))) {
+                                    .padding(dimensionResource(id = R.dimen.dimen_8))
+                            ) {
                                 Text(text = "Apply")
                             }
                         }
                     }
                 } else {
-                    //empty view
+                    // empty view
                 }
             }
         }
     }
-
 }

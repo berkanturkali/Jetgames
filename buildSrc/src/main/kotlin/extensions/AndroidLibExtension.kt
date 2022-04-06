@@ -19,6 +19,7 @@ private class AndroidLibExtension : ProjectExtension {
     override fun configure(extension: Any) {
         if (extension !is LibraryExtension) return
         extension.apply {
+            compileSdk = Config.compileSdkVersion
             defaultConfig {
                 minSdk = Config.minSdkVersion
                 targetSdk = Config.targetSdkVersion
@@ -30,18 +31,18 @@ private class AndroidLibExtension : ProjectExtension {
 
             buildTypes {
                 named(Debug.name) {
-                    isMinifyEnabled = false
+                    isMinifyEnabled = Debug.isMinifyEnabled
                     proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
                 }
                 named(Release.name) {
-                    isMinifyEnabled = true
+                    isMinifyEnabled = Release.isMinifyEnabled
                     proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
                 }
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = JavaVersion.VERSION_11
+                targetCompatibility = JavaVersion.VERSION_11
             }
 
             buildFeatures {
@@ -55,9 +56,6 @@ private class AndroidLibExtension : ProjectExtension {
                     excludes.add("/META-INF/{AL2.0,LGPL2.1}")
                 }
             }
-            ProjectExtension.KotlinJvmExtension.config(
-                (this as ExtensionAware).extensions
-            )
         }
     }
 }

@@ -11,14 +11,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 
 @Composable
 fun Released(
     modifier: Modifier = Modifier,
-    released:String
+    released: String
 ) {
 
     Row(
@@ -50,10 +49,9 @@ fun Released(
     }
 }
 
-
 @Preview
 @Composable
-fun ReleasedPrev(){
+fun ReleasedPrev() {
     JetgamesTheme {
         Released(released = "12 Dec 2021")
     }

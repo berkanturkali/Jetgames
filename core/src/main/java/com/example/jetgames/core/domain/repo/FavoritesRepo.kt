@@ -13,5 +13,5 @@ interface FavoritesRepo {
 
     suspend fun clear()
 
-    suspend fun favorite(id:Int):Favorite
+    suspend fun favorite(id: Int): Favorite
 }

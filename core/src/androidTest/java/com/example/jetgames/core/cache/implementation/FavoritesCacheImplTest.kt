@@ -24,8 +24,10 @@ class FavoritesCacheImplTest {
 
     @Before
     fun setup() {
-        jetgamesDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
-            JetgamesDb::class.java)
+        jetgamesDb = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            JetgamesDb::class.java
+        )
             .allowMainThreadQueries().build()
 
         favoritesCache = FavoritesCacheImpl(jetgamesDb.favoritesDao)
@@ -76,12 +78,14 @@ class FavoritesCacheImplTest {
     fun clear_clearsAllData_correctly() {
         runBlocking {
             val entity = DummyData.favoriteEntity
-            val newEntity = FavoriteEntity(id = 2,
+            val newEntity = FavoriteEntity(
+                id = 2,
                 name = "Red Dead Redemption 2",
                 image = "",
                 releaseDate = "12 Nov 2019",
                 rating = 5.0,
-                metacritic = 100)
+                metacritic = 100
+            )
             favoritesCache.upsert(entity)
             favoritesCache.upsert(newEntity)
             Truth.assertThat(favoritesCache.favorites().first().size).isEqualTo(2)
@@ -91,7 +95,7 @@ class FavoritesCacheImplTest {
     }
 
     @Test
-    fun favorite_getsData_correctly(){
+    fun favorite_getsData_correctly() {
         runBlocking {
             val entity = favoritesCache.favorite(1)
             Truth.assertThat(entity).isNull()

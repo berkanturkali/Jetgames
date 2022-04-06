@@ -11,14 +11,14 @@ import javax.inject.Inject
 @HiltViewModel
 class ScreenshotsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
-):ViewModel() {
+) : ViewModel() {
 
     private val _screenshotsAndPage = MutableLiveData<ScreenshotsArgs>()
 
-    val screenshotsAndPage:LiveData<ScreenshotsArgs> get() = _screenshotsAndPage
+    val screenshotsAndPage: LiveData<ScreenshotsArgs> get() = _screenshotsAndPage
 
     init {
-        savedStateHandle.get<ScreenshotsArgs>("screenshotsArgs")?.let{
+        savedStateHandle.get<ScreenshotsArgs>("screenshotsArgs")?.let {
             _screenshotsAndPage.value = it
         }
     }

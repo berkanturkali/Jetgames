@@ -4,20 +4,19 @@ import com.example.jetgames.core.data.DummyData
 import com.google.common.truth.Truth
 import org.junit.Test
 
-class EsrbRatingMapperTest{
+class EsrbRatingMapperTest {
 
-   private val mapper = EsrbRatingMapper()
+    private val mapper = EsrbRatingMapper()
 
     @Test
-    fun mapFromModel(){
+    fun mapFromModel() {
         val dto = DummyData.esrbRating
         val domain = mapper.mapFromModel(dto)
         Truth.assertThat(domain.name).isEqualTo(dto.name)
     }
 
-
     @Test
-    fun mapFromModelWithNull(){
+    fun mapFromModelWithNull() {
         val domain = mapper.mapFromModel(null)
         Truth.assertThat(domain.name).isNull()
     }

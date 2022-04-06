@@ -27,21 +27,28 @@ fun RatingBar(
     modifier: Modifier = Modifier,
     ratings: List<Rating?>,
 ) {
-    Column(modifier = modifier
-        .padding(horizontal = dimensionResource(id = R.dimen.dimen_16),
-            vertical = dimensionResource(
-                id = R.dimen.dimen_8))
-        .fillMaxWidth()
-        .wrapContentHeight()) {
+    Column(
+        modifier = modifier
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.dimen_16),
+                vertical = dimensionResource(
+                    id = R.dimen.dimen_8
+                )
+            )
+            .fillMaxWidth()
+            .wrapContentHeight()
+    ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
             shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_64))
         ) {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
                 ratings.forEachIndexed { index, rating ->
 
                     val colorList = when (index) {
@@ -51,11 +58,13 @@ fun RatingBar(
                         3 -> listOf(Color(0XFFff5764), Color(0XFFff5764))
                         else -> listOf(Color(0xFFFF5764), Color(0xFFF11A2A))
                     }
-                    Box(modifier = Modifier
-                        .weight(rating!!.percent!!.toFloat())
-                        .fillMaxHeight()
-                        .background(brush = Brush.verticalGradient(colorList)),
-                        contentAlignment = Center) {
+                    Box(
+                        modifier = Modifier
+                            .weight(rating!!.percent!!.toFloat())
+                            .fillMaxHeight()
+                            .background(brush = Brush.verticalGradient(colorList)),
+                        contentAlignment = Center
+                    ) {
                         Text(text = rating.icon!!, fontSize = 12.sp)
                     }
                 }
@@ -63,11 +72,12 @@ fun RatingBar(
         }
         Spacer(modifier = Modifier.height(10.dp))
 
-
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-            horizontalArrangement = Arrangement.SpaceAround) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
             ratings.forEachIndexed { index, rating ->
                 val color = when (index) {
                     0 -> 0xFFB4EC51
@@ -77,23 +87,33 @@ fun RatingBar(
                     else -> 0XFFFFFFFF
                 }
                 Card(shape = CircleShape, modifier = Modifier.wrapContentSize()) {
-                    Column(horizontalAlignment = CenterHorizontally,
-                        modifier = Modifier.padding(8.dp)) {
-                        Row(verticalAlignment = CenterVertically,
+                    Column(
+                        horizontalAlignment = CenterHorizontally,
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(
-                                dimensionResource(id = R.dimen.dimen_4))) {
-                            Icon(contentDescription = null,
+                                dimensionResource(id = R.dimen.dimen_4)
+                            )
+                        ) {
+                            Icon(
+                                contentDescription = null,
                                 modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_8)),
                                 painter = painterResource(id = R.drawable.ic_circle),
-                                tint = Color(color))
+                                tint = Color(color)
+                            )
                             Text(
                                 text = rating!!.title!!,
                                 color = MaterialTheme.colors.onPrimary,
-                                style = MaterialTheme.typography.caption)
+                                style = MaterialTheme.typography.caption
+                            )
                         }
                         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                            Text(text = rating!!.count.toString(),
-                                style = MaterialTheme.typography.overline)
+                            Text(
+                                text = rating!!.count.toString(),
+                                style = MaterialTheme.typography.overline
+                            )
                         }
                     }
                 }
@@ -107,16 +127,20 @@ fun RatingBar(
 fun RatingBarPrev() {
     JetgamesTheme {
         val ratings = listOf<Rating>(
-            Rating(id = 5,
+            Rating(
+                id = 5,
                 count = 3244,
                 title = "exceptional",
                 icon = "\uD83C\uDFAF",
-                percent = 58.98),
-            Rating(id = 4,
+                percent = 58.98
+            ),
+            Rating(
+                id = 4,
                 count = 1815,
                 title = "recommended",
                 icon = "\uD83D\uDC4D",
-                percent = 33.0),
+                percent = 33.0
+            ),
             Rating(id = 3, count = 349, title = "meh", icon = "\u26D4", percent = 6.35),
             Rating(id = 1, count = 92, title = "skip", icon = "\uD83D\uDE11", percent = 1.67),
         )

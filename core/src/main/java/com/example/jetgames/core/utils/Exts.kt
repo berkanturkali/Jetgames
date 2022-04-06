@@ -1,8 +1,6 @@
 package com.example.jetgames.core.utils
 
-
 import androidx.compose.ui.graphics.Color
-
 
 fun Double.calculateRgbFromRating(): Color {
     val percent = if (this == 1.0) (this - 1) * 0.2 else this * 0.2

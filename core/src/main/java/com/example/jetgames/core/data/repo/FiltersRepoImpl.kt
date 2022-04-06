@@ -4,7 +4,6 @@ import com.example.jetgames.core.cache.abstraction.GenresCache
 import com.example.jetgames.core.cache.abstraction.PlatformsCache
 import com.example.jetgames.core.cache.mapper.genres.GenreEntityMapper
 import com.example.jetgames.core.cache.mapper.platforms.PlatformEntityMapper
-import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
 import com.example.jetgames.core.data.contract.FilterRemote
 import com.example.jetgames.core.domain.model.genres.Genre
@@ -24,8 +23,8 @@ class FiltersRepoImpl @Inject constructor(
     private val platformsCache: PlatformsCache,
     private val filterRemote: FilterRemote,
     private val genresCache: GenresCache,
-    private val genreMapper:GenreMapper,
-    private val genreEntityMapper:GenreEntityMapper
+    private val genreMapper: GenreMapper,
+    private val genreEntityMapper: GenreEntityMapper
 
 ) : FiltersRepo {
     override fun fetchPlatforms(refresh: Boolean): Flow<Resource<List<Platform>>> {
@@ -36,7 +35,6 @@ class FiltersRepoImpl @Inject constructor(
                 platformsCache.insertAll(platformMapper.mapModelList(platforms))
             },
             onFetchFailed = { throwable ->
-
             },
             mapFromEntity = {
                 platformEntityMapper.mapTypeList(it)!!
@@ -56,7 +54,6 @@ class FiltersRepoImpl @Inject constructor(
                 genresCache.insertAll(genreMapper.mapModelList(genres))
             },
             onFetchFailed = { throwable ->
-
             },
             mapFromEntity = {
                 genreEntityMapper.mapTypeList(it)!!

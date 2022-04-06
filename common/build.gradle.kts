@@ -3,29 +3,18 @@ import ProjectLib.core
 plugins {
     androidLib
 }
-
-android {
-    compileSdk = Config.compileSdkVersion
-}
-
 dependencies {
     implementation(project(core))
-    //compose
-    api(Library.composeUiPreview)
-    api(Library.composeUiTooling)
+    // compose
     implementation(Library.composeUi, Library.composeMaterial, Library.coreKtx)
 
-
-    //lottie
+    // lottie
     implementation(Library.lottie)
 
-    //Timber
-    api(Library.timber)
-
-    //palette
+    // palette
     implementation(Library.palette)
 
-    //coil
+    // coil
     implementation(Library.coil)
 
     implementation(Library.placeholder)

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface HomeFilterPreferencesCache {
 
-    suspend fun upsert(filterPreferencesEntity:HomeFilterPreferencesEntity):Long
+    suspend fun upsert(filterPreferencesEntity: HomeFilterPreferencesEntity): Long
 
     fun preferences(): Flow<HomeFilterPreferencesEntity>
 }

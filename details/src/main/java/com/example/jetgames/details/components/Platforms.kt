@@ -1,6 +1,8 @@
 package com.example.jetgames.details.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
@@ -33,44 +35,61 @@ fun Platforms(
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        Text(text = stringResource(id = R.string.platforms),
+        Text(
+            text = stringResource(id = R.string.platforms),
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
 
         Divider(thickness = 0.5.dp, color = XXLightGray)
 
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = dimensionResource(id = R.dimen.dimen_16)),
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = dimensionResource(id = R.dimen.dimen_16)),
             horizontalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.dimen_16), Alignment.CenterHorizontally)) {
+                dimensionResource(id = R.dimen.dimen_16), Alignment.CenterHorizontally
+            )
+        ) {
             val platformLogos = platformLogo(platforms = platforms)
-            platformLogos.forEachIndexed { index, logo ->
+            itemsIndexed(platformLogos) { index, logo ->
                 Column(horizontalAlignment = CenterHorizontally) {
-                    Card(shape = CircleShape, modifier = Modifier
-                        .size(60.dp)) {
-                        PlatformLogoItem(platformImageResource = logo, modifier = Modifier.padding(
-                            dimensionResource(id = R.dimen.dimen_16)))
-
+                    Card(
+                        shape = CircleShape,
+                        modifier = Modifier
+                            .size(60.dp)
+                    ) {
+                        PlatformLogoItem(
+                            platformImageResource = logo,
+                            modifier = Modifier.padding(
+                                dimensionResource(id = R.dimen.dimen_16)
+                            )
+                        )
                     }
-                    Text(text = platforms[index]!!.platform!!.name!!,
+                    Text(
+                        text = platforms[index]!!.platform!!.name!!,
                         color = MaterialTheme.colors.onPrimary,
                         style = MaterialTheme.typography.caption,
-                        textAlign = TextAlign.Center)
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
     }
 }
 
-
 @Preview
 @Composable
 fun PlatformsPrev() {
     JetgamesTheme {
-        val platforms = listOf(ParentPlatform(Platform(id = 1, name = "playstation")),
+        val platforms = listOf(
+            ParentPlatform(Platform(id = 1, name = "playstation")),
             ParentPlatform(Platform(id = 2, name = "xbox")),
-            ParentPlatform(Platform(id = 3, name = "pc")))
+            ParentPlatform(Platform(id = 3, name = "pc")),
+            ParentPlatform(Platform(id = 4, name = "pc")),
+            ParentPlatform(Platform(id = 5, name = "pc")),
+            ParentPlatform(Platform(id = 6, name = "pc")),
+        )
         Platforms(platforms = platforms)
     }
 }

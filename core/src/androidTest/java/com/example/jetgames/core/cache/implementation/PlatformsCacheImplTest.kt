@@ -23,12 +23,13 @@ class PlatformsCacheImplTest {
 
     @Before
     fun setup() {
-        jetGamesDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
-            JetgamesDb::class.java)
+        jetGamesDb = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            JetgamesDb::class.java
+        )
             .allowMainThreadQueries().build()
         platformsCache = PlatformsCacheImpl(jetGamesDb.platformsDao)
     }
-
 
     @Test
     fun upsert_insertsData_successfully() = runBlocking {
@@ -62,7 +63,7 @@ class PlatformsCacheImplTest {
     }
 
     @Test
-    fun clear_clearAllData_successfully(){
+    fun clear_clearAllData_successfully() {
         runBlocking {
             val entities = listOf(DummyData.platformEntity)
             platformsCache.insertAll(entities)

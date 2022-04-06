@@ -28,7 +28,7 @@ class RequestDispatcher : Dispatcher() {
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(NO_MATCH_RESPONSE_PATH))
             }
-           PLATFORMS_URL_PATH -> {
+            PLATFORMS_URL_PATH -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson(PLATFORMS_RESPONSE_PATH))

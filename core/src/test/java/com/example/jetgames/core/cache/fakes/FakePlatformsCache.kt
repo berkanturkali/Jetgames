@@ -19,7 +19,7 @@ class FakePlatformsCache : PlatformsCache {
     }
 
     override suspend fun insertAll(platforms: List<PlatformEntity>) {
-        platforms.forEach{
+        platforms.forEach {
             cache[it.id] = it
         }
     }

@@ -16,14 +16,24 @@ import com.example.jetgames.navigation.Routes.SCREENSHOTS_ROUTE
 
 sealed class Screen(val route: String, val arguments: List<NamedNavArgument>) {
 
-    object DetailScreen : Screen(DETAIL_ROUTE, arguments = listOf(navArgument("detailArgs") {
-        type = DetailsNavType()
-    }))
+    object DetailScreen : Screen(
+        DETAIL_ROUTE,
+        arguments = listOf(
+            navArgument("detailArgs") {
+                type = DetailsNavType()
+            }
+        )
+    )
 
     object ScreenshotsScreen :
-        Screen(SCREENSHOTS_ROUTE, arguments = listOf(navArgument("screenshotsArgs") {
-            type = ScreenshotsNavType()
-        }))
+        Screen(
+            SCREENSHOTS_ROUTE,
+            arguments = listOf(
+                navArgument("screenshotsArgs") {
+                    type = ScreenshotsNavType()
+                }
+            )
+        )
 
     object FilterScreen : Screen(FILTER_ROUTE, arguments = emptyList())
 
@@ -40,12 +50,15 @@ sealed class BottomNavigationItem(
     @DrawableRes val icon: Int,
 ) {
 
-    object HomeScreen : BottomNavigationItem(HOME_ROUTE,
+    object HomeScreen : BottomNavigationItem(
+        HOME_ROUTE,
         title = "Home",
-        com.example.jetgames.common.R.drawable.ic_home)
+        com.example.jetgames.common.R.drawable.ic_home
+    )
 
-
-    object FavoritesScreen : BottomNavigationItem(route = FAVORITES_ROUTE,
+    object FavoritesScreen : BottomNavigationItem(
+        route = FAVORITES_ROUTE,
         title = "Favorites",
-        com.example.jetgames.common.R.drawable.ic_star)
+        com.example.jetgames.common.R.drawable.ic_star
+    )
 }

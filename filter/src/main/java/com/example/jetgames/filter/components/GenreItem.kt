@@ -19,17 +19,18 @@ import com.example.jetgames.core.domain.model.genres.Genre
 fun GenreItem(
     modifier: Modifier = Modifier,
     genre: Genre,
-    isChecked:Boolean,
-    onGenreChecked: (String,Boolean) -> Unit
+    isChecked: Boolean,
+    onGenreChecked: (String, Boolean) -> Unit
 ) {
 
     val isChecked = rememberSaveable {
         mutableStateOf(isChecked)
     }
 
-    Row(modifier = modifier
-        .fillMaxWidth()
-        .height(40.dp),
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(40.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -38,12 +39,13 @@ fun GenreItem(
             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dimen_8)),
             text = genre.name,
             style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
         Checkbox(
             checked = isChecked.value,
             onCheckedChange = {
                 isChecked.value = it
-                onGenreChecked.invoke(genre.name,isChecked.value)
+                onGenreChecked.invoke(genre.name, isChecked.value)
             },
             colors = CheckboxDefaults.colors(
                 checkedColor = MaterialTheme.colors.secondary,
@@ -51,5 +53,4 @@ fun GenreItem(
             ),
         )
     }
-
 }

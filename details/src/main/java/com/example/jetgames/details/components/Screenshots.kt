@@ -34,29 +34,36 @@ fun Screenshots(
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        Text(text = stringResource(id = R.string.screenshots),
+        Text(
+            text = stringResource(id = R.string.screenshots),
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.onPrimary)
+            color = MaterialTheme.colors.onPrimary
+        )
 
         Divider(thickness = 0.5.dp, color = XXLightGray)
-        LazyRow(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
+        LazyRow(
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen_8)),
             horizontalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.dimen_8))) {
+                dimensionResource(id = R.dimen.dimen_8)
+            )
+        ) {
             items(screenshots.size) {
                 Card(
                     modifier = Modifier
                         .wrapContentSize()
                         .clickable {
-                            onScreenshotClicked?.invoke(screenshots,it)
+                            onScreenshotClicked?.invoke(screenshots, it)
                         },
-                    shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_8))) {
+                    shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_8))
+                ) {
                     val painter =
                         rememberImagePainter(data = screenshots.get(it), imageLoader = imageLoader)
                     Image(
                         modifier = Modifier.size(200.dp),
                         painter = painter,
                         contentScale = ContentScale.Crop,
-                        contentDescription = "")
+                        contentDescription = ""
+                    )
                 }
             }
         }

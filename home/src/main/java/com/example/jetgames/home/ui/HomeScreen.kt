@@ -6,6 +6,8 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -13,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -22,22 +25,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.GameItem
 import com.example.jetgames.common.components.LoadingItem
-import com.example.jetgames.common.ui.theme.XXLightGray
+import com.example.jetgames.common.components.ShimmerModifier
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
 import com.example.jetgames.home.components.GameGalleryItem
 import com.example.jetgames.home.components.HomeToolbar
 import com.example.jetgames.home.components.SeparatorItem
 import com.example.jetgames.home.viewmodel.HomeViewModel
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
@@ -78,18 +79,24 @@ fun Home(
             AnimatedVisibility(
                 visible = listState.firstVisibleItemIndex > 0,
                 enter = scaleIn(),
-                exit = scaleOut()) {
-                FloatingActionButton(onClick = {
-                    scope.launch {
-                        listState.scrollToItem(0)
-                    }
-                },
+                exit = scaleOut()
+            ) {
+                FloatingActionButton(
+                    onClick = {
+                        scope.launch {
+                            listState.scrollToItem(0)
+                        }
+                    },
                     modifier = Modifier
                         .padding(
-                            dimensionResource(id = R.dimen.dimen_16))) {
-                    Icon(painter = painterResource(id = R.drawable.ic_up),
+                            dimensionResource(id = R.dimen.dimen_16)
+                        )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_up),
                         contentDescription = null,
-                        tint = Color.White)
+                        tint = Color.White
+                    )
                 }
             }
         }
@@ -100,8 +107,8 @@ fun Home(
                 modifier = modifier.fillMaxSize(),
                 state = listState
             ) {
-                items(games.itemCount) { index ->
-                    when (val gameModel = games[index]) {
+                items(games) { gameModel ->
+                    when (gameModel) {
                         is GameModel.SeparatorItem -> {
                             SeparatorItem(separator = gameModel.separator)
                         }
@@ -113,11 +120,11 @@ fun Home(
                                         .animateItemPlacement(),
                                     game = game,
                                     imageLoader = imageLoader,
-                                    onItemClick = navigateToDetailScreen)
+                                    onItemClick = navigateToDetailScreen
+                                )
                             } else {
                                 GameItem(
-                                    modifier = Modifier
-                                        .animateItemPlacement(),
+                                    modifier = Modifier.animateItemPlacement(),
                                     imageLoader = imageLoader,
                                     onItemClick = navigateToDetailScreen,
                                     metaCritic = game.metaCritic,
@@ -139,36 +146,23 @@ fun Home(
                 games.apply {
                     when {
                         loadState.refresh is LoadState.Loading -> {
-                            //loading
                             if (isGalleryMode) {
-                                //Gallery Item
-                                items(5) {
-                                    GameGalleryItem(
-                                        isLoading = true,
-                                        game = Game(),
-                                        imageLoader = imageLoader,
-                                        childModifier = Modifier
-                                            .height(30.dp)
-                                            .padding(vertical = dimensionResource(id = R.dimen.dimen_8),
-                                                horizontal = 10.dp)
-                                            .placeholder(visible = true,
-                                                highlight = PlaceholderHighlight.shimmer(
-                                                    XXLightGray)),
-                                    )
+                                // Gallery Item
+                                items(10) {
+                                    if (it % 5 == 0) {
+                                        SeparatorItemShimmer()
+                                        Divider()
+                                    } else {
+                                        GameGalleryItemShimmer(imageLoader = imageLoader)
+                                    }
                                 }
                             } else {
                                 items(10) {
-                                    Column {
-                                        GameItem(
-                                            childModifier = Modifier
-                                                .placeholder(visible = true,
-                                                    highlight = PlaceholderHighlight.shimmer(
-                                                        XXLightGray)),
-                                            imageLoader = imageLoader,
-                                            isLoading = true,
-                                            id = 1,
-                                            name = "Dummy",
-                                            metaCritic = 95)
+                                    if (it % 5 == 0) {
+                                        SeparatorItemShimmer()
+                                        Divider()
+                                    } else {
+                                        GameItemShimmer(imageLoader = imageLoader)
                                     }
                                 }
                             }
@@ -181,21 +175,25 @@ fun Home(
                         loadState.refresh is LoadState.Error -> {
                             val e = games.loadState.refresh as LoadState.Error
                             item {
-                                ErrorItem(modifier = Modifier.fillParentMaxSize(),
+                                ErrorItem(
+                                    modifier = Modifier.fillParentMaxSize(),
                                     message = e.error.localizedMessage
                                         ?: stringResource(id = R.string.something_went_wrong),
-                                    onRetryClick = games::retry)
+                                    onRetryClick = games::retry
+                                )
                             }
                         }
                         loadState.append is LoadState.Error -> {
                             val e = games.loadState.append as LoadState.Error
                             item {
-                                ErrorItem(modifier = Modifier
-                                    .fillParentMaxWidth()
-                                    .wrapContentHeight(),
+                                ErrorItem(
+                                    modifier = Modifier
+                                        .fillParentMaxWidth()
+                                        .wrapContentHeight(),
                                     message = e.error.localizedMessage
                                         ?: stringResource(id = R.string.something_went_wrong),
-                                    onRetryClick = games::retry)
+                                    onRetryClick = games::retry
+                                )
                             }
                         }
                     }
@@ -203,4 +201,47 @@ fun Home(
             }
         }
     }
+}
+
+@Composable
+private fun SeparatorItemShimmer() {
+    SeparatorItem(
+        childModifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .height(30.dp)
+            .clip(CircleShape)
+            .then(ShimmerModifier),
+        separator = ""
+    )
+}
+
+@Composable
+private fun GameItemShimmer(imageLoader: ImageLoader) {
+    GameItem(
+        childModifier = ShimmerModifier,
+        imageLoader = imageLoader,
+        isLoading = true,
+        id = 1,
+        name = "Dummy",
+        metaCritic = 95,
+        rating = 5f,
+        released = "2020-12-24"
+    )
+}
+
+@Composable
+private fun GameGalleryItemShimmer(imageLoader: ImageLoader) {
+    GameGalleryItem(
+        isLoading = true,
+        game = Game(),
+        imageLoader = imageLoader,
+        childModifier = Modifier
+            .height(30.dp)
+            .padding(
+                vertical = dimensionResource(id = R.dimen.dimen_8),
+                horizontal = 10.dp
+            )
+            .then(ShimmerModifier)
+    )
 }

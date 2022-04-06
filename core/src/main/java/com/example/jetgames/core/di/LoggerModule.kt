@@ -12,9 +12,9 @@ import javax.inject.Singleton
 @[Module InstallIn(SingletonComponent::class)]
 interface LoggerModule {
 
-    companion object{
+    companion object {
         @[Provides Singleton]
-        fun provideTimberTree():Timber.Tree = object : Timber.DebugTree(){
+        fun provideTimberTree(): Timber.Tree = object : Timber.DebugTree() {
             override fun isLoggable(tag: String?, priority: Int): Boolean {
                 return BuildConfig.DEBUG || priority >= Log.INFO
             }

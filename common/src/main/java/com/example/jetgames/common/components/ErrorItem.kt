@@ -39,7 +39,8 @@ fun ErrorItem(
         LottieAnimation(
             modifier = Modifier.size(50.dp),
             composition = composition,
-            iterations = LottieConstants.IterateForever)
+            iterations = LottieConstants.IterateForever
+        )
         Text(
             text = message,
             maxLines = 1,
@@ -47,10 +48,14 @@ fun ErrorItem(
             color = Error,
             modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.dimen_16))
         )
-        Button(onClick = onRetryClick,
+        Button(
+            onClick = onRetryClick,
             shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(backgroundColor = Error,
-                contentColor = MaterialTheme.colors.onError)) {
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Error,
+                contentColor = MaterialTheme.colors.onError
+            )
+        ) {
             Text(text = stringResource(id = R.string.try_again))
         }
     }

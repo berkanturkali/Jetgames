@@ -16,13 +16,16 @@ import com.example.jetgames.core.cache.model.GenreEntity
 import com.example.jetgames.core.cache.model.HomeFilterPreferencesEntity
 import com.example.jetgames.core.cache.model.PlatformEntity
 
-@Database(entities = [
-    PlatformEntity::class,
-    HomeFilterPreferencesEntity::class,
-    GenreEntity::class,
-    FavoriteEntity::class],
+@Database(
+    entities = [
+        PlatformEntity::class,
+        HomeFilterPreferencesEntity::class,
+        GenreEntity::class,
+        FavoriteEntity::class
+    ],
     version = BuildConfig.databaseVersion,
-    exportSchema = false)
+    exportSchema = false
+)
 @TypeConverters(RoomConverters::class)
 abstract class JetgamesDb : RoomDatabase() {
 

@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PlatformsCacheImpl @Inject constructor(
-    private val dao:PlatformsDao
-):PlatformsCache {
+    private val dao: PlatformsDao
+) : PlatformsCache {
     override suspend fun upsert(platformEntity: PlatformEntity): Long {
         return dao.upsert(platformEntity)
     }

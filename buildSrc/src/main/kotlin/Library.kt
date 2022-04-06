@@ -1,5 +1,9 @@
 object Library {
 
+    /* androidx */
+    const val appcompat = "androidx.appcompat:appcompat:${Version.appcompat}"
+    const val material = "com.google.android.material:material:${Version.material}"
+
     /* Ktx */
     const val coreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
     const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"

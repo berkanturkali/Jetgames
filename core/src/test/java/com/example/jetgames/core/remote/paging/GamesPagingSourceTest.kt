@@ -37,20 +37,22 @@ class GamesPagingSourceTest {
                 prevKey = null,
                 nextKey = 2
             )
-        ).isEqualTo(pagingSource.load(
-            PagingSource.LoadParams.Refresh(
-                key = null,
-                loadSize = SIZE,
-                placeholdersEnabled = false
+        ).isEqualTo(
+            pagingSource.load(
+                PagingSource.LoadParams.Refresh(
+                    key = null,
+                    loadSize = SIZE,
+                    placeholdersEnabled = false
+                )
             )
-        ))
+        )
     }
 
     @Test
     fun `check that if error occurs returns Error`() = runBlocking {
         val gamesRemote = mockk<GamesRemote>()
-        coEvery { gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null,order = ORDERING) } throws IOException()
-        val pagingSource = GamesPagingSource(gamesRemote, null, null, null, null,order = ORDERING)
+        coEvery { gamesRemote.fetchGames(PAGE, SIZE, null, null, null, null, order = ORDERING) } throws IOException()
+        val pagingSource = GamesPagingSource(gamesRemote, null, null, null, null, order = ORDERING)
         val result = pagingSource.load(
             PagingSource.LoadParams.Refresh(
                 key = null,
@@ -65,5 +67,4 @@ class GamesPagingSourceTest {
     fun tearDown() {
         mockServer.shutdown()
     }
-
 }

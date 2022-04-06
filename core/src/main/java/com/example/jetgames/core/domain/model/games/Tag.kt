@@ -1,8 +1,8 @@
 package com.example.jetgames.core.domain.model.games
 
 data class Tag(
-    val count:Int?,
-    val id:Int?,
-    val background:String?,
-    val name:String?
+    val count: Int?,
+    val id: Int?,
+    val background: String?,
+    val name: String?
 )

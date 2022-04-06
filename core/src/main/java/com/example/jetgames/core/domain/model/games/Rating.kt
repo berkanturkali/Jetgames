@@ -5,7 +5,7 @@ data class Rating(
     val id: Int?,
     val percent: Double?,
     val title: String?,
-    val icon :String?
+    val icon: String?
 )
 
 /*

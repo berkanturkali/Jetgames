@@ -29,7 +29,6 @@ data class GameDetails(
         return rating?.calculateRgbFromRating()
     }
 
-
     fun calculateRgbFromMetacritic(): Color? {
         return metacritic?.calculateRgbFromMetacritic()
     }

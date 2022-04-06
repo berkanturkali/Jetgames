@@ -13,11 +13,15 @@ class HomeFilterPreferencesEntityMapper @Inject constructor(
         return HomePreferences.HomeFilterPreferences(
             platforms = platformEntityMapper.mapTypeList(entity?.platforms) ?: emptyList(),
             genres = entity?.genres ?: emptyList(),
-            metacriticPreference = MetacriticPreference(min = entity?.minMetacri ?: 0,
-                max = entity?.maxMetacri ?: 100),
-            order = if (entity != null) OrderPreference(order = Order.values()
-                .first { it.value.lowercase() == entity.order.lowercase() },
-                ascDesc = ASCDESC.values().first { it.value == entity.direction })
+            metacriticPreference = MetacriticPreference(
+                min = entity?.minMetacri ?: 0,
+                max = entity?.maxMetacri ?: 100
+            ),
+            order = if (entity != null) OrderPreference(
+                order = Order.values()
+                    .first { it.value.lowercase() == entity.order.lowercase() },
+                ascDesc = ASCDESC.values().first { it.value == entity.direction }
+            )
             else OrderPreference()
         )
     }

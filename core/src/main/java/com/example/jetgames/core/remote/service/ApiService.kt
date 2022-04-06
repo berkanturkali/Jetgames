@@ -1,6 +1,5 @@
 package com.example.jetgames.core.remote.service
 
-import com.example.jetgames.core.BuildConfig
 import com.example.jetgames.core.remote.model.details.GameDetailsDto
 import com.example.jetgames.core.remote.model.games.GamesResponse
 import com.example.jetgames.core.remote.model.genres.GenresResponse
@@ -15,29 +14,22 @@ interface ApiService {
     suspend fun fetchGames(
         @Query("page") page: Int,
         @Query("page_size") size: Int,
-        @Query("key") key: String = BuildConfig.API_KEY,
         @Query("ordering") ordering: String = "-metacritic",
         @Query("search") query: String?,
         @Query("search_exact") searchExact: Boolean = true,
         @Query("platforms") platforms: String? = null,
         @Query("genres") genres: String? = null,
-        @Query("metacritic") metacritic:String? = null
+        @Query("metacritic") metacritic: String? = null
     ): GamesResponse
 
     @GET("games/{id}")
     suspend fun game(
         @Path("id") id: Int,
-        @Query("key") key: String = BuildConfig.API_KEY,
     ): GameDetailsDto
 
-
     @GET("platforms")
-    suspend fun fetchPlatforms(
-        @Query("key") key: String = BuildConfig.API_KEY,
-    ): PlatformsResponse
+    suspend fun fetchPlatforms(): PlatformsResponse
 
     @GET("genres")
-    suspend fun fetchGenres(
-        @Query("key") key: String = BuildConfig.API_KEY,
-    ): GenresResponse
+    suspend fun fetchGenres(): GenresResponse
 }

@@ -18,21 +18,25 @@ import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.common.ui.theme.XXLightGray
 
 @Composable
-fun SeparatorItem(modifier: Modifier = Modifier, separator: String) {
+fun SeparatorItem(modifier: Modifier = Modifier, childModifier: Modifier = Modifier.fillMaxWidth(), separator: String) {
 
-    Column(modifier = modifier
-        .fillMaxWidth()
-        .wrapContentHeight()
-        .background(MaterialTheme.colors.primary)) {
+    Column(
+        modifier = modifier
+            .wrapContentHeight()
+            .background(MaterialTheme.colors.primary)
+    ) {
         Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = dimensionResource(id = R.dimen.dimen_16),
+            modifier = childModifier
+                .padding(
+                    horizontal = dimensionResource(id = R.dimen.dimen_16),
                     vertical = dimensionResource(
-                        id = R.dimen.dimen_16)),
+                        id = R.dimen.dimen_16
+                    )
+                ),
             text = separator,
             color = MaterialTheme.colors.onPrimary,
-            style = MaterialTheme.typography.h5)
+            style = MaterialTheme.typography.h5
+        )
 
         Divider(color = XXLightGray.copy(alpha = 0.4f), thickness = 0.5.dp)
     }

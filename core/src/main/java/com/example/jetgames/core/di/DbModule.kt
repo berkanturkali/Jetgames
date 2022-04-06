@@ -6,7 +6,6 @@ import com.example.jetgames.core.cache.dao.GenresDao
 import com.example.jetgames.core.cache.dao.HomeFilterPreferencesDao
 import com.example.jetgames.core.cache.dao.PlatformsDao
 import com.example.jetgames.core.cache.db.JetgamesDb
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +28,7 @@ internal object DbModule {
     fun provideGenresDao(db: JetgamesDb): GenresDao = db.genresDao
 
     @[Provides Singleton]
-    fun provideFavoritesDao(db: JetgamesDb):FavoritesDao = db.favoritesDao
+    fun provideFavoritesDao(db: JetgamesDb): FavoritesDao = db.favoritesDao
 
     @[Provides Singleton]
     fun provideHomeFilterPreferencesDao(db: JetgamesDb): HomeFilterPreferencesDao =
