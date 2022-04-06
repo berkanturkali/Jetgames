@@ -13,17 +13,17 @@ Multi-module jetpack compose app that consumes data from [RAWG Video Games API](
 * Kotlin Gradle DSL
 
 ## Prerequisite
-- Api Key : You can get the key from [here](https://rawg.io/apidocs) and then put it into your `local.properties`.
+- Api Key : You can get the key from [here](https://rawg.io/apidocs) and then put it into your `local.properties` with the key `API_KEY`.
 
 ## Screens
 
 |                      Home Screen                        |                    Details Screen                   |
 | :----------------------------------------------------:  | :-------------------------------------------------: |
-|<img src="art/games_home.gif" alt="home" width="250"/> <img src="art/games_search.gif" alt="search" width="250"/>   | <img src="art/games_detail.gif" alt="details" width="250"/>|
+|<img src="art/h.gif" alt="home" width="250"/> <img src="art/hs.gif" alt="search" width="250"/>   | <img src="art/d.gif" alt="details" width="250"/>|
 
-|             Screenshots Screen              |                Filter Screen                | 
-| :-----------------------------------------: | :-----------------------------------------: |                           
-|<img src="art/games_screenshot.gif" alt="screenshot_screen" width="250"/> | <img src="art/filter.gif" alt="filter_screen" width="250"/> |
+|             Screenshots Screen              |                Filter Screen                |               Favorites Screen             | 
+| :-----------------------------------------: | :-----------------------------------------: |:-----------------------------------------: |                           
+|<img src="art/s.gif" alt="screenshot_screen" width="250"/> | <img src="art/fi.gif" alt="filter_screen" width="250"/> | <img src="art/fa.gif" alt="favorites_screen" width="250"/> | 
 
 ## Libraries
 
@@ -73,5 +73,5 @@ Multi-module jetpack compose app that consumes data from [RAWG Video Games API](
 | [home](/home/)     | Android Library      | UI components for the Home screen.                                      |
 | [details](/details/) | Android Library    | UI components for the Details screen.                           |
 | [filter](/filter/) | Android Library      | UI components for the Filter screen.                         |
-| [favorites](/favorites/) (work in progress)  | Android Library   | UI components for the Favorites screen.                         |
+| [favorites](/favorites/) | Android Library   | UI components for the Favorites screen.                         |
 | [common](/common/) | Android Library      | Common stuff.                                              |
