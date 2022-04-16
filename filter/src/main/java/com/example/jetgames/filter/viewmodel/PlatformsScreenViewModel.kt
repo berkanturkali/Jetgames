@@ -16,7 +16,7 @@ class PlatformsScreenViewModel @Inject constructor(
     private val _refresh = MutableLiveData<Boolean>()
 
     val platforms = Transformations.switchMap(_refresh) {
-        liveData { platformsUseCase.execute(it).collectLatest(::emit) }
+        liveData { platformsUseCase(it).collectLatest(::emit) }
     }
 
     init {

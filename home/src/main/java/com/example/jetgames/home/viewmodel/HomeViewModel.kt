@@ -71,7 +71,7 @@ class HomeViewModel @Inject constructor(
         _homeFilterPreferences,
         ::Pair
     ).flatMapLatest {
-        useCase.execute(it.second.copy(query = it.first))
+        useCase(it.second.copy(query = it.first))
             .map { pagingData ->
                 pagingData.map {
                     GameModel.GameItem(it)

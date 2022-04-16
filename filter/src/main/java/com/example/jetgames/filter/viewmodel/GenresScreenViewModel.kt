@@ -20,7 +20,7 @@ class GenresScreenViewModel @Inject constructor(
 
     val genres = Transformations.switchMap(_refresh) {
         liveData<Resource<List<Genre>>> {
-            useCase.execute(it).collect {
+            useCase(it).collect {
                 emit(it)
             }
         }

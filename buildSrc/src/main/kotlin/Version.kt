@@ -22,7 +22,7 @@ object Version {
     const val hiltNavigationComposeVersion = "1.0.0-alpha03"
 
     /* coroutines */
-    const val coroutines: String = "1.6.0"
+    const val coroutines: String = "1.5.2"
 
     /* paging-3 */
     const val pagingCompose = "1.0.0-alpha14"
