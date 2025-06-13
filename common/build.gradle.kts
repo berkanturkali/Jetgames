@@ -3,19 +3,32 @@ import ProjectLib.core
 plugins {
     androidLib
 }
+
+android{
+    defaultConfig {
+        namespace = "com.example.jetgames.common"
+    }
+}
+
 dependencies {
     implementation(project(core))
     // compose
-    implementation(Library.composeUi, Library.composeMaterial, Library.coreKtx)
+    implementation(
+        libs.compose.ui,
+        libs.compose.material,
+        libs.core.ktx,
+        libs.compose.runtime,
+    )
 
     // lottie
-    implementation(Library.lottie)
+    implementation(libs.lottie)
 
     // palette
-    implementation(Library.palette)
+    implementation(libs.palette)
 
     // coil
-    implementation(Library.coil)
+    implementation(libs.coil)
 
-    implementation(Library.placeholder)
+    // accompanist placeholder
+    implementation(libs.accompanist.placeholder)
 }

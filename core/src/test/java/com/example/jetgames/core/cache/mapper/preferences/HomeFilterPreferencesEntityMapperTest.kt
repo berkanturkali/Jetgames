@@ -1,7 +1,7 @@
 package com.example.jetgames.core.cache.mapper.preferences
 
+import com.example.jetgames.core.DummyData
 import com.example.jetgames.core.cache.mapper.platforms.PlatformEntityMapper
-import com.example.jetgames.core.data.DummyData
 import com.google.common.truth.Truth
 import org.junit.Test
 
@@ -9,7 +9,8 @@ class HomeFilterPreferencesEntityMapperTest {
 
     private val platformEntityMapper = PlatformEntityMapper()
 
-    private val mapper = HomeFilterPreferencesEntityMapper(platformEntityMapper = platformEntityMapper)
+    private val mapper =
+        HomeFilterPreferencesEntityMapper(platformEntityMapper = platformEntityMapper)
 
     @Test
     fun `check that mapToEntity maps to entity correctly`() {

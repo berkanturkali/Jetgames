@@ -3,7 +3,6 @@ package extensions
 import BuildType.Companion.Debug
 import BuildType.Companion.Release
 import Config
-import Version
 import com.android.build.gradle.AppExtension
 import org.gradle.api.JavaVersion
 
@@ -19,6 +18,7 @@ private class AndroidAppExtension : ProjectExtension {
         extension.apply {
             compileSdkVersion(Config.compileSdkVersion)
             defaultConfig {
+                namespace = Config.applicationId
                 applicationId = Config.applicationId
                 minSdk = Config.minSdkVersion
                 targetSdk = Config.targetSdkVersion
@@ -46,7 +46,7 @@ private class AndroidAppExtension : ProjectExtension {
                 targetCompatibility = JavaVersion.VERSION_11
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = Version.compose
+                kotlinCompilerExtensionVersion = "1.2.0-alpha04"
             }
             packagingOptions {
                 resources {
@@ -55,6 +55,7 @@ private class AndroidAppExtension : ProjectExtension {
             }
             buildFeatures.apply {
                 compose = true
+                buildConfig = true
             }
         }
     }

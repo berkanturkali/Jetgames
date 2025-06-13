@@ -1,14 +1,12 @@
 package com.example.jetgames.filter.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import com.example.jetgames.core.domain.model.genres.Genre
 import com.example.jetgames.core.domain.usecase.filters.GenresUseCase
-import com.example.jetgames.core.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,8 +16,8 @@ class GenresScreenViewModel @Inject constructor(
 
     private val _refresh = MutableLiveData<Boolean>()
 
-    val genres = Transformations.switchMap(_refresh) {
-        liveData<Resource<List<Genre>>> {
+    val genres = _refresh.switchMap {
+        liveData {
             useCase(it).collect {
                 emit(it)
             }

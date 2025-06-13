@@ -1,15 +1,19 @@
 package plugin
 
-import Library
 import androidModule
 import androidTestImplementation
+import debugImplementation
 import extensions.AndroidLib
 import extensions.ProjectExtension
+import extensions.libs
 import implementation
 import kotlinAndroid
 import kotlinKapt
+import composeCompiler
+import org.gradle.internal.impldep.junit.runner.Version.id
+import org.gradle.kotlin.dsl.dependencies
 import testImplementation
-import debugImplementation
+
 
 class AndroidLibraryPlugin : BasePlugin() {
     override val pluginConfig: PluginConfig
@@ -17,21 +21,27 @@ class AndroidLibraryPlugin : BasePlugin() {
             androidModule
             kotlinAndroid
             kotlinKapt
+            composeCompiler
         }
+
     override val libraryConfig: LibraryConfig
         get() = {
-            implementation(
-                Library.coreKtx,
-                Library.appcompat,
-                Library.material,
-                Library.timber)
-            testImplementation(Library.junit)
-            androidTestImplementation(
-                Library.junitExt,
-                Library.espresso)
-
-            debugImplementation(Library.composeUiTooling)
+            dependencies {
+                implementation(
+                    libs.findLibrary("core.ktx").get().get(),
+                    libs.findLibrary("appcompat").get().get(),
+                    libs.findLibrary("material").get().get(),
+                    libs.findLibrary("timber").get().get()
+                )
+                testImplementation(libs.findLibrary("junit").get().get())
+                androidTestImplementation(
+                    libs.findLibrary("junit.ext").get().get(),
+                    libs.findLibrary("espresso").get().get()
+                )
+                debugImplementation(libs.findLibrary("compose.ui.tooling").get().get())
+            }
         }
+
     override val extensions: Array<ProjectExtension>
         get() = arrayOf(ProjectExtension.AndroidLib)
 }

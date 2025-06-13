@@ -3,6 +3,7 @@ package com.example.jetgames.remote.factory
 import com.example.jetgames.remote.interceptor.ApiKeyInterceptor
 import com.example.jetgames.remote.interceptor.NoInternetInterceptor
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,9 +11,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-public class RemoteFactory @Inject constructor(
-    private val moshi: Moshi,
-) {
+public class RemoteFactory  @Inject constructor() {
 
     public fun createRetrofit(url: String, isDebug: Boolean, key: String): Retrofit {
         val client: OkHttpClient = makeOkHttpClient(
@@ -22,7 +21,9 @@ public class RemoteFactory @Inject constructor(
         return Retrofit.Builder()
             .baseUrl(url)
             .client(client)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().add(
+                KotlinJsonAdapterFactory()
+            ).build()))
             .build()
     }
 

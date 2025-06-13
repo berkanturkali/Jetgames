@@ -54,7 +54,7 @@ fun FavoritesScreen(
 
                     SwipeToDismiss(
                         state = dismissState,
-                        modifier = Modifier.animateItemPlacement(),
+                        modifier = Modifier,
                         background = {}
                     ) {
 

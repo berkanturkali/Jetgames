@@ -1,7 +1,14 @@
 package com.example.jetgames.core.remote.mapper.detail
 
-import com.example.jetgames.core.data.DummyData
-import com.example.jetgames.core.remote.mapper.games.*
+import com.example.jetgames.core.DummyData
+import com.example.jetgames.core.remote.mapper.games.EsrbRatingMapper
+import com.example.jetgames.core.remote.mapper.games.GenreMapper
+import com.example.jetgames.core.remote.mapper.games.ParentPlatformMapper
+import com.example.jetgames.core.remote.mapper.games.PlatformMapper
+import com.example.jetgames.core.remote.mapper.games.RatingMapper
+import com.example.jetgames.core.remote.mapper.games.StoreMapper
+import com.example.jetgames.core.remote.mapper.games.StoreXMapper
+import com.example.jetgames.core.remote.mapper.games.TagMapper
 import com.google.common.truth.Truth
 import org.junit.Test
 

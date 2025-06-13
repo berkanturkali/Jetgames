@@ -1,12 +1,12 @@
 package com.example.jetgames.core.data.repo
 
+import com.example.jetgames.core.DummyData
 import com.example.jetgames.core.cache.abstraction.GenresCache
 import com.example.jetgames.core.cache.abstraction.PlatformsCache
 import com.example.jetgames.core.cache.fakes.FakeGenresCache
 import com.example.jetgames.core.cache.fakes.FakePlatformsCache
 import com.example.jetgames.core.cache.mapper.genres.GenreEntityMapper
 import com.example.jetgames.core.cache.mapper.platforms.PlatformEntityMapper
-import com.example.jetgames.core.data.DummyData
 import com.example.jetgames.core.data.contract.FilterRemote
 import com.example.jetgames.core.domain.repo.FiltersRepo
 import com.example.jetgames.core.domain.util.Resource

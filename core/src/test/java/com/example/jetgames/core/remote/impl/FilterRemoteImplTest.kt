@@ -37,14 +37,14 @@ class FilterRemoteImplTest {
     @Test
     fun `check that calling fetchPlatforms make request to correct path`() = runBlocking {
         filterRemote.fetchPlatforms()
-        Truth.assertThat("$PLATFORMS_PATH?key=$API_KEY")
+        Truth.assertThat("$PLATFORMS_PATH?key=${API_KEY}")
             .isEqualTo(mockWebServer.takeRequest().path)
     }
 
     @Test
     fun `check that calling fetch platforms makes a GET request`() = runBlocking {
         filterRemote.fetchPlatforms()
-        Truth.assertThat("GET $PLATFORMS_PATH?key=$API_KEY HTTP/1.1")
+        Truth.assertThat("GET $PLATFORMS_PATH?key=${API_KEY} HTTP/1.1")
             .isEqualTo(mockWebServer.takeRequest().requestLine)
     }
 

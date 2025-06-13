@@ -1,14 +1,17 @@
 package plugin
 
 import extensions.ProjectExtension
+import extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.plugins.PluginContainer
+import org.gradle.kotlin.dsl.dependencies
 
 
 typealias PluginConfig = PluginContainer.() -> Unit
-typealias LibraryConfig = DependencyHandler.() -> Unit
+typealias LibraryConfig = Project.() -> Unit
 
 abstract class BasePlugin : Plugin<Project> {
 
@@ -19,7 +22,7 @@ abstract class BasePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         pluginConfig(target.plugins)
         addExtensions(target)
-        libraryConfig(target.dependencies)
+        libraryConfig(target)
     }
 
     private fun addExtensions(project: Project) {

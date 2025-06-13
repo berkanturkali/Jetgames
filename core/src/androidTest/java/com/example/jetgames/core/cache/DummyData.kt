@@ -1,4 +1,4 @@
-package com.example.jetgames.core.data
+package com.example.jetgames.core.cache
 
 import com.example.jetgames.core.cache.model.FavoriteEntity
 import com.example.jetgames.core.cache.model.GenreEntity

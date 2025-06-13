@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
-      <module name="Jetgames.app" target="11" />
-      <module name="Jetgames.buildSrc" target="11" />
-      <module name="Jetgames.common" target="11" />
-      <module name="Jetgames.core" target="11" />
-      <module name="Jetgames.details" target="11" />
-      <module name="Jetgames.favorites" target="11" />
-      <module name="Jetgames.filter" target="11" />
-      <module name="Jetgames.home" target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="Jetgames.app" target="21" />
+      <module name="Jetgames.buildSrc" target="21" />
+      <module name="Jetgames.buildSrc.main" target="21" />
+      <module name="Jetgames.buildSrc.test" target="21" />
+      <module name="Jetgames.common" target="21" />
+      <module name="Jetgames.core" target="21" />
+      <module name="Jetgames.details" target="21" />
+      <module name="Jetgames.favorites" target="21" />
+      <module name="Jetgames.filter" target="21" />
+      <module name="Jetgames.home" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

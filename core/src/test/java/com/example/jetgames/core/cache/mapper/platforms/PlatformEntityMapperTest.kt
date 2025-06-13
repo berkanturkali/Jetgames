@@ -1,6 +1,6 @@
 package com.example.jetgames.core.cache.mapper.platforms
 
-import com.example.jetgames.core.data.DummyData
+import com.example.jetgames.core.DummyData
 import com.example.jetgames.core.domain.model.platforms.Platform
 import com.google.common.truth.Truth
 import org.junit.Test

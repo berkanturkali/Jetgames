@@ -3,7 +3,6 @@ package extensions
 import BuildType.Companion.Debug
 import BuildType.Companion.Release
 import Config
-import Version
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.plugins.ExtensionAware
@@ -47,9 +46,10 @@ private class AndroidLibExtension : ProjectExtension {
 
             buildFeatures {
                 compose = true
+                buildConfig = true
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = Version.compose
+                kotlinCompilerExtensionVersion = "1.2.0-alpha04"
             }
             packagingOptions {
                 resources {

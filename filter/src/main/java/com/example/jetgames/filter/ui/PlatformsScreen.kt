@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jetgames.common.DefaultScreenUI
+import com.example.jetgames.common.R
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.model.platforms.Platform
@@ -89,7 +90,7 @@ fun PlatformsScreen(
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(dimensionResource(id = com.example.jetgames.common.R.dimen.dimen_8))
+                                    .padding(dimensionResource(id = R.dimen.dimen_8))
                             ) {
                                 Text(text = "Apply")
                             }
@@ -99,6 +100,8 @@ fun PlatformsScreen(
                     // empty view
                 }
             }
+
+            null -> TODO()
         }
     }
 }

@@ -1,4 +1,4 @@
-
+import ProjectLib.common
 import ProjectLib.remote
 
 plugins {
@@ -16,12 +16,10 @@ android.defaultConfig.buildConfigField("int", "databaseVersion", 1.toString())
 android.defaultConfig.buildConfigField("String", "databaseName", "\"jetgames_db\"")
 android.defaultConfig.buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
 
-android.sourceSets {
-    val sharedTestDir = "src/sharedTest/java"
-    val androidTest by getting
-    val test by getting
-    androidTest.java.srcDirs(sharedTestDir)
-    test.java.srcDirs(sharedTestDir)
+android{
+    defaultConfig {
+        namespace = "com.example.jetgames.core"
+    }
 }
 
 dependencies {
@@ -29,29 +27,30 @@ dependencies {
     implementation(project(remote))
 
     // network
-    implementation(Library.retrofit, Library.moshi)
-    testImplementation(Library.moshi, Library.retrofitMoshi, Library.mockWebServer)
+    implementation(libs.retrofit, libs.moshi)
+    testImplementation(libs.moshi, libs.retrofit.moshi, libs.mockwebserver)
 
     // hilt
-    implementation(Library.daggerHiltAndroid)
-    kapt(Library.daggerHiltCompiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // pagination
-    implementation(Library.pagingCompose)
+    implementation(libs.paging.compose)
 
     // coil
-    implementation(Library.coil)
+    implementation(libs.coil)
 
     // navigation
-    implementation(Library.navigation, Library.navComponent)
+    implementation(libs.accompanist.navigation, libs.navigation.compose)
 
     // cache
-    implementation(Library.room)
-    implementation(Library.roomKtx)
-    kapt(Library.roomCompiler)
-    testImplementation(Library.truth)
-    testImplementation(Library.mockk)
-    androidTestImplementation(Library.truth)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 
-    testImplementation(Library.coroutines)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.truth)
+
+    testImplementation(libs.coroutines.test)
 }

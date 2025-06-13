@@ -1,6 +1,6 @@
 package com.example.jetgames.core.remote.mapper.platforms
 
-import com.example.jetgames.core.data.DummyData
+import com.example.jetgames.core.DummyData
 import com.google.common.truth.Truth
 import org.junit.Test
 

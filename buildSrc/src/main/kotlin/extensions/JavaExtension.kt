@@ -13,8 +13,8 @@ private class JavaExtension : ProjectExtension {
     override fun configure(extension: Any) {
         if (extension !is JavaPluginExtension) return
         extension.apply {
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
         }
     }
 }

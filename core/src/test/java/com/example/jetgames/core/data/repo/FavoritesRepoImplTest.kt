@@ -1,9 +1,9 @@
 package com.example.jetgames.core.data.repo
 
+import com.example.jetgames.core.DummyData
 import com.example.jetgames.core.cache.abstraction.FavoritesCache
 import com.example.jetgames.core.cache.fakes.FakeFavoritesCache
 import com.example.jetgames.core.cache.mapper.favorites.FavoriteEntityMapper
-import com.example.jetgames.core.data.DummyData
 import com.example.jetgames.core.domain.repo.FavoritesRepo
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first

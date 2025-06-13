@@ -6,32 +6,41 @@ plugins {
     androidLib
     daggerHilt
 }
+
+android{
+    defaultConfig {
+        namespace = "com.example.jetgames.home"
+    }
+}
+
 dependencies {
     implementation(project(common))
     implementation(project(core))
 
     // hilt
-    implementation(Library.daggerHiltAndroid)
-    kapt(Library.daggerHiltCompiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // androidx
-    implementation(Library.lifecycle)
-    implementation(Library.lifecycleKtx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     // pagination
-    implementation(Library.pagingCompose)
+    implementation(libs.paging.compose)
 
     // compose
-    implementation(Library.composeMaterial)
-    implementation(Library.materialIcons)
-    implementation(Library.constraintLayout)
+    implementation(libs.compose.material)
+    implementation(libs.compose.icons)
+    implementation(libs.constraint.layout.compose)
+    implementation(libs.compose.runtime)
 
     // accompanist
-    implementation(Library.swipeRefresh)
-    implementation(Library.placeholder)
+    implementation(libs.accompanist.swipe)
+    implementation(libs.accompanist.placeholder)
 
     // coil
-    implementation(Library.coil)
+    implementation(libs.coil)
 
-    implementation(Library.hiltNavigation)
+    // hilt-navigation
+    implementation(libs.hilt.navigation.compose)
 }

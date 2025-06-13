@@ -3,10 +3,10 @@ package com.example.jetgames.core.cache.implementation
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.jetgames.core.cache.DummyData
 import com.example.jetgames.core.cache.abstraction.FavoritesCache
 import com.example.jetgames.core.cache.db.JetgamesDb
 import com.example.jetgames.core.cache.model.FavoriteEntity
-import com.example.jetgames.core.data.DummyData
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -84,7 +84,8 @@ class FavoritesCacheImplTest {
                 image = "",
                 releaseDate = "12 Nov 2019",
                 rating = 5.0,
-                metacritic = 100
+                metacritic = 100,
+                icon = null
             )
             favoritesCache.upsert(entity)
             favoritesCache.upsert(newEntity)

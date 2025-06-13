@@ -51,10 +51,10 @@ fun GenresScreen(
     ) {
 
         when (genres.value) {
-            is Resource.Loading -> {
+            is Resource.Loading<*> -> {
                 LoadingItem(modifier = Modifier.fillMaxSize())
             }
-            is Resource.Error -> {
+            is Resource.Error<*> -> {
                 ErrorItem(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -62,7 +62,7 @@ fun GenresScreen(
                     onRetryClick = viewModel::setRefresh
                 )
             }
-            is Resource.Success -> {
+            is Resource.Success<*> -> {
                 if (genres.value!!.data!!.isNotEmpty()) {
                     val sortedList =
                         viewModel.sortGenres(genres.value!!.data!!)
@@ -104,6 +104,8 @@ fun GenresScreen(
                     // empty view
                 }
             }
+
+            null -> TODO()
         }
     }
 }

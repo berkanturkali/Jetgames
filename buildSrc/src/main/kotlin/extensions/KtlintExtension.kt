@@ -1,6 +1,5 @@
 package extensions
 
-import Version
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 val ProjectExtension.Companion.Ktlint: ProjectExtension
@@ -13,7 +12,7 @@ private class AppKtlintExtension : ProjectExtension {
     override fun configure(extension: Any) {
         if (extension !is KtlintExtension) return
         extension.apply {
-            version.set(Version.ktlint)
+            version.set("0.43.2")
             outputToConsole.set(true)
             disabledRules.add("import-ordering")
             disabledRules.add("no-wildcard-imports")

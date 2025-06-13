@@ -6,27 +6,37 @@ plugins {
     daggerHilt
 }
 
+android{
+    defaultConfig {
+        namespace = "com.example.jetgames.filter"
+    }
+}
+
+
 dependencies {
     implementation(project(common))
     implementation(project(core))
     // compose
     implementation(
-        Library.composeUi,
-        Library.composeMaterial,
-        Library.constraintLayout
+        libs.compose.ui,
+        libs.compose.material,
+        libs.constraint.layout.compose,
+        libs.compose.runtime,
     )
 
     // navigation
-    implementation(Library.navigation)
+    implementation(libs.accompanist.navigation)
 
     // hilt
-    implementation(Library.daggerHiltAndroid)
-    kapt(Library.daggerHiltCompiler)
-    implementation(Library.hiltNavigation)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.lifecycle.livedata)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     // livedata-ktx
-    implementation(Library.liveDataKtx)
-    implementation(Library.composeLiveData)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.compose.livedata)
 
-    implementation(Library.androidCoroutines)
+    // coroutines-android
+    implementation(libs.coroutines.android)
 }

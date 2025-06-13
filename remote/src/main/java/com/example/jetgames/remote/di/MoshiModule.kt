@@ -9,8 +9,8 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @[Module InstallIn(SingletonComponent::class)]
-internal object RemoteModule {
+public class MoshiModule {
 
-    val provideMoshi: Moshi
-        @[Provides Singleton] get() = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    @[Provides Singleton]
+    public fun providesMoshi(): Moshi =  Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 }

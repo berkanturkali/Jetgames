@@ -31,34 +31,35 @@ dependencies {
 
     // compose
     implementation(
-        Library.composeMaterial,
-        Library.composeUi,
-        Library.composeLiveData,
-        Library.constraintLayout,
-        Library.composeUiUtil
+        libs.compose.material,
+        libs.compose.ui,
+        libs.compose.livedata,
+        libs.constraint.layout.compose,
+        libs.compose.ui.util
     )
 
-    debugImplementation(Library.composeUiTooling)
+    debugImplementation(libs.compose.ui.tooling)
 
     // navigation
-    implementation(Library.navComponent, Library.navigation)
+    implementation(libs.navigation.compose, libs.accompanist.navigation)
 
     // hilt
-    implementation(Library.daggerHiltAndroid)
-    implementation(Library.hiltNavigation)
-    kapt(Library.daggerHiltCompiler)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
 
     // coil
-    implementation(Library.coil)
+    implementation(libs.coil)
 
     // moshi
-    implementation(Library.moshi)
+    implementation(libs.moshi)
 
     // accompanist
-    implementation(Library.insets, Library.animations)
+    implementation(libs.accompanist.insets, libs.accompanist.animations)
 
     // leak canary
-    debugImplementation(Library.leakCanary)
+    debugImplementation(libs.leakcanary)
 
-    implementation(Library.timber)
+    // timber
+    implementation(libs.timber)
 }

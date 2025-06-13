@@ -32,7 +32,7 @@ class GameDetailRemoteImplTest {
     @Test
     fun `check that calling game makes a GET request`() = runBlocking {
         gameDetailRemote.game(ID)
-        Truth.assertThat("GET $REQUEST_PATH/$ID?key=$API_KEY HTTP/1.1")
+        Truth.assertThat("GET $REQUEST_PATH/$ID?key=${API_KEY} HTTP/1.1")
             .isEqualTo(mockWebServer.takeRequest().requestLine)
     }
 

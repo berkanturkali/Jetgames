@@ -25,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import coil.ImageLoader
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
@@ -107,7 +106,8 @@ fun Home(
                 modifier = modifier.fillMaxSize(),
                 state = listState
             ) {
-                items(games) { gameModel ->
+                items(games.itemCount) { index ->
+                    val gameModel = games[index]
                     when (gameModel) {
                         is GameModel.SeparatorItem -> {
                             SeparatorItem(separator = gameModel.separator)
@@ -116,15 +116,14 @@ fun Home(
                             val game = gameModel.game
                             if (isGalleryMode) {
                                 GameGalleryItem(
-                                    modifier = Modifier
-                                        .animateItemPlacement(),
+                                    modifier = Modifier,
                                     game = game,
                                     imageLoader = imageLoader,
                                     onItemClick = navigateToDetailScreen
                                 )
                             } else {
                                 GameItem(
-                                    modifier = Modifier.animateItemPlacement(),
+                                    modifier = Modifier,
                                     imageLoader = imageLoader,
                                     onItemClick = navigateToDetailScreen,
                                     metaCritic = game.metaCritic,
@@ -140,6 +139,8 @@ fun Home(
                                 )
                             }
                         }
+
+                        null -> TODO()
                     }
                 }
 

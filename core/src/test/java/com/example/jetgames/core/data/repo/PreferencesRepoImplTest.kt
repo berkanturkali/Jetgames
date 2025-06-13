@@ -1,10 +1,10 @@
 package com.example.jetgames.core.data.repo
 
+import com.example.jetgames.core.DummyData
 import com.example.jetgames.core.cache.abstraction.HomeFilterPreferencesCache
 import com.example.jetgames.core.cache.fakes.FakeHomeFilterPreferencesCache
 import com.example.jetgames.core.cache.mapper.platforms.PlatformEntityMapper
 import com.example.jetgames.core.cache.mapper.preferences.HomeFilterPreferencesEntityMapper
-import com.example.jetgames.core.data.DummyData
 import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first

@@ -1,12 +1,13 @@
 plugins {
     kotlinLib
 }
+
 dependencies {
     implementation(
-        Library.moshi,
-        Library.retrofit,
-        Library.retrofitMoshi,
-        Library.loggingInterceptor,
-        Library.okhttp
+        libs.moshi,
+        libs.retrofit,
+        libs.retrofit.moshi,
+        libs.logging.interceptor,
+        libs.okhttp
     )
 }
