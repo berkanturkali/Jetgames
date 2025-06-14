@@ -1,31 +1,38 @@
 package com.example.jetgames.navigation
 
-object Routes {
+import kotlinx.serialization.Serializable
 
-    // screenroutes
-    const val HOME_ROUTE = "home_screen"
+interface BottomNavigationRoute
 
-    const val DETAIL_ROUTE = "detail_screen"
+@Serializable
+data object HomeRoute : BottomNavigationRoute
 
-    const val SCREENSHOTS_ROUTE = "screenshots_screen"
+@Serializable
+data class DetailRoute(
+    val id: Int,
+    val screenshots: List<String?>? = null,
+)
 
-    const val FILTER_ROUTE = "filter_screen"
+@Serializable
+data class ScreenshotsRoute(
+    val screenshots: List<String?>,
+    val selectedPage: Int = 0
+)
 
-    const val PLATFORMS_ROUTE = "platforms_screen"
+@Serializable
+data object FilterRoute
 
-    const val GENRES_ROUTE = "genres_screen"
+@Serializable
+data object PlatformsRoute
 
-    const val ORDERS_ROUTE = "orders_screen"
+@Serializable
+data object GenresRoute
 
-    const val FAVORITES_ROUTE = "favorites_screen"
+@Serializable
+data object OrdersRoute
 
-    // graph routes
+@Serializable
+data object FavoritesRoute: BottomNavigationRoute
 
-    const val HOME_GRAPH_ROUTE = "home"
 
-    const val ROOT_GRAPH_ROUTE = "root"
 
-    const val FILTER_GRAPH_ROUTE = "filter"
-
-    const val FAVORITES_GRAPH_ROUTE = "favorites"
-}

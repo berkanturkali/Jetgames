@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.util.lerp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import com.example.jetgames.details.viewmodel.ScreenshotsViewModel
@@ -24,16 +21,13 @@ import kotlin.math.absoluteValue
 @Composable
 fun ScreenshotsScreen(
     modifier: Modifier = Modifier,
-    viewModel: ScreenshotsViewModel = hiltViewModel(),
+    viewModel: ScreenshotsViewModel,
     imageLoader: ImageLoader
 ) {
-
-    val screenshotsAndPage by viewModel.screenshotsAndPage.observeAsState()
-
-    val pagerState = rememberPagerState(initialPage = screenshotsAndPage?.selectedPage ?: 0)
+    val pagerState = rememberPagerState(initialPage = viewModel.selectedPage)
 
     // screenshots
-    HorizontalPager(screenshotsAndPage?.screenshots!!.size, state = pagerState) { page ->
+    HorizontalPager(viewModel.screenShots.size, state = pagerState) { page ->
         Card(
             modifier = modifier
                 .graphicsLayer {
@@ -58,7 +52,7 @@ fun ScreenshotsScreen(
             Box {
                 Image(
                     painter = rememberImagePainter(
-                        data = screenshotsAndPage?.screenshots!!.get(page),
+                        data = viewModel.screenShots[page],
                         imageLoader = imageLoader
                     ),
                     contentDescription = null,

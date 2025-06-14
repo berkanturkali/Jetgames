@@ -1,51 +1,36 @@
 package com.example.jetgames.navigation.graph
 
-import android.net.Uri
-import androidx.compose.animation.*
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import coil.ImageLoader
-import com.example.jetgames.core.domain.model.navargs.DetailsArgs
-import com.example.jetgames.core.domain.model.navargs.ScreenshotsArgs
 import com.example.jetgames.details.ui.DetailScreen
 import com.example.jetgames.details.ui.ScreenshotsScreen
+import com.example.jetgames.details.viewmodel.DetailsViewModel
+import com.example.jetgames.details.viewmodel.ScreenshotsViewModel
 import com.example.jetgames.home.ui.Home
-import com.example.jetgames.navigation.BottomNavigationItem
-import com.example.jetgames.navigation.Routes
-import com.example.jetgames.navigation.Routes.FILTER_GRAPH_ROUTE
-import com.example.jetgames.navigation.Screen
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.navigation
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.example.jetgames.navigation.DetailRoute
+import com.example.jetgames.navigation.FilterRoute
+import com.example.jetgames.navigation.HomeRoute
+import com.example.jetgames.navigation.ScreenshotsRoute
 
-fun NavGraphBuilder.homeNavGraph(
-    navController: NavHostController,
-    imageLoader: ImageLoader,
-) {
-    navigation(
-        startDestination = BottomNavigationItem.HomeScreen.route,
-        route = Routes.HOME_GRAPH_ROUTE,
-    ) {
-        addHomeScreen(
-            navController = navController,
-            imageLoader = imageLoader
-        )
-        addDetailScreen(navController = navController, imageLoader = imageLoader)
-        addScreenshotsScreen(imageLoader = imageLoader)
-    }
-}
 
 fun NavGraphBuilder.addHomeScreen(
     navController: NavController,
     imageLoader: ImageLoader,
 ) {
-    composable(
-        route = BottomNavigationItem.HomeScreen.route,
+    composable<HomeRoute>(
         enterTransition = {
             slideInVertically(
                 initialOffsetY = { +1000 },
@@ -65,13 +50,15 @@ fun NavGraphBuilder.addHomeScreen(
         // home screen
         Home(
             imageLoader = imageLoader, navigateToDetailScreen = { id, list ->
-                val detailsArgs = DetailsArgs(id, list)
-                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                val args = Uri.encode(moshi.adapter(DetailsArgs::class.java).toJson(detailsArgs))
-                navController.navigate("${Screen.DetailScreen.route}/$args")
+                navController.navigate(
+                    DetailRoute(
+                        id = id,
+                        screenshots = list
+                    )
+                )
             },
             navigateToFilterScreen = {
-                navController.navigate(FILTER_GRAPH_ROUTE)
+                navController.navigate(FilterRoute)
             }
         )
     }
@@ -81,9 +68,7 @@ fun NavGraphBuilder.addDetailScreen(
     navController: NavController,
     imageLoader: ImageLoader,
 ) {
-    composable(
-        route = Screen.DetailScreen.route + "/{detailArgs}",
-        arguments = Screen.DetailScreen.arguments,
+    composable<DetailRoute>(
         enterTransition = {
             scaleIn()
         },
@@ -98,14 +83,23 @@ fun NavGraphBuilder.addDetailScreen(
         },
     ) {
         // detail screen
+        val detailRoute = it.savedStateHandle.toRoute<DetailRoute>()
+        val viewModel = hiltViewModel<DetailsViewModel>()
+        viewModel.id = detailRoute.id
+        viewModel.fetchGame(detailRoute.id)
+        viewModel.setScreenshots(detailRoute.screenshots)
+        viewModel.checkFavorites(detailRoute.id)
         DetailScreen(
             imageLoader = imageLoader,
+            viewModel = viewModel,
             onBackButtonClick = navController::navigateUp
         ) { screenshots, page ->
-            val screenshotArgs = ScreenshotsArgs(screenshots = screenshots, selectedPage = page)
-            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val args = Uri.encode(moshi.adapter(ScreenshotsArgs::class.java).toJson(screenshotArgs))
-            navController.navigate("${Screen.ScreenshotsScreen.route}/$args")
+            navController.navigate(
+                ScreenshotsRoute(
+                    screenshots = screenshots,
+                    selectedPage = page
+                )
+            )
         }
     }
 }
@@ -113,15 +107,21 @@ fun NavGraphBuilder.addDetailScreen(
 fun NavGraphBuilder.addScreenshotsScreen(
     imageLoader: ImageLoader,
 ) {
-    composable(
-        route = Screen.ScreenshotsScreen.route + "/{screenshotsArgs}",
-        arguments = Screen.ScreenshotsScreen.arguments,
+    composable<ScreenshotsRoute>(
         enterTransition = {
             scaleIn()
         },
 
-    ) {
+        ) {
         // Screenshots screen
-        ScreenshotsScreen(imageLoader = imageLoader)
+
+        val screenshotsRoute = it.savedStateHandle.toRoute<ScreenshotsRoute>()
+        val viewModel = hiltViewModel<ScreenshotsViewModel>()
+        viewModel.apply {
+            screenShots = screenshotsRoute.screenshots
+            selectedPage = screenshotsRoute.selectedPage
+        }
+
+        ScreenshotsScreen(imageLoader = imageLoader, viewModel = viewModel)
     }
 }

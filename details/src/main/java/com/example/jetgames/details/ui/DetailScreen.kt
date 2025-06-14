@@ -23,7 +23,7 @@ import java.text.DecimalFormat
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    viewModel: DetailsViewModel = hiltViewModel(),
+    viewModel: DetailsViewModel,
     imageLoader: ImageLoader,
     onBackButtonClick: () -> Unit,
     navigateToScreenshots: ((screenshots: List<String?>, page: Int) -> Unit)? = null,
@@ -152,7 +152,7 @@ fun DetailScreen(
                             message = game.error!!,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            viewModel.game(viewModel.id)
+                            viewModel.fetchGame(viewModel.id)
                         }
                     }
                 }

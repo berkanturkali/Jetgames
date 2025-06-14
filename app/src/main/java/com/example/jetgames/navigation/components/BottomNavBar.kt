@@ -65,24 +65,24 @@ fun BottomNavBar(
         )
 
         JetgamesBottomNavLayout(
-            selectedIndex = items.indexOf(items.find { it.route == selected }),
+            selectedIndex = /*items.indexOf(items.find { it.route == selected }) */0,
             itemCount = routes.size,
             animSpec = springSpec,
             indicator = { JetgamesBottomNavIndicator() },
             modifier = Modifier.navigationBarsPadding(start = false, end = false)
         ) {
             items.forEach { item ->
-                val tint by animateColorAsState(
-                    if (item.route == selected) {
-                        MaterialTheme.colors.onPrimary
-                    } else {
-                        MaterialTheme.colors.onPrimary.copy(0.1f)
-                    }
-                )
+//                val tint by animateColorAsState(
+//                    if (item.route == selected) {
+//                        MaterialTheme.colors.onPrimary
+//                    } else {
+//                        MaterialTheme.colors.onPrimary.copy(0.1f)
+//                    }
+//                )
                 JetgamesBottomNavigationItem(
                     icon = {
                         Icon(
-                            tint = tint,
+                            tint = Color.White,
                             painter = painterResource(id = item.icon),
                             contentDescription = item.title
                         )
@@ -95,7 +95,7 @@ fun BottomNavBar(
                             color = MaterialTheme.colors.onPrimary
                         )
                     },
-                    selected = item.route == selected,
+                    selected = true, //item.route == selected,
                     onSelected = {
                         navController.navigate(item.route) {
                             popUpTo(navController.graph.findStartDestination().id) {

@@ -18,6 +18,7 @@ import com.example.jetgames.home.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,6 +42,7 @@ class HomeViewModel @Inject constructor(
     val homeState: StateFlow<HomeState> get() = _homeState
 
     init {
+        Timber.d("HomeViewModel initialized")
         viewModelScope.launch {
             combine(
                 _refreshing,

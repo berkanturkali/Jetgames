@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     ktlint
+    alias(libs.plugins.kotlin.serialization) apply false
 }
 
 allprojects {
@@ -18,19 +19,19 @@ subprojects project@{
             jvmTarget = JavaVersion.VERSION_11.toString()
             freeCompilerArgs =
                 freeCompilerArgs + (
-                "-Xopt-in=kotlin.Experimental," +
-                    "androidx.compose.ui.ExperimentalComposeUiApi," +
-                    "com.google.accompanist.pager.ExperimentalPagerApi," +
-                    "androidx.compose.foundation.ExperimentalFoundationApi," +
-                    "com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.ObsoleteCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview," +
-                    "androidx.compose.ui.ExperimentalComposeUiApi," +
-                    "androidx.compose.material.ExperimentalMaterialApi," +
-                    "androidx.compose.animation.ExperimentalAnimationApi,"
-                )
+                        "-Xopt-in=kotlin.Experimental," +
+                                "androidx.compose.ui.ExperimentalComposeUiApi," +
+                                "com.google.accompanist.pager.ExperimentalPagerApi," +
+                                "androidx.compose.foundation.ExperimentalFoundationApi," +
+                                "com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi," +
+                                "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                                "kotlinx.coroutines.InternalCoroutinesApi," +
+                                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
+                                "kotlinx.coroutines.FlowPreview," +
+                                "androidx.compose.ui.ExperimentalComposeUiApi," +
+                                "androidx.compose.material.ExperimentalMaterialApi," +
+                                "androidx.compose.animation.ExperimentalAnimationApi,"
+                        )
         }
     }
 }

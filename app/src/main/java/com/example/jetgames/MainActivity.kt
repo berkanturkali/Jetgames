@@ -3,20 +3,17 @@ package com.example.jetgames
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.plusAssign
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
 import com.example.jetgames.common.ui.theme.JetgamesTheme
-import com.example.jetgames.navigation.BottomNavigationItem
+import com.example.jetgames.navigation.MainActivityViewModel
 import com.example.jetgames.navigation.components.BottomNavBar
-import com.example.jetgames.navigation.graph.SetupNavGraph
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
+import com.example.jetgames.navigation.graph.JetGamesNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,19 +27,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JetgamesTheme {
-                val navController = rememberAnimatedNavController()
-                val bottomSheetNavigator = rememberBottomSheetNavigator()
-                val topLevelDestinations = listOf(
-                    BottomNavigationItem.HomeScreen.route,
-                    BottomNavigationItem.FavoritesScreen.route
-                )
-                val isNavbarVisible =
-                    navController.currentBackStackEntryAsState().value?.destination?.route in topLevelDestinations
+                val navController = rememberNavController()
 
-                navController.navigatorProvider += bottomSheetNavigator
+                val mainActivityViewModel: MainActivityViewModel = hiltViewModel()
+
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    mainActivityViewModel.setIsNavbarVisible(destination)
+                }
+
                 Scaffold(
                     bottomBar = {
-                        if (isNavbarVisible)
+                        if (mainActivityViewModel.isNavbarVisible)
                             BottomNavBar(navController = navController)
                     }
                 ) { padding ->
@@ -53,9 +48,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(padding)
                     ) {
-                        SetupNavGraph(
+                        JetGamesNavGraph(
                             navController = navController,
-                            bottomSheetNavigator = bottomSheetNavigator,
                             imageLoader = imageLoader,
                         )
                     }

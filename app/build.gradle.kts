@@ -8,6 +8,7 @@ import ProjectLib.remote
 
 plugins {
     androidApp
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -62,4 +63,7 @@ dependencies {
 
     // timber
     implementation(libs.timber)
+
+    //kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
 }

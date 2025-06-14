@@ -3,10 +3,10 @@ package com.example.jetgames.details.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.example.jetgames.core.domain.executor.abstraction.PostExecutionThread
 import com.example.jetgames.core.domain.model.detail.GameDetails
 import com.example.jetgames.core.domain.model.favorites.Favorite
-import com.example.jetgames.core.domain.model.navargs.DetailsArgs
 import com.example.jetgames.core.domain.repo.FavoritesRepo
 import com.example.jetgames.core.domain.repo.GameDetailRepo
 import com.example.jetgames.core.domain.util.Resource
@@ -38,7 +38,6 @@ class DetailsViewModel @Inject constructor(
     var id = -1
 
     init {
-
         viewModelScope.launch {
             combine(
                 _game,
@@ -58,22 +57,15 @@ class DetailsViewModel @Inject constructor(
                     _detailsScreenState.value = it
                 }
         }
-
-        savedStateHandle.get<DetailsArgs>("detailArgs")?.let {
-            id = it.id
-            game(id)
-            setScreenshots(it.screenshots)
-            checkFavorites(id)
-        }
     }
 
-    private fun setScreenshots(screenshots: List<String?>?) {
-        if (screenshots != null && screenshots.isNotEmpty()) {
+    fun setScreenshots(screenshots: List<String?>?) {
+        if (!screenshots.isNullOrEmpty()) {
             _screenShots.value = screenshots
         }
     }
 
-    fun game(id: Int) {
+    fun fetchGame(id: Int) {
         viewModelScope.launch(postExecutionThread.main) {
             try {
                 val gameDetail = withContext(postExecutionThread.io) { repo.game(id) }
@@ -98,7 +90,7 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    private fun checkFavorites(id: Int) {
+    fun checkFavorites(id: Int) {
         viewModelScope.launch(postExecutionThread.main) {
             _isGameLiked.value =
                 withContext(postExecutionThread.io) { favoritesRepo.favorite(id) }.id >= 0
