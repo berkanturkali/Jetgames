@@ -2,6 +2,7 @@ package plugin
 
 import androidModule
 import androidTestImplementation
+import composeCompiler
 import debugImplementation
 import extensions.AndroidLib
 import extensions.ProjectExtension
@@ -9,8 +10,6 @@ import extensions.libs
 import implementation
 import kotlinAndroid
 import kotlinKapt
-import composeCompiler
-import org.gradle.internal.impldep.junit.runner.Version.id
 import org.gradle.kotlin.dsl.dependencies
 import testImplementation
 

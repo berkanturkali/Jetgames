@@ -101,7 +101,7 @@ fun PlatformsScreen(
                 }
             }
 
-            null -> TODO()
+            null -> Unit
         }
     }
 }

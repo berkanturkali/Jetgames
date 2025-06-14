@@ -7,4 +7,5 @@ object ProjectLib {
     const val details: String = ":details"
     const val filter: String = ":filter"
     const val favorites:String = ":favorites"
+    const val navigation: String = ":navigation"
 }

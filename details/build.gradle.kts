@@ -1,20 +1,25 @@
 import ProjectLib.common
 import ProjectLib.core
+import ProjectLib.navigation
 
 plugins {
     androidLib
     daggerHilt
 }
 
-android{
+android {
     defaultConfig {
         namespace = "com.example.jetgames.details"
     }
 }
 
 dependencies {
-    implementation(project(common), project(core))
 
+    implementAllProjects(
+        common,
+        core,
+        navigation
+    )
     // coil
     implementation(libs.coil)
 

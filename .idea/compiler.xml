@@ -12,6 +12,7 @@
       <module name="Jetgames.favorites" target="21" />
       <module name="Jetgames.filter" target="21" />
       <module name="Jetgames.home" target="21" />
+      <module name="Jetgames.navigation" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

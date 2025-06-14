@@ -4,6 +4,7 @@ import ProjectLib.details
 import ProjectLib.favorites
 import ProjectLib.filter
 import ProjectLib.home
+import ProjectLib.navigation
 import ProjectLib.remote
 
 plugins {
@@ -22,13 +23,16 @@ hilt {
 
 dependencies {
     // project libs
-    implementation(project(common))
-    implementation(project(core))
-    implementation(project(remote))
-    implementation(project(home))
-    implementation(project(details))
-    implementation(project(filter))
-    implementation(project(favorites))
+    implementAllProjects(
+        common,
+        core,
+        remote,
+        home,
+        details,
+        filter,
+        favorites,
+        navigation
+    )
 
     // compose
     implementation(

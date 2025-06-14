@@ -16,6 +16,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
+import com.example.jetgames.navigation.GenresRoute
 
 @Composable
 fun Genres(
@@ -47,11 +48,11 @@ fun Genres(
             if (expandable) {
                 expanded = !expanded
             } else {
-                onGenresItemClick("genres_screen")
+                onGenresItemClick(GenresRoute::class.qualifiedName!!)
             }
         },
         onSectionClick = onGenresItemClick,
-        screenRoute = "genres_screen"
+        screenRoute = GenresRoute::class.qualifiedName!!
     ) {
         Column(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.dimen_16))) {
             genres.forEach {

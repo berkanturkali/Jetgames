@@ -21,16 +21,15 @@ import com.example.jetgames.details.viewmodel.DetailsViewModel
 import com.example.jetgames.details.viewmodel.ScreenshotsViewModel
 import com.example.jetgames.home.ui.Home
 import com.example.jetgames.navigation.DetailRoute
-import com.example.jetgames.navigation.FilterRoute
-import com.example.jetgames.navigation.HomeRoute
+import com.example.jetgames.navigation.FilterGraphRoute
 import com.example.jetgames.navigation.ScreenshotsRoute
 
 
-fun NavGraphBuilder.addHomeScreen(
+fun NavGraphBuilder.homeScreen(
     navController: NavController,
     imageLoader: ImageLoader,
 ) {
-    composable<HomeRoute>(
+    composable<com.example.jetgames.navigation.HomeRoute>(
         enterTransition = {
             slideInVertically(
                 initialOffsetY = { +1000 },
@@ -58,13 +57,13 @@ fun NavGraphBuilder.addHomeScreen(
                 )
             },
             navigateToFilterScreen = {
-                navController.navigate(FilterRoute)
+                navController.navigate(FilterGraphRoute)
             }
         )
     }
 }
 
-fun NavGraphBuilder.addDetailScreen(
+fun NavGraphBuilder.detailsScreen(
     navController: NavController,
     imageLoader: ImageLoader,
 ) {
@@ -76,10 +75,10 @@ fun NavGraphBuilder.addDetailScreen(
             scaleOut()
         },
         popEnterTransition = {
-            slideInHorizontally(initialOffsetX = { -1000 }, animationSpec = tween(400))
+            slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(400))
         },
         popExitTransition = {
-            slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
+            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(700))
         },
     ) {
         // detail screen
@@ -104,7 +103,7 @@ fun NavGraphBuilder.addDetailScreen(
     }
 }
 
-fun NavGraphBuilder.addScreenshotsScreen(
+fun NavGraphBuilder.screenShotsScreen(
     imageLoader: ImageLoader,
 ) {
     composable<ScreenshotsRoute>(
@@ -114,7 +113,6 @@ fun NavGraphBuilder.addScreenshotsScreen(
 
         ) {
         // Screenshots screen
-
         val screenshotsRoute = it.savedStateHandle.toRoute<ScreenshotsRoute>()
         val viewModel = hiltViewModel<ScreenshotsViewModel>()
         viewModel.apply {

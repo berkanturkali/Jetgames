@@ -3,8 +3,15 @@ package com.example.jetgames
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,6 +32,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             JetgamesTheme {
                 val navController = rememberNavController()
@@ -36,6 +44,12 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colors.background)
+                        .windowInsetsPadding(
+                            WindowInsets.Companion.systemBars
+                        ),
                     bottomBar = {
                         if (mainActivityViewModel.isNavbarVisible)
                             BottomNavBar(navController = navController)
@@ -46,6 +60,7 @@ class MainActivity : ComponentActivity() {
                      */
                     Box(
                         modifier = Modifier
+                            .fillMaxSize()
                             .padding(padding)
                     ) {
                         JetGamesNavGraph(

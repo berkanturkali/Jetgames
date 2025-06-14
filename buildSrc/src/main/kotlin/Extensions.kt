@@ -2,8 +2,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.plugins.PluginContainer
-import org.gradle.internal.impldep.junit.runner.Version.id
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.project
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 
@@ -52,6 +52,14 @@ val PluginDependenciesSpec.ktlint: PluginDependencySpec
 
 val Project.applyKtlint
     get() = apply(plugin = "ktlint")
+
+fun DependencyHandler.implementProject(projectLib: String) = add(
+    "implementation", project(projectLib)
+)
+
+fun DependencyHandler.implementAllProjects(vararg projectLibs: String) {
+    projectLibs.forEach(::implementProject)
+}
 
 fun DependencyHandler.implementation(dependency: Any) = add(
     "implementation", dependency

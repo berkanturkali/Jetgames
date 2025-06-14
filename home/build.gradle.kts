@@ -1,6 +1,7 @@
 
 import ProjectLib.common
 import ProjectLib.core
+import ProjectLib.navigation
 
 plugins {
     androidLib
@@ -14,8 +15,12 @@ android{
 }
 
 dependencies {
-    implementation(project(common))
-    implementation(project(core))
+
+    implementAllProjects(
+        core,
+        common,
+        navigation
+    )
 
     // hilt
     implementation(libs.hilt.android)

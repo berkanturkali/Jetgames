@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetgames.common.R
 import com.example.jetgames.core.domain.model.preferences.OrderPreference
+import com.example.jetgames.navigation.OrdersRoute
 import java.util.*
 
 @Composable
@@ -31,7 +32,7 @@ fun Order(
                 )
             )
             .clickable {
-                onOrderItemClick("orders_screen")
+                onOrderItemClick(OrdersRoute::class.qualifiedName!!)
             }
     ) {
         val (title, selectedOrder, arrow) = createRefs()

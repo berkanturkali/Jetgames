@@ -40,6 +40,8 @@ mockk = "1.12.2"
 lifecycle-livedata = "2.9.0"
 serialization = "1.8.0"
 kotlin = "2.0.0"
+agp = "8.6.0"
+kotlin-version = "1.9.24"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -114,3 +116,5 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }

@@ -20,6 +20,9 @@ data class ScreenshotsRoute(
 )
 
 @Serializable
+data object FilterGraphRoute
+
+@Serializable
 data object FilterRoute
 
 @Serializable
@@ -32,7 +35,7 @@ data object GenresRoute
 data object OrdersRoute
 
 @Serializable
-data object FavoritesRoute: BottomNavigationRoute
+data object FavoritesRoute : BottomNavigationRoute
 
 
 

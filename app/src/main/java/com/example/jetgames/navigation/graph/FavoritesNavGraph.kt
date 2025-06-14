@@ -6,7 +6,7 @@ import coil.ImageLoader
 import com.example.jetgames.favorites.ui.FavoritesScreen
 import com.example.jetgames.navigation.FavoritesRoute
 
-fun NavGraphBuilder.addFavoritesScreen(
+fun NavGraphBuilder.favoritesScreen(
     imageLoader: ImageLoader,
 ) {
     composable<FavoritesRoute> {

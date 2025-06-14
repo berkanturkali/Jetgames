@@ -1,5 +1,6 @@
 import ProjectLib.common
 import ProjectLib.core
+import ProjectLib.navigation
 
 plugins {
     androidLib
@@ -13,8 +14,12 @@ android{
 }
 
 dependencies {
-    implementation(project(common))
-    implementation(project(core))
+
+    implementAllProjects(
+        core,
+        common,
+        navigation
+    )
 
     // compose
     implementation(libs.compose.material)

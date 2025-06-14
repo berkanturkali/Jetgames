@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R.dimen
 import com.example.jetgames.common.R.drawable
 import com.example.jetgames.core.domain.model.platforms.Platform
+import com.example.jetgames.navigation.PlatformsRoute
 
 @Composable
 fun Platforms(
@@ -46,12 +47,12 @@ fun Platforms(
         modifier = modifier,
         expanded = expanded,
         sectionTitle = "Platforms (${platforms.size})",
-        screenRoute = "platforms_screen",
+        screenRoute = PlatformsRoute::class.qualifiedName!!,
         onColumnClick = {
             if (expandable) {
                 expanded = !expanded
             } else {
-                onFilterItemClick("platforms_screen")
+                onFilterItemClick(PlatformsRoute::class.qualifiedName!!)
             }
         },
         onSectionClick = onFilterItemClick

@@ -34,19 +34,19 @@ import androidx.annotation.DrawableRes
 
 
 sealed class BottomNavigationItem(
-    val route: BottomNavigationRoute,
+    val route: com.example.jetgames.navigation.BottomNavigationRoute,
     val title: String,
     @DrawableRes val icon: Int,
 ) {
 
     object HomeScreen : BottomNavigationItem(
-        route = HomeRoute,
+        route = com.example.jetgames.navigation.HomeRoute,
         title = "Home",
         com.example.jetgames.common.R.drawable.ic_home
     )
 
     object FavoritesScreen : BottomNavigationItem(
-        route = FavoritesRoute,
+        route = com.example.jetgames.navigation.FavoritesRoute,
         title = "Favorites",
         com.example.jetgames.common.R.drawable.ic_star
     )
