@@ -10,5 +10,5 @@ fun GameModel.GameItem.lowerBound(): Int {
 }
 
 fun GameModel.GameItem.upper(): Int {
-    return this.lowerBound() + 5
+    return this.game.metaCritic!! + (this.game.metaCritic % 5)
 }

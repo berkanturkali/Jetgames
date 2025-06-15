@@ -7,8 +7,11 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
+import com.example.jetgames.core.domain.model.games.lowerBound
+import com.example.jetgames.core.domain.model.games.upper
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
+import com.example.jetgames.core.domain.model.preferences.Order
 import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
 import com.example.jetgames.home.model.SeparatorGenerator
@@ -88,9 +91,8 @@ class HomeViewModel @Inject constructor(
             }
             .map {
                 it.insertSeparators { before, after ->
-                    val generator =
-                        _homeState.value.homeFilterPreferences.order.order.toSeparatorGenerator()
-                    generateSeparator(before, after, generator)
+                    val generator = _homeState.value.homeFilterPreferences.order.order.toSeparatorGenerator()
+                    generateSeparator(before = before, after = after, generator = generator)
                 }
             }
     }.cachedIn(viewModelScope)

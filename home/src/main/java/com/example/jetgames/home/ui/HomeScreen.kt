@@ -141,7 +141,9 @@ fun Home(
                             }
                         }
 
-                        null -> TODO()
+                        null -> {
+
+                        }
                     }
                 }
 

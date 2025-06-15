@@ -2,6 +2,7 @@ package com.example.jetgames.filter.components
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon

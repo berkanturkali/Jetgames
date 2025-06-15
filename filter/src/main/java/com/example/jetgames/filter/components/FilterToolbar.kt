@@ -27,6 +27,8 @@ import com.example.jetgames.common.ui.theme.XXLightGray
 fun FilterToolbar(
     modifier: Modifier = Modifier,
     title: String,
+    enableApplyButton: Boolean,
+    onApplyButtonClick: () -> Unit,
     navigateUp: () -> Unit,
 ) {
     Box(
@@ -57,6 +59,22 @@ fun FilterToolbar(
             style = MaterialTheme.typography.h6,
         )
 
+        Icon(
+            painter = painterResource(id = R.drawable.ic_apply),
+            contentDescription = null,
+            tint = if (enableApplyButton) MaterialTheme.colors.secondary else XXLightGray.copy(0.5f),
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(16.dp)
+                .noRippleClickable {
+                    if (enableApplyButton) {
+                        onApplyButtonClick()
+                    }
+                }
+        )
+
+
+
         Divider(
             thickness = 0.5.dp,
             color = XXLightGray.copy(alpha = 0.5f),
@@ -71,6 +89,10 @@ fun FilterToolbar(
 @Composable
 fun ToolbarPrev() {
     JetgamesTheme {
-        FilterToolbar(title = "Platforms", navigateUp = {})
+        FilterToolbar(
+            title = "Platforms",
+            navigateUp = {},
+            enableApplyButton = false,
+            onApplyButtonClick = {})
     }
 }

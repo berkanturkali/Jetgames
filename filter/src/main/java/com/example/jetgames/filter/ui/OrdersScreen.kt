@@ -34,27 +34,18 @@ fun OrdersScreen(
         mutableStateOf(currentOrder)
     }
 
-    DefaultScreenUI(toolbar = { FilterToolbar(title = "Order By", navigateUp = navigateUp) }) {
+    DefaultScreenUI(toolbar = { FilterToolbar(
+        title = "Order By", navigateUp = navigateUp,
+        enableApplyButton = currentOrder != selectedOrder.value,
+        onApplyButtonClick = {
+            onApplyButtonClick(selectedOrder.value)
+        },
+    ) }) {
 
         LazyColumn(modifier = modifier) {
             items(options.value) {
                 OrderItem(order = it, selected = it == selectedOrder.value) { order ->
                     selectedOrder.value = order
-                }
-            }
-            item {
-                Button(
-                    onClick = { onApplyButtonClick(selectedOrder.value) },
-                    enabled = currentOrder != selectedOrder.value,
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = MaterialTheme.colors.secondary,
-                        contentColorFor(backgroundColor = MaterialTheme.colors.onSecondary)
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(dimensionResource(id = R.dimen.dimen_8))
-                ) {
-                    Text(text = "Apply")
                 }
             }
         }

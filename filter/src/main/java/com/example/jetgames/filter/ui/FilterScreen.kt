@@ -5,13 +5,25 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.DefaultScreenUI
-import com.example.jetgames.filter.components.*
+import com.example.jetgames.filter.components.ApplyFilterFab
+import com.example.jetgames.filter.components.FilterToolbar
+import com.example.jetgames.filter.components.Genres
+import com.example.jetgames.filter.components.Metacritic
+import com.example.jetgames.filter.components.NavigationIcon
+import com.example.jetgames.filter.components.Order
+import com.example.jetgames.filter.components.Platforms
+import com.example.jetgames.filter.components.ToolbarTitle
 import com.example.jetgames.filter.viewmodel.FilterScreenViewModel
 import kotlinx.coroutines.launch
 
@@ -43,26 +55,16 @@ fun FilterScreen(
     DefaultScreenUI(
         state = scaffoldState,
         toolbar = {
-            TopAppBar(
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-                title = { ToolbarTitle() },
-                navigationIcon = {
-                    NavigationIcon(onNavigationClick = navigateUp)
-                }
-            )
-        },
-        floatingActionButton = {
-            AnimatedVisibility(
-                enter = scaleIn(),
-                exit = scaleOut(),
-                visible = screenState.value.isApplyButtonVisible
-            ) {
-                ApplyFilterFab() {
+            FilterToolbar(
+                title = "Filter",
+                enableApplyButton = screenState.value.isApplyButtonVisible,
+                onApplyButtonClick = {
                     viewModel.applyPreferences()
-                }
+                },
+            ) {
+                navigateUp()
             }
-        }
+        },
     ) {
         LazyColumn(modifier = modifier.fillMaxSize()) {
             item {

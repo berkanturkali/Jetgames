@@ -17,26 +17,25 @@ object MetaCriticSeparatorGenerator : SeparatorGenerator {
         }
     }
 
-
     override fun generateBetween(
         before: GameModel.GameItem,
         after: GameModel.GameItem
     ): GameModel.SeparatorItem? {
-        val afterMeta = after.game.metaCritic
+        if(before.game.metaCritic == null) return null
+        val afterMeta = after.game.metaCritic ?: return GameModel.SeparatorItem("No Metascore")
+
         val lower = before.lowerBound()
 
-        return when {
-            afterMeta == null -> GameModel.SeparatorItem("No Metascore")
-            afterMeta < lower -> {
+        return if (afterMeta < lower) {
+            val range = if (afterMeta + 1 != lower) {
                 val upper = after.upper()
-                val range = if (afterMeta + 1 != lower) {
-                    "${upper - 5}-${upper - 1}"
-                } else {
-                    "${lower - 5}-${lower - 1}"
-                }
-                GameModel.SeparatorItem("$range Metascore")
+                "${upper - 5}-${upper - 1}"
+            } else {
+                "${lower - 5}-${lower - 1}"
             }
-            else -> null
+            GameModel.SeparatorItem("$range Metascore")
+        } else {
+            null
         }
     }
 }

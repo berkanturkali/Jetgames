@@ -32,8 +32,8 @@ class MetaCriticSeparatorGeneratorTest {
 
     @Test
     fun `no separator when same metaCritic range`() {
-        val before = gameItem(metaCritic = 86)
-        val after = gameItem(metaCritic = 85)
+        val before = gameItem(metaCritic = 84)
+        val after = gameItem(metaCritic = 83)
         val result = MetaCriticSeparatorGenerator.generateBetween(before, after)
         assertNull(result)
     }
