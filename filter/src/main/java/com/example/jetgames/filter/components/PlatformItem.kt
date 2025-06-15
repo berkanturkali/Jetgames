@@ -1,6 +1,10 @@
 package com.example.jetgames.filter.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.MaterialTheme
@@ -15,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 import com.example.jetgames.core.domain.model.platforms.Platform
 
 @Composable
@@ -31,7 +36,11 @@ fun PlatformItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(40.dp)
+            .noRippleClickable {
+                checked = !checked
+                onItemSelected(platform, checked)
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -62,7 +62,7 @@ fun NavGraphBuilder.filterScreen(
             slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
         },
     ) { backstackEntry ->
-        // Filter Screen
+
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(
                 backstackEntry.rememberParentEntry(
@@ -107,7 +107,7 @@ fun NavGraphBuilder.platformsScreen(
             slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
         },
     ) { backstackEntry ->
-        // Platforms Screen
+
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(
                 backstackEntry.rememberParentEntry(
@@ -146,7 +146,7 @@ fun NavGraphBuilder.genresScreen(
         },
     ) { backstackEntry ->
         val parentViewModel: FilterScreenViewModel =
-            hiltViewModel(backstackEntry.rememberParentEntry(navController = navController)) // Genres Dialog
+            hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
         GenresScreen(
             items = parentViewModel.filterState.value.selectedGenres ?: emptyList(),
             navigateUp = navController::navigateUp,
@@ -180,7 +180,7 @@ fun NavGraphBuilder.ordersScreen(
     ) { backstackEntry ->
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
-        // Orders Dialog
+
         OrdersScreen(
             currentOrder = parentViewModel.filterState.value.selectedOrder.order.value,
             navigateUp = navController::navigateUp,

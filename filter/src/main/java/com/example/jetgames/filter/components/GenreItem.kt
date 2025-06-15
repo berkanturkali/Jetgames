@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 import com.example.jetgames.core.domain.model.genres.Genre
 
 @Composable
@@ -30,7 +31,11 @@ fun GenreItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(40.dp)
+            .noRippleClickable {
+                isChecked.value = !isChecked.value
+                onGenreChecked.invoke(genre.name, isChecked.value)
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

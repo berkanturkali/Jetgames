@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 
 @Composable
 fun OrderItem(
@@ -22,7 +23,10 @@ fun OrderItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(40.dp)
+            .noRippleClickable {
+                onItemSelected(order)
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
