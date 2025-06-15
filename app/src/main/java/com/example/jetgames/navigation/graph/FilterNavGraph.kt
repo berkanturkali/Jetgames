@@ -1,5 +1,8 @@
 package com.example.jetgames.navigation.graph
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -42,7 +45,23 @@ fun NavGraphBuilder.filterScreen(
     parentNavController: NavController,
     navController: NavHostController,
 ) {
-    composable<FilterRoute> { backstackEntry ->
+    composable<FilterRoute>(
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -it },
+                animationSpec = tween(400)
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(400))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+    ) { backstackEntry ->
         // Filter Screen
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(
@@ -71,7 +90,23 @@ fun NavGraphBuilder.filterScreen(
 fun NavGraphBuilder.platformsScreen(
     navController: NavController,
 ) {
-    composable<PlatformsRoute> { backstackEntry ->
+    composable<PlatformsRoute>(
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -it },
+                animationSpec = tween(400)
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(400))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+    ) { backstackEntry ->
         // Platforms Screen
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(
@@ -93,7 +128,23 @@ fun NavGraphBuilder.platformsScreen(
 fun NavGraphBuilder.genresScreen(
     navController: NavController,
 ) {
-    composable<GenresRoute> { backstackEntry ->
+    composable<GenresRoute>(
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -it },
+                animationSpec = tween(400)
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(400))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+    ) { backstackEntry ->
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(backstackEntry.rememberParentEntry(navController = navController)) // Genres Dialog
         GenresScreen(
@@ -110,7 +161,23 @@ fun NavGraphBuilder.genresScreen(
 fun NavGraphBuilder.ordersScreen(
     navController: NavController,
 ) {
-    composable<OrdersRoute> { backstackEntry ->
+    composable<OrdersRoute>(
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -it },
+                animationSpec = tween(400)
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(400))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+        },
+    ) { backstackEntry ->
         val parentViewModel: FilterScreenViewModel =
             hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
         // Orders Dialog

@@ -1,5 +1,9 @@
 package com.example.jetgames.navigation.graph
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,7 +28,23 @@ fun JetGamesNavGraph(
         detailsScreen(navController = navController, imageLoader = imageLoader)
         screenShotsScreen(imageLoader = imageLoader)
 
-        composable<FilterGraphRoute> {
+        composable<FilterGraphRoute>(
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -it },
+                    animationSpec = tween(400)
+                )
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(400))
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(400))
+            },
+        ) {
             FilterNavGraph(navController)
         }
 

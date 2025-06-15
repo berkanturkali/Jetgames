@@ -41,10 +41,10 @@ fun NavGraphBuilder.homeScreen(
             shrinkVertically(shrinkTowards = Alignment.Top)
         },
         popEnterTransition = {
-            slideInVertically(initialOffsetY = { it }, animationSpec = tween(700))
+            slideInVertically(initialOffsetY = { it }, animationSpec = tween(400))
         },
         popExitTransition = {
-            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(700))
+            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(400))
         }
     ) {
         // home screen
@@ -79,7 +79,7 @@ fun NavGraphBuilder.detailsScreen(
             slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(400))
         },
         popExitTransition = {
-            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(700))
+            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(400))
         },
     ) {
         // detail screen
