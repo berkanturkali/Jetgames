@@ -37,7 +37,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.jetgames.common.JetgamesSurface
 import com.example.jetgames.navigation.BottomNavigationItem
-import com.google.accompanist.insets.navigationBarsPadding
 
 @Composable
 fun BottomNavBar(
@@ -52,7 +51,9 @@ fun BottomNavBar(
 
     val backStackEntry = navController.currentBackStackEntryAsState()
 
-    val selected = backStackEntry.value?.destination?.route
+    val selected = items.firstOrNull {
+        it.route::class.qualifiedName == backStackEntry.value?.destination?.route
+    }
 
     val routes = remember { items.map { it.route } }
     JetgamesSurface(
@@ -65,24 +66,23 @@ fun BottomNavBar(
         )
 
         JetgamesBottomNavLayout(
-            selectedIndex = /*items.indexOf(items.find { it.route == selected }) */0,
+            selectedIndex = items.indexOf(selected),
             itemCount = routes.size,
             animSpec = springSpec,
             indicator = { JetgamesBottomNavIndicator() },
-            modifier = Modifier.navigationBarsPadding(start = false, end = false)
         ) {
             items.forEach { item ->
-//                val tint by animateColorAsState(
-//                    if (item.route == selected) {
-//                        MaterialTheme.colors.onPrimary
-//                    } else {
-//                        MaterialTheme.colors.onPrimary.copy(0.1f)
-//                    }
-//                )
+                val tint by animateColorAsState(
+                    if (item.route == selected?.route) {
+                        MaterialTheme.colors.onPrimary
+                    } else {
+                        MaterialTheme.colors.onPrimary.copy(0.1f)
+                    }
+                )
                 JetgamesBottomNavigationItem(
                     icon = {
                         Icon(
-                            tint = Color.White,
+                            tint = tint,
                             painter = painterResource(id = item.icon),
                             contentDescription = item.title
                         )
@@ -95,7 +95,7 @@ fun BottomNavBar(
                             color = MaterialTheme.colors.onPrimary
                         )
                     },
-                    selected = true, //item.route == selected,
+                    selected = item.route == selected?.route,
                     onSelected = {
                         navController.navigate(item.route) {
                             popUpTo(navController.graph.findStartDestination().id) {

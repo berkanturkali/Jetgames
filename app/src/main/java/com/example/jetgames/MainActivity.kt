@@ -52,7 +52,9 @@ class MainActivity : ComponentActivity() {
                         ),
                     bottomBar = {
                         if (mainActivityViewModel.isNavbarVisible)
-                            BottomNavBar(navController = navController)
+                            BottomNavBar(
+                                navController = navController,
+                            )
                     }
                 ) { padding ->
                     /*

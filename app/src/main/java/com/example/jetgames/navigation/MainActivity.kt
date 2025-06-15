@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor() : ViewModel() {
 
-    private val topLevelDestinations = listOf(
+    val topLevelDestinations = listOf(
         BottomNavigationItem.HomeScreen.route,
         BottomNavigationItem.FavoritesScreen.route
     )

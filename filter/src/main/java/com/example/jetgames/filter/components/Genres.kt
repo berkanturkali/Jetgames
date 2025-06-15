@@ -1,7 +1,12 @@
 package com.example.jetgames.filter.components
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -16,6 +21,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 import com.example.jetgames.navigation.GenresRoute
 
 @Composable
@@ -87,7 +93,7 @@ fun Genre(
             tint = MaterialTheme.colors.onPrimary,
             modifier = Modifier
                 .size(15.dp)
-                .clickable {
+                .noRippleClickable {
                     onDeleteButtonClick.invoke(genre)
                 }
         )

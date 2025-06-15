@@ -28,7 +28,6 @@ fun JetGamesNavGraph(
             FilterNavGraph(navController)
         }
 
-
         favoritesScreen(imageLoader = imageLoader)
     }
 }

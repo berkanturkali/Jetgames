@@ -88,8 +88,9 @@ fun Home(
                     },
                     modifier = Modifier
                         .padding(
-                            dimensionResource(id = R.dimen.dimen_16)
+                            8.dp
                         )
+                        .size(32.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_up),

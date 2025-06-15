@@ -20,7 +20,7 @@ import com.example.jetgames.common.R
 import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.util.Resource
-import com.example.jetgames.filter.components.BottomSheetDialogToolbar
+import com.example.jetgames.filter.components.FilterToolbar
 import com.example.jetgames.filter.components.GenreItem
 import com.example.jetgames.filter.viewmodel.GenresScreenViewModel
 
@@ -29,6 +29,7 @@ fun GenresScreen(
     modifier: Modifier = Modifier,
     items: List<String>,
     viewModel: GenresScreenViewModel = hiltViewModel(),
+    navigateUp: () -> Unit,
     onApplyButtonClick: (List<String>) -> Unit,
 ) {
 
@@ -46,7 +47,7 @@ fun GenresScreen(
 
     DefaultScreenUI(
         toolbar = {
-            BottomSheetDialogToolbar(title = "Genres")
+            FilterToolbar(title = "Genres", navigateUp = navigateUp)
         },
     ) {
 
@@ -105,7 +106,7 @@ fun GenresScreen(
                 }
             }
 
-            null -> TODO()
+            null -> Unit
         }
     }
 }

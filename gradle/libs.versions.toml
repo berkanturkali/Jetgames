@@ -25,8 +25,6 @@ accompanist-pager-indicators = "0.24.2-alpha"
 accompanist-placeholder = "0.24.1-alpha"
 accompanist-animations = "0.24.1-alpha"
 accompanist-swipe = "0.24.1-alpha"
-accompanist-navigation = "0.24.1-alpha"
-accompanist-insets = "0.24.1-alpha"
 lottie = "4.2.1"
 navigation = "2.9.0"
 timber = "5.0.1"
@@ -62,6 +60,7 @@ constraint-layout-compose = { module = "androidx.constraintlayout:constraintlayo
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 
+
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -91,8 +90,6 @@ accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pa
 accompanist-placeholder = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist-placeholder" }
 accompanist-animations = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist-animations" }
 accompanist-swipe = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swipe" }
-accompanist-navigation = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist-navigation" }
-accompanist-insets = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist-insets" }
 
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 

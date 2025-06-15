@@ -1,9 +1,13 @@
 package com.example.jetgames.filter.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -12,9 +16,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 import com.example.jetgames.core.domain.model.preferences.OrderPreference
 import com.example.jetgames.navigation.OrdersRoute
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun Order(
@@ -31,7 +36,7 @@ fun Order(
                     id = R.dimen.dimen_8
                 )
             )
-            .clickable {
+            .noRippleClickable {
                 onOrderItemClick(OrdersRoute::class.qualifiedName!!)
             }
     ) {

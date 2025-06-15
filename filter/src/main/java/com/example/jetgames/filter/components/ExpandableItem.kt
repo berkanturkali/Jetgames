@@ -1,12 +1,17 @@
 package com.example.jetgames.filter.components
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,6 +30,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
@@ -56,7 +62,7 @@ fun ExpandableItem(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable { onColumnClick.invoke() }
+            .noRippleClickable { onColumnClick.invoke() }
             .padding(
                 horizontal = dimensionResource(
                     id = R.dimen.dimen_8

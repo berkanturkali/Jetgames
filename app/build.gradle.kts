@@ -46,7 +46,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     // navigation
-    implementation(libs.navigation.compose, libs.accompanist.navigation)
+    implementation(libs.navigation.compose)
 
     // hilt
     implementation(libs.hilt.android)
@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.moshi)
 
     // accompanist
-    implementation(libs.accompanist.insets, libs.accompanist.animations)
+    implementation(libs.accompanist.animations)
 
     // leak canary
     debugImplementation(libs.leakcanary)

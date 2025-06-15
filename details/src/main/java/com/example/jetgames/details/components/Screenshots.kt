@@ -1,8 +1,13 @@
 package com.example.jetgames.details.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -18,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 import com.example.jetgames.common.ui.theme.XXLightGray
 
 @Composable
@@ -51,7 +57,7 @@ fun Screenshots(
                 Card(
                     modifier = Modifier
                         .wrapContentSize()
-                        .clickable {
+                        .noRippleClickable {
                             onScreenshotClicked?.invoke(screenshots, it)
                         },
                     shape = RoundedCornerShape(dimensionResource(id = R.dimen.dimen_8))

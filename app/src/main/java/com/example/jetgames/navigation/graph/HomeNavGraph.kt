@@ -22,6 +22,7 @@ import com.example.jetgames.details.viewmodel.ScreenshotsViewModel
 import com.example.jetgames.home.ui.Home
 import com.example.jetgames.navigation.DetailRoute
 import com.example.jetgames.navigation.FilterGraphRoute
+import com.example.jetgames.navigation.HomeRoute
 import com.example.jetgames.navigation.ScreenshotsRoute
 
 
@@ -29,10 +30,10 @@ fun NavGraphBuilder.homeScreen(
     navController: NavController,
     imageLoader: ImageLoader,
 ) {
-    composable<com.example.jetgames.navigation.HomeRoute>(
+    composable<HomeRoute>(
         enterTransition = {
             slideInVertically(
-                initialOffsetY = { +1000 },
+                initialOffsetY = { it },
                 animationSpec = spring()
             )
         },
@@ -40,10 +41,10 @@ fun NavGraphBuilder.homeScreen(
             shrinkVertically(shrinkTowards = Alignment.Top)
         },
         popEnterTransition = {
-            slideInVertically(initialOffsetY = { 5000 }, animationSpec = tween(700))
+            slideInVertically(initialOffsetY = { it }, animationSpec = tween(700))
         },
         popExitTransition = {
-            slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
+            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(700))
         }
     ) {
         // home screen

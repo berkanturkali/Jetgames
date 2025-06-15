@@ -41,7 +41,7 @@ dependencies {
     implementation(libs.coil)
 
     // navigation
-    implementation(libs.accompanist.navigation, libs.navigation.compose)
+    implementation(libs.navigation.compose)
 
     // cache
     implementation(libs.room.runtime)

@@ -14,7 +14,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetgames.common.DefaultScreenUI
 import com.example.jetgames.common.R
-import com.example.jetgames.filter.components.BottomSheetDialogToolbar
+import com.example.jetgames.filter.components.FilterToolbar
 import com.example.jetgames.filter.components.OrderItem
 import com.example.jetgames.filter.viewmodel.OrdersScreenViewModel
 
@@ -22,6 +22,7 @@ import com.example.jetgames.filter.viewmodel.OrdersScreenViewModel
 fun OrdersScreen(
     modifier: Modifier = Modifier,
     currentOrder: String,
+    navigateUp: () -> Unit,
     onApplyButtonClick: (String) -> Unit,
 ) {
 
@@ -33,7 +34,7 @@ fun OrdersScreen(
         mutableStateOf(currentOrder)
     }
 
-    DefaultScreenUI(toolbar = { BottomSheetDialogToolbar(title = "Order By") }) {
+    DefaultScreenUI(toolbar = { FilterToolbar(title = "Order By", navigateUp = navigateUp) }) {
 
         LazyColumn(modifier = modifier) {
             items(options.value) {

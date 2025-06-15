@@ -29,9 +29,6 @@ dependencies {
         libs.compose.runtime,
     )
 
-    // navigation
-    implementation(libs.accompanist.navigation)
-
     // hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.lifecycle.livedata)

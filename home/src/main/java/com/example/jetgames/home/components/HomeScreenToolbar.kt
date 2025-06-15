@@ -3,17 +3,29 @@ package com.example.jetgames.home.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Badge
+import androidx.compose.material.BadgedBox
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -27,8 +39,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension.Companion.fillToConstraints
 import com.example.jetgames.common.JetgamesSurface
 import com.example.jetgames.common.R
+import com.example.jetgames.common.components.noRippleClickable
 import com.example.jetgames.common.ui.theme.JetgamesTheme
 import com.example.jetgames.home.viewmodel.HomeViewModel
 
@@ -57,14 +72,24 @@ fun HomeToolbar(
             .fillMaxWidth(),
         elevation = dimensionResource(id = R.dimen.dimen_8)
     ) {
-        Row(
+        ConstraintLayout(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
         ) {
+
+            val (searchBox, iconsRow) = createRefs()
             TextField(
                 modifier = Modifier
-                    .fillMaxWidth(.8f)
+                    .constrainAs(
+                        searchBox
+                    ) {
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(iconsRow.start)
+                        width = fillToConstraints
+                    }
                     .padding(dimensionResource(id = R.dimen.dimen_8))
                     .focusRequester(focusRequester),
                 shape = androidx.compose.foundation.shape.CircleShape,
@@ -77,7 +102,6 @@ fun HomeToolbar(
                 label = {
                     Text(
                         text = stringResource(id = R.string.search),
-                        modifier = Modifier.align(CenterVertically),
                         style = MaterialTheme.typography.subtitle2,
                         color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f)
                     )
@@ -120,7 +144,7 @@ fun HomeToolbar(
                             ),
                             modifier = Modifier
                                 .padding(horizontal = dimensionResource(id = R.dimen.dimen_8))
-                                .clickable {
+                                .noRippleClickable {
                                     query = null
                                     viewModel?.setQuery(null)
                                     focusManager.clearFocus()
@@ -133,7 +157,13 @@ fun HomeToolbar(
 
             Row(
                 modifier = Modifier
-                    .align(CenterVertically)
+                    .constrainAs(iconsRow) {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .wrapContentHeight()
+                    .padding(dimensionResource(id = R.dimen.dimen_8)),
             ) {
                 BadgedBox(badge = {
                     Column {
@@ -152,7 +182,7 @@ fun HomeToolbar(
                     Icon(
                         modifier = Modifier
                             .padding(dimensionResource(id = R.dimen.dimen_8))
-                            .clickable { filterClick.invoke() },
+                            .noRippleClickable { filterClick.invoke() },
                         painter = painterResource(id = R.drawable.ic_filter),
                         contentDescription = "Filter",
                         tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f)
@@ -162,7 +192,7 @@ fun HomeToolbar(
                 Icon(
                     modifier = Modifier
                         .padding(dimensionResource(id = R.dimen.dimen_8))
-                        .clickable { galleryListToggleClick.invoke() },
+                        .noRippleClickable { galleryListToggleClick.invoke() },
                     imageVector = Icons.Filled.GridView,
                     contentDescription = "Gallery/List Mode",
                     tint = MaterialTheme.colors.onPrimary.copy(alpha = 0.7f)
@@ -172,7 +202,7 @@ fun HomeToolbar(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 fun HomeToolbarPrev() {
     JetgamesTheme {

@@ -23,13 +23,15 @@ import com.example.jetgames.navigation.util.rememberParentEntry
 fun FilterNavGraph(
     parentNavController: NavController
 ) {
-
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = FilterRoute,
     ) {
-        filterScreen(navController = navController, parentNavController = parentNavController)
+        filterScreen(
+            navController = navController,
+            parentNavController = parentNavController
+        )
         platformsScreen(navController = navController)
         genresScreen(navController = navController)
         ordersScreen(navController = navController)
@@ -79,6 +81,7 @@ fun NavGraphBuilder.platformsScreen(
             )
         PlatformsScreen(
             items = parentViewModel.filterState.value.selectedPlatforms ?: emptyList(),
+            navigateUp = navController::navigateUp,
             onApplyButtonClick = { platforms ->
                 parentViewModel.setPlatforms(platforms)
                 navController.navigateUp()
@@ -92,11 +95,10 @@ fun NavGraphBuilder.genresScreen(
 ) {
     composable<GenresRoute> { backstackEntry ->
         val parentViewModel: FilterScreenViewModel =
-            hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
-
-        // Genres Dialog
+            hiltViewModel(backstackEntry.rememberParentEntry(navController = navController)) // Genres Dialog
         GenresScreen(
-            items = parentViewModel.filterState.value.selectedGenres ?: emptyList()
+            items = parentViewModel.filterState.value.selectedGenres ?: emptyList(),
+            navigateUp = navController::navigateUp,
         ) {
             parentViewModel.setGenres(it)
             navController.navigateUp()
@@ -113,7 +115,8 @@ fun NavGraphBuilder.ordersScreen(
             hiltViewModel(backstackEntry.rememberParentEntry(navController = navController))
         // Orders Dialog
         OrdersScreen(
-            currentOrder = parentViewModel.filterState.value.selectedOrder.order.value
+            currentOrder = parentViewModel.filterState.value.selectedOrder.order.value,
+            navigateUp = navController::navigateUp,
         ) { order ->
             parentViewModel.setSelectedOrder(order)
             navController.navigateUp()

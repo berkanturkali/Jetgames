@@ -21,7 +21,7 @@ import com.example.jetgames.common.components.ErrorItem
 import com.example.jetgames.common.components.LoadingItem
 import com.example.jetgames.core.domain.model.platforms.Platform
 import com.example.jetgames.core.domain.util.Resource
-import com.example.jetgames.filter.components.BottomSheetDialogToolbar
+import com.example.jetgames.filter.components.FilterToolbar
 import com.example.jetgames.filter.components.PlatformItem
 import com.example.jetgames.filter.viewmodel.PlatformsScreenViewModel
 
@@ -30,6 +30,7 @@ fun PlatformsScreen(
     modifier: Modifier = Modifier,
     items: List<Platform>,
     viewModel: PlatformsScreenViewModel = hiltViewModel(),
+    navigateUp: () -> Unit,
     onApplyButtonClick: (List<Platform>) -> Unit,
 ) {
     val platforms = viewModel.platforms.observeAsState()
@@ -45,7 +46,7 @@ fun PlatformsScreen(
     }
     DefaultScreenUI(
         toolbar = {
-            BottomSheetDialogToolbar(title = "Platforms")
+            FilterToolbar(title = "Platforms", navigateUp = navigateUp)
         },
     ) {
 
