@@ -1,7 +1,6 @@
 package com.example.jetgames.navigation.graph
 
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable

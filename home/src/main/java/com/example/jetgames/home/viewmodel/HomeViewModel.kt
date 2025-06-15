@@ -7,16 +7,23 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.example.jetgames.core.domain.model.games.Game
 import com.example.jetgames.core.domain.model.games.GameModel
-import com.example.jetgames.core.domain.model.games.lowerBound
-import com.example.jetgames.core.domain.model.games.upper
 import com.example.jetgames.core.domain.model.preferences.HomePreferences
 import com.example.jetgames.core.domain.model.preferences.MetacriticPreference
-import com.example.jetgames.core.domain.model.preferences.Order
 import com.example.jetgames.core.domain.repo.PreferencesRepo
 import com.example.jetgames.core.domain.usecase.games.GamesUseCase
+import com.example.jetgames.home.model.SeparatorGenerator
 import com.example.jetgames.home.state.HomeState
+import com.example.jetgames.home.util.toSeparatorGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -81,69 +88,9 @@ class HomeViewModel @Inject constructor(
             }
             .map {
                 it.insertSeparators { before, after ->
-                    if (after == null) {
-                        return@insertSeparators null
-                    }
-
-                    if (before == null) {
-                        when (_homeState.value.homeFilterPreferences.order.order) {
-                            Order.METACRITIC -> {
-                                if (after.game.metaCritic != null) {
-                                    val lower = after.lowerBound()
-                                    if (lower == after.game.metaCritic) {
-                                        return@insertSeparators GameModel.SeparatorItem("$lower Metascore")
-                                    } else {
-                                        return@insertSeparators GameModel.SeparatorItem("$lower-${after.game.metaCritic} Metascore")
-                                    }
-                                }
-                            }
-                            Order.RATING -> {
-                                if (after.game.rating != null) {
-                                    val plus = if (after.game.rating!!.toInt() == 5) "" else "+"
-                                    val separator = "${after.game.rating!!.toInt()}$plus Stars"
-                                    return@insertSeparators GameModel.SeparatorItem(separator)
-                                }
-                            }
-                        }
-                    }
-                    when (_homeState.value.homeFilterPreferences.order.order) {
-                        Order.RATING -> {
-                            if (before?.game?.rating != null) {
-                                if (after.game.rating != null) {
-                                    if (after.game.rating!!.toInt() < before.game.rating!!.toInt()) {
-                                        GameModel.SeparatorItem("${after.game.rating!!.toInt()} + Stars")
-                                    } else {
-                                        null
-                                    }
-                                } else {
-                                    null
-                                }
-                            } else {
-                                null
-                            }
-                        }
-                        Order.METACRITIC -> {
-                            if (before?.game?.metaCritic != null) {
-                                val lower = before.lowerBound()
-                                if (after.game.metaCritic != null) {
-                                    if (after.game.metaCritic!! < lower) {
-                                        if (after.game.metaCritic!! + 1 != lower) {
-                                            val upper = after.upper()
-                                            GameModel.SeparatorItem("${upper - 5}-${upper - 1} Metascore")
-                                        } else {
-                                            GameModel.SeparatorItem("${lower - 5}-${lower - 1} Metascore")
-                                        }
-                                    } else {
-                                        null
-                                    }
-                                } else {
-                                    GameModel.SeparatorItem("No Metascore")
-                                }
-                            } else {
-                                null
-                            }
-                        }
-                    }
+                    val generator =
+                        _homeState.value.homeFilterPreferences.order.order.toSeparatorGenerator()
+                    generateSeparator(before, after, generator)
                 }
             }
     }.cachedIn(viewModelScope)
@@ -174,5 +121,17 @@ class HomeViewModel @Inject constructor(
     fun getIcon(game: Game): String? {
         val rating = game.ratings?.maxByOrNull { it?.percent!! }
         return rating?.icon
+    }
+
+    private fun generateSeparator(
+        before: GameModel.GameItem?,
+        after: GameModel.GameItem?,
+        generator: SeparatorGenerator
+    ): GameModel.SeparatorItem? {
+        return when {
+            after == null -> null
+            before == null -> generator.generateInitial(after)
+            else -> generator.generateBetween(before, after)
+        }
     }
 }
